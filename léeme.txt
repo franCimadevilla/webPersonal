@@ -1,0 +1,127 @@
+==============================================================
+LÉEME - Sitio web personal
+==============================================================
+
+
+1. TECNOLOGÍAS UTILIZADAS
+-------------------------
+
+- HTML5 semántico
+
+- CSS3 moderno
+  (variables CSS personalizadas, Flexbox, CSS Grid, CSS multi-column,
+   CSS Nesting, media queries, animaciones @keyframes)
+
+- JavaScript puro (ES5, sin frameworks ni librerías)
+
+- Un servicio externo gratuito de terceros: readme-typing-svg
+  (usado únicamente para el texto animado de la cabecera de la página)
+
+2. JUSTIFICACIÓN DE LAS TECNOLOGÍAS
+--------------------------------------------
+
+2.1. HTML5 semántico
+Elecciones que aporta:
+
+- Validez garantizada: los cinco documentos HTML pasan el validador oficial
+  del W3C (Nu Html Checker) con cero errores y cero avisos.
+- Accesibilidad: las regiones de la página (cabecera, navegación,
+  contenido principal, pie) se exponen como "landmarks" que un lector de
+  pantalla permite saltar directamente.
+- SEO: un único <h1> por página, jerarquía h1 > h2 > h3 sin saltos, y
+  <title> y <meta name="description"> únicos y descriptivos en cada página.
+- Adaptabilidad: <meta name="viewport"> es imprescindible para que las
+  media queries se comporten bien en móvil.
+- Compatibilidad: los elementos <video> y <audio> reproducen multimedia
+  sin instalar plugins.
+
+2.1.1 CASOS EXCEPCIONALES DONDE SE USA <div>
+
+Los <div> se usan ÚNICAMENTE para agrupar contenidos en 2 casos:
+ - Para agrupar pares <dt>/<dd> dentro de un <dl>, 
+      para poder aplicarle a cada pareja un ejecto de tarjeta con fondo
+      del mismo color y el borde izquierdo resaltado en azul.  
+
+ - Para aplicar un estilo gird al contenido dentro de las etiquetas <section> en los ficheros:
+      multimedia.html y proyectos.html. Aplicar un <div> en dichos casos es para
+      evitar el warning de usar un <section>/<article> para agrupar las etiquetas
+      <figure> en caso de multimedia.html y <article> en caso de proyectos.html
+
+
+2.2. Funcionalidades del CSS3 usadas
+
+- Layout robusto con Flexbox y Grid sin hacks ni floats: la cabecera, el
+  pie y la estructura general se montan con flexbox; las tarjetas de
+  proyecto, el stack tecnológico y la galería usan grid, con
+  repeat(auto-fill, minmax(..., 1fr)) para que las columnas se adapten
+  solas al ancho disponible.
+
+- Adaptabilidad real mediante media queries: una única consulta
+  @media (max-width: 768px) reorganiza la cabecera en columna, reduce los
+  paddings, baja el tamaño del <h1>, fuerza una sola columna en las
+  rejillas y oculta los botones laterales de navegación, que en móvil son
+  redundantes porque ya se navega con el menú superior y con los controles
+  del carrusel inferior. Sin esta consulta, el sitio no se vería bien en
+  pantallas estrechas.
+
+- Tienda de diseño centralizada mediante variables CSS declaradas en :root.
+  Cambiar la paleta o la tipografía del sitio entero es editar un único
+  bloque, lo que facilita en gran medida su reutilización.
+
+- Contraste garantizado: la paleta está elegida de forma deliberada para
+  alcanzar un ratio mínimo de 7:1 entre texto y fondo, es decir, cumple el
+  nivel AA de WCAG incluso para texto normal y alcanza el nivel AAA
+  (WCAG exige 4.5:1 en texto normal y 3:1 en texto grande). Además, ningún
+  estado se comunica solo con color: el enlace activo va en negrita y el
+  punto activo del carrusel además aumenta de tamaño.
+  
+- CSS Nesting para mantener una baja especificidad de manera mantenible: cada
+  componente declara sus estados dentro de su propia clase, en el orden
+  base -> :hover -> [aria-current] / :disabled. Como entre reglas de la
+  MISMA especificidad gana la última, ese orden basta para que un estado
+  pise a otro sin recurrir a :where(), a selectores encadenados ni a
+  !important. El techo de especificidad de todo el fichero es (0,2,1) = 21.
+  El CSS es, por tanto, más fácil de mantener y de ampliar.
+
+
+2.3. JavaScript puro (sin frameworks)
+Elecciones que aporta:
+
+- Cero dependencias que mantener, actualizar o auditar. No hay
+  package.json, ni node_modules, ni cadena de suministro que pueda
+  romperse. El sitio se abre directamente desde el sistema de ficheros.
+- Rendimiento: el único script son unas 60 líneas. El peso de JavaScript
+  es despreciable frente al contenido, y la navegación entre páginas la
+  resuelve el propio navegador.
+- Encapsulamiento: el código va dentro de una IIFE con 'use strict', de
+  modo que no crea variables globales ni contamina el ámbito global.
+- Consistencia con el resto del temario: al no usar framework se
+  demuestra el conocimiento real de la API del DOM (addEventListener,
+  getElementById, data-attributes) en lugar de delegar la resolución de
+  eventos en una abstracción.
+
+
+2.4. Recursos multimedia nativos
+Se usa <video controls> y <audio controls> en lugar de incrustar
+reproductores de terceros. Ventajas: no dependen de ninguna plataforma
+externa, se integran con el tema claro u oscuro del sistema, consumen
+menos datos y son accesibles con teclado de forma nativa. El podcast lleva
+preload="none" para no descargar el audio hasta que el visitante pulse el
+botón de reproducción.
+
+3. ESTRUCTURA DE FICHEROS
+-------------------------
+
+Actividad2/
+├── index.html          # Home: información personal y contacto
+├── sobre-mi.html       # Trayectoria, intereses y aficiones
+├── proyectos.html      # Formación, stack tecnológico y proyectos
+├── multimedia.html     # Vídeos de demos y podcast de interés
+├── galeria.html        # Fotografías y lugares visitados
+├── assets/
+│   ├── css/style.css   # Estilos comunes, carrusel y diseño responsive
+│   ├── js/main.js      # Botones del carrusel y atajo de teclado
+│   ├── img/            # Fotografía personal y fotos de viajes
+│   ├── audio/          # Episodio del podcast
+│   └── video/          # Vídeos de demostración de proyectos
+└── léeme.txt           # Este documento
