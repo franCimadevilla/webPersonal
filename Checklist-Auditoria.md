@@ -85,7 +85,7 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Baja · S (en 1.3) · métricas 1.3, 2.2
 - [ ] **AC-05** Subtítulos y transcripción de los contenidos multimedia
   - Baja · S · métrica 2.2
-  - Primero comprobar qué vídeos tienen audio. Subtítulos con `<track kind="captions">` (WebVTT) y transcripción del podcast en la página.
+  - Primero comprobar qué vídeos tienen audio. *(Comprobado en EF-02: ninguno de los 4 vídeos tiene audio; solo falta la transcripción del podcast.)* Subtítulos con `<track kind="captions">` (WebVTT) y transcripción del podcast en la página.
 - [ ] **AC-06** Auditar las páginas ES y EN con Lighthouse, WAVE y axe, y resolver los avisos
   - Alta · J, S · métrica 2.3
   - J vio con WAVE un «posible encabezado» y un enlace repetido. Sospecha: `.site-brand` es un `<p>` con estilo de título. El enlace repetido se resuelve con FU-04.
@@ -150,10 +150,11 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [x] **EF-01** Optimizar las 6 fotos de la galería (≈21 MB → menos de 1,5 MB)
   - Alta · C, M, J, I, S · métricas 6.1, 6.2, 1.4
   - Redimensionar a 1600 px o menos y servir WebP/AVIF con JPEG de respaldo en `<picture>`. Poner `width` y `height` (CLS 0,056). Hoy todas llevan `loading="lazy"`; la primera debe cargarse sin lazy y con `fetchpriority="high"`. Guardar los originales fuera del repositorio. Medición de partida: Lighthouse de Galería 75, LCP 36,5 s.
-  - Hecho el 2026-11-11: 2 tamaños por foto (lado largo 800 y 1600 px) en AVIF con JPEG de respaldo, `<picture>` con `srcset`/`sizes`, `width`/`height`, la primera con `fetchpriority="high"` y el resto con `loading="lazy"`. Peso: 21 MB → 0,28 MB (AVIF 800, escritorio) o 0,99 MB (AVIF 1600, pantallas de alta densidad). Originales en `C:\Code\webPersonal-originales\imgiajes` (y en el historial de git).
-- [ ] **EF-02** Optimizar los 4 vídeos (≈27 MB → menos de 8 MB)
+  - Hecho el 2026-11-11: 2 tamaños por foto (lado largo 800 y 1600 px) en AVIF con JPEG de respaldo, `<picture>` con `srcset`/`sizes`, `width`/`height`, la primera con `fetchpriority="high"` y el resto con `loading="lazy"`. Peso: 21 MB → 0,28 MB (AVIF 800, escritorio) o 0,99 MB (AVIF 1600, pantallas de alta densidad). Originales en `C:\Code\webPersonal-originales\img\viajes` (y en el historial de git).
+- [x] **EF-02** Optimizar los 4 vídeos (≈27 MB → menos de 8 MB)
   - Alta · C, S (miniatura) · métricas 6.1, 6.2, 1.3
   - H.264 a 720p, CRF ≈ 28, `faststart`. Añadir `poster`, `preload="none"` y `width`/`height` a cada `<video>`. `tfg-clip.mp4` pesa 14,7 MB.
+  - Hecho el 2026-11-11: H.264 (High) a 720p, CRF 28, `preset slow`, `faststart` y sin pista de audio (las 4 pistas eran silencio digital, −91 dB). 27 MB → 1,6 MB (`tfg-clip.mp4`: 14,7 MB → 0,95 MB). Póster WebP 960×540 (56 KB los 4) en `assets/img/posters/`, `preload="none"`, `width="1280" height="720"` y `video { width: 100%; height: auto; }` en el CSS. Originales en `C:\Code\webPersonal-originalesideo`.
 - [ ] **EF-03** Sustituir el Typing SVG externo por una animación CSS propia con texto real
   - Alta · C, M, J, S (I la valora, así que se mantiene el efecto) · métricas 6.2, 6.1, 2.2, 1.3, 5.1
   - Quita la dependencia de `readme-typing-svg` (~2 s de espera), el `alt` «Typing SVG» que no dice nada y el recorte «Softw» que vio M. Respetar `prefers-reduced-motion`.
