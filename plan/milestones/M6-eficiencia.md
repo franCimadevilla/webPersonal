@@ -15,7 +15,7 @@ Mejoras de la categoría 6 (métricas 6.1 y 6.2).
       Fuente: C (28 MB de vídeos), S (reproductor con miniatura, en 1.3). Métricas: 6.1, 6.2, 1.3. Los 4 clips suman ≈27 MB; el tfg-clip pesa 14,7 MB.
   - [x] Recodificar los clips (H.264 720p, CRF≈28, faststart) @est:1.5h @owner:francisco @done:2026-11-11 ^T47
   - [x] Añadir poster, preload="none" y width/height a cada <video> @est:1h @owner:francisco @dep:T47 @done:2026-11-11 ^T48
-- [ ] EF-03 Sustituir el Typing SVG externo por una animación CSS propia con texto real @est:2.5h @owner:francisco @prio:high ^T49
+- [x] EF-03 Sustituir el Typing SVG externo por una animación CSS propia con texto real @est:2.5h @owner:francisco @prio:high @started:2026-11-11 @done:2026-11-11 ^T49
       Fuente: C, M, J, S (I la valora en 1.3: mantener el efecto). Métricas: 6.2, 6.1, 2.2, 1.3, 5.1. Quita la dependencia de readme-typing-svg (~2 s), el alt «Typing SVG» y el recorte «Softw»; respetar prefers-reduced-motion.
 
 ## 6.2 Tiempo de carga

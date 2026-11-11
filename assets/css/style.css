@@ -228,10 +228,69 @@ h2 {
   }
 }
 
+/* Frase animada: texto real que se escribe y se borra, una frase cada 4 s.
+   Cada <li> declara en el HTML su longitud (--n, en caracteres) y su turno
+   (--i). Con fuente monoespaciada, 1ch = un carácter, así que steps(--n)
+   revela una letra por paso. Las tres frases ocupan la misma celda de la
+   rejilla: la altura no cambia y no hay desplazamiento de contenido (CLS).
+   Sin CSS se ven como una lista; con movimiento reducido, quietas. */
 .tagline {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  align-self: baseline;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--accent);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.25rem;
+  line-height: 1.6;
+
+  & li {
+    grid-area: 1 / 1;
+    box-sizing: content-box;
+    width: 0;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+    animation: tagline-type 12s calc(var(--i) * 4s) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    gap: 0.25rem;
+
+    & li {
+      grid-area: auto;
+      width: auto;
+      white-space: normal;
+      border-right: 0;
+      animation: none;
+    }
+  }
+}
+
+@keyframes tagline-type {
+  0% {
+    width: 0;
+    border-right-color: var(--accent);
+    animation-timing-function: steps(var(--n), end);
+  }
+  12% {
+    width: calc(var(--n) * 1ch);
+    animation-timing-function: linear;
+  }
+  26% {
+    width: calc(var(--n) * 1ch);
+    animation-timing-function: steps(var(--n), end);
+  }
+  33% {
+    width: 0;
+    border-right-color: var(--accent);
+  }
+  33.1%,
+  100% {
+    width: 0;
+    border-right-color: transparent;
+  }
 }
 
 /* ── Grid reutilizable ────────────────────────────────────── */
@@ -584,6 +643,11 @@ footer {
 
   h1 {
     font-size: 1.65rem;
+  }
+
+  /* 29 caracteres a 1.05rem caben en 280 px (pantalla de 320 px) */
+  .tagline {
+    font-size: 1.05rem;
   }
 
   .grid {

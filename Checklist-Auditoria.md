@@ -154,10 +154,11 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [x] **EF-02** Optimizar los 4 vídeos (≈27 MB → menos de 8 MB)
   - Alta · C, S (miniatura) · métricas 6.1, 6.2, 1.3
   - H.264 a 720p, CRF ≈ 28, `faststart`. Añadir `poster`, `preload="none"` y `width`/`height` a cada `<video>`. `tfg-clip.mp4` pesa 14,7 MB.
-  - Hecho el 2026-11-11: H.264 (High) a 720p, CRF 28, `preset slow`, `faststart` y sin pista de audio (las 4 pistas eran silencio digital, −91 dB). 27 MB → 1,6 MB (`tfg-clip.mp4`: 14,7 MB → 0,95 MB). Póster WebP 960×540 (56 KB los 4) en `assets/img/posters/`, `preload="none"`, `width="1280" height="720"` y `video { width: 100%; height: auto; }` en el CSS. Originales en `C:\Code\webPersonal-originalesideo`.
-- [ ] **EF-03** Sustituir el Typing SVG externo por una animación CSS propia con texto real
+  - Hecho el 2026-11-11: H.264 (High) a 720p, CRF 28, `preset slow`, `faststart` y sin pista de audio (las 4 pistas eran silencio digital, −91 dB). 27 MB → 1,6 MB (`tfg-clip.mp4`: 14,7 MB → 0,95 MB). Póster WebP 960×540 (56 KB los 4) en `assets/img/posters/`, `preload="none"`, `width="1280" height="720"` y `video { width: 100%; height: auto; }` en el CSS. Originales en `C:\Code\webPersonal-originales\video`.
+- [x] **EF-03** Sustituir el Typing SVG externo por una animación CSS propia con texto real
   - Alta · C, M, J, S (I la valora, así que se mantiene el efecto) · métricas 6.2, 6.1, 2.2, 1.3, 5.1
   - Quita la dependencia de `readme-typing-svg` (~2 s de espera), el `alt` «Typing SVG» que no dice nada y el recorte «Softw» que vio M. Respetar `prefers-reduced-motion`.
+  - Hecho el 2026-11-11: `<ul class="tagline" lang="en">` con las tres frases como texto real; cada `<li>` se escribe y se borra con `steps()` sobre la anchura en `ch` (una frase cada 4 s, ciclo de 12 s). Las tres comparten celda de rejilla, así que la altura no cambia. Con `prefers-reduced-motion` se ven las tres quietas; sin CSS, como lista. Fuera la petición a `readme-typing-svg` y el `alt` «Typing SVG». Las frases siguen en inglés como en el original: **pendiente de Francisco** decidir si se traducen (decisión 3 de la sección 4).
 - [ ] **EF-04** Remedir con PageSpeed Insights (móvil) y Lighthouse, y registrar antes y después
   - Alta · C, M, J, I · métricas 6.1, 6.2, 1.4
   - Objetivo: Rendimiento de 90 o más en todas las páginas, LCP por debajo de 2,5 s y CLS por debajo de 0,1. Las 5 páginas llevan hoy un script de Contentsquare sin commitear: medir con y sin él.
