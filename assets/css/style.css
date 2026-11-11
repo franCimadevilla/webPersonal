@@ -85,6 +85,23 @@ code {
   border: 1px solid var(--border);
 }
 
+/* ── Enlace «Saltar al contenido» ─────────────────────────── */
+/* Fuera de pantalla hasta que recibe el foco con el teclado. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: #ffffff;
+  transform: translateY(-100%);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
 /* ── Cabecera ─────────────────────────────────────────────── */
 .site-header {
   position: relative;
@@ -149,6 +166,12 @@ code {
   padding: 2rem 3.5rem 3rem;
   flex: 1;
   animation: slide-in 0.45s ease;
+
+  /* Destino del enlace «Saltar al contenido» (tabindex="-1"): recibe el foco
+     por programa y no es un control, así que no necesita anillo de foco. */
+  &:focus {
+    outline: none;
+  }
 }
 
 @keyframes slide-in {

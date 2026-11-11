@@ -3,7 +3,8 @@
 
    Los puntos y enlaces activos se marcan de forma estática en cada página
    (progressive enhancement: la web funciona sin JavaScript). Este script
-   solo controla los botones ‹ › y el atajo de teclado.
+   solo controla los botones ‹ › y el atajo de teclado, que hacen bucle igual
+   que las flechas laterales (Inicio ‹ Galería y Galería › Inicio).
    ========================================================================== */
 
 (function () {
@@ -25,35 +26,27 @@
   var prevBtn = document.getElementById('btn-prev');
   var nextBtn = document.getElementById('btn-next');
 
+  // Un único cálculo para botones, flechas laterales y teclado: al pasar de
+  // la última página se vuelve a la primera y al revés (bucle).
   function goTo(nextIndex) {
-    if (nextIndex < 0 || nextIndex >= PAGES.length) return;
-    window.location.href = PAGES[nextIndex].url;
+    var total = PAGES.length;
+    window.location.href = PAGES[((nextIndex % total) + total) % total].url;
   }
 
-  // Configurar botón anterior
+  // Botones ‹ ›
   if (prevBtn) {
-    if (index > 0) {
-      prevBtn.addEventListener('click', function () { goTo(index - 1); });
-    } else {
-      prevBtn.addEventListener('click', function () { goTo(PAGES.length - 1); });
-    }
+    prevBtn.addEventListener('click', function () { goTo(index - 1); });
   }
-
-  // Configurar botón siguiente
   if (nextBtn) {
-    if (index < PAGES.length - 1) {
-      nextBtn.addEventListener('click', function () { goTo(index + 1); });
-    } else {
-      nextBtn.addEventListener('click', function() { goTo(0);  });
-    }
+    nextBtn.addEventListener('click', function () { goTo(index + 1); });
   }
 
   // Atajo de teclado: flechas izquierda/derecha para desplazarse
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'ArrowLeft' && index > 0) {
+    if (event.key === 'ArrowLeft') {
       event.preventDefault();
       goTo(index - 1);
-    } else if (event.key === 'ArrowRight' && index < PAGES.length - 1) {
+    } else if (event.key === 'ArrowRight') {
       event.preventDefault();
       goTo(index + 1);
     }

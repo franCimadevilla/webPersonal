@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "md-planner": {
+      "type": "stdio",
+      "command": "C:\\Users\\UO294768\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "args": [
+        "c:\\Users\\UO294768\\AppData\\Roaming\\Code\\User\\globalStorage\\acro.md-planner\\mcp-server.js",
+        "--plan",
+        "c:\\Code\\webPersonal\\plan",
+        "--workspace",
+        "c:\\Code\\webPersonal"
+      ],
+      "env": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      }
+    }
+  }
+}
