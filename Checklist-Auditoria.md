@@ -147,9 +147,10 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 
 ### Eficiencia (hito M6)
 
-- [ ] **EF-01** Optimizar las 6 fotos de la galería (≈21 MB → menos de 1,5 MB)
+- [x] **EF-01** Optimizar las 6 fotos de la galería (≈21 MB → menos de 1,5 MB)
   - Alta · C, M, J, I, S · métricas 6.1, 6.2, 1.4
   - Redimensionar a 1600 px o menos y servir WebP/AVIF con JPEG de respaldo en `<picture>`. Poner `width` y `height` (CLS 0,056). Hoy todas llevan `loading="lazy"`; la primera debe cargarse sin lazy y con `fetchpriority="high"`. Guardar los originales fuera del repositorio. Medición de partida: Lighthouse de Galería 75, LCP 36,5 s.
+  - Hecho el 2026-11-11: 2 tamaños por foto (lado largo 800 y 1600 px) en AVIF con JPEG de respaldo, `<picture>` con `srcset`/`sizes`, `width`/`height`, la primera con `fetchpriority="high"` y el resto con `loading="lazy"`. Peso: 21 MB → 0,28 MB (AVIF 800, escritorio) o 0,99 MB (AVIF 1600, pantallas de alta densidad). Originales en `C:\Code\webPersonal-originales\imgiajes` (y en el historial de git).
 - [ ] **EF-02** Optimizar los 4 vídeos (≈27 MB → menos de 8 MB)
   - Alta · C, S (miniatura) · métricas 6.1, 6.2, 1.3
   - H.264 a 720p, CRF ≈ 28, `faststart`. Añadir `poster`, `preload="none"` y `width`/`height` a cada `<video>`. `tfg-clip.mp4` pesa 14,7 MB.

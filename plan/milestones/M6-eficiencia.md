@@ -7,10 +7,10 @@ Mejoras de la categoría 6 (métricas 6.1 y 6.2).
 
 ## 6.1 Rendimiento
 
-- [ ] EF-01 Optimizar las 6 fotos de la galería (≈21 MB a < 1,5 MB) @owner:francisco @prio:high ^T43
+- [x] EF-01 Optimizar las 6 fotos de la galería (≈21 MB a < 1,5 MB) @owner:francisco @prio:high @started:2026-11-11 @done:2026-11-11 ^T43
       Fuente: C, M, J, I, S. Métricas: 6.1, 6.2, 1.4. Galería: Lighthouse 75, LCP 36,5 s, CLS 0,056. Guardar los originales fuera del repositorio.
-  - [ ] Redimensionar (≤1600 px) y convertir a WebP/AVIF con JPEG ligero de respaldo @est:1.5h @owner:francisco ^T44
-  - [ ] galeria.html con <picture>, width/height y loading=lazy salvo la primera imagen (fetchpriority alta) @est:1.5h @owner:francisco @dep:T44 ^T45
+  - [x] Redimensionar (≤1600 px) y convertir a WebP/AVIF con JPEG ligero de respaldo @est:1.5h @owner:francisco @started:2026-11-11 @done:2026-11-11 ^T44
+  - [x] galeria.html con <picture>, width/height y loading=lazy salvo la primera imagen (fetchpriority alta) @est:1.5h @owner:francisco @dep:T44 @done:2026-11-11 ^T45
 - [ ] EF-02 Optimizar los 4 vídeos (≈27 MB a < 8 MB) @owner:francisco @prio:high ^T46
       Fuente: C (28 MB de vídeos), S (reproductor con miniatura, en 1.3). Métricas: 6.1, 6.2, 1.3. Los 4 clips suman ≈27 MB; el tfg-clip pesa 14,7 MB.
   - [ ] Recodificar los clips (H.264 720p, CRF≈28, faststart) @est:1.5h @owner:francisco ^T47
