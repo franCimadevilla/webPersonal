@@ -17,7 +17,7 @@ Mejoras de la categoría 4 (métricas 4.1–4.4). Varias tareas necesitan datos 
 
 ## 4.3 Información de contacto
 
-- [ ] CO-03 CV descargable en PDF accesible enlazado desde Inicio y Proyectos @est:2h @owner:francisco ^T32
+- [x] CO-03 CV descargable en PDF accesible enlazado desde Inicio y Proyectos @est:2h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T32
       Fuente: S. Métricas: 4.3, 4.2. Necesita el CV de Francisco.
 
 ## 4.4 Personas que avalan
