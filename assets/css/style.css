@@ -1039,9 +1039,12 @@ audio {
       box-shadow: 0 0 16px rgba(30, 64, 175, 0.12);
     }
 
-    /* Pegadas al borde de la ventana: el anillo va hacia dentro. */
+    /* Pegadas al borde de la ventana: el anillo va hacia dentro. Con vista
+       previa, el marco de la miniatura lo taparía: la variable hace que la
+       propia vista previa dibuje el anillo por encima (EV-02). */
     &:focus-visible {
       outline-offset: -5px;
+      --preview-ring: var(--accent);
     }
 
     &:first-child {
@@ -1089,6 +1092,17 @@ audio {
     height: 100%;
 
     animation: preview-in 0.3s ease;
+
+    /* Anillo de foco del enlace, visible sobre la miniatura (ver
+       .page-lateral-nav a:focus-visible). */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      z-index: 2;
+      border: 3px solid var(--preview-ring, transparent);
+      border-radius: 4px;
+    }
 
     /* El blur de la miniatura se suaviza al pasar el ratón (la variable se
        hereda; así no hace falta un selector descendiente con :hover). */
