@@ -31,6 +31,15 @@
     window.location.href = PAGES[((nextIndex % total) + total) % total].url;
   }
 
+  // El atajo solo existe con JavaScript: aquí se anuncia, con la pista
+  // visible junto al carrusel y con aria-keyshortcuts en los enlaces ‹ ›.
+  var hint = document.getElementById('carousel-hint');
+  var prevLink = document.getElementById('btn-prev');
+  var nextLink = document.getElementById('btn-next');
+  if (hint) hint.hidden = false;
+  if (prevLink) prevLink.setAttribute('aria-keyshortcuts', 'ArrowLeft');
+  if (nextLink) nextLink.setAttribute('aria-keyshortcuts', 'ArrowRight');
+
   // Elementos que usan las flechas por sí mismos: campos de texto, listas,
   // controles de rango y reproductores. Ahí el atajo no debe actuar.
   var OWN_ARROWS = 'input, textarea, select, video, audio, [contenteditable], [role="slider"], [role="listbox"], [role="menu"], [role="tablist"]';

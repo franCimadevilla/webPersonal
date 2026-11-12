@@ -51,9 +51,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **US-03** Página «Ayuda y mapa del sitio» enlazada desde el pie
   - Media · C, M, I, S · métricas 1.1, 1.2
   - Estructura del sitio, atajos de teclado y cómo contactar. Queda fuera del carrusel de 5 páginas. Se escribe después de FU-03, para documentar el comportamiento final.
-- [ ] **US-04** Anunciar el atajo de teclado ← → en la interfaz
+- [x] **US-04** Anunciar el atajo de teclado ← → en la interfaz
   - Alta · C, M · métrica 1.2
   - Pista visible junto al carrusel y `aria-keyshortcuts` en los botones ‹ ›.
+  - Hecho el 2026-11-12: «También puedes cambiar de página con las teclas ← y →» bajo el carrusel en las 5 páginas. Va con `hidden` en el HTML y la muestra `main.js`, que también pone `aria-keyshortcuts="ArrowLeft"`/`"ArrowRight"` en los enlaces ‹ ›: sin JavaScript no hay atajo y no se anuncia. Con `@media (hover: none)` (pantallas táctiles) no se muestra. Comprobado en el DOM final de Edge y con captura.
 - [ ] **US-05** Página 404 propia con botón para volver al inicio
   - Media · C, S · métrica 1.2
 - [ ] **US-06** Formulario de contacto con mensaje de confirmación
