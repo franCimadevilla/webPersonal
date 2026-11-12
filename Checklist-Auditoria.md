@@ -124,6 +124,7 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [ ] **CO-04** Referencias de personas que avalan
   - Alta · C, M, J, I, S (media 0,2) · métrica 4.4
   - Pedir permiso y texto a 2–3 personas (tutor del TFG, responsable de prácticas, compañeros). Después, sección «Referencias» con cita, nombre, cargo y relación. Si no llegan a tiempo: «Disponibles bajo petición» con enlace a contacto. No publicar datos de terceros sin su permiso.
+  - 2026-11-12, sección hecha y tarea abierta: Proyectos tiene la sección «Referencias», con la recomendación de Pedro María (responsable de prácticas en NTT Data) tal como la resumió Francisco, y a Cristian (tutor del TFG) como «referencia disponible bajo petición» con enlace a contacto. No se publica una cita inventada de Cristian. **Antes del push**, Francisco debe confirmar con Pedro María el texto literal y que acepta salir con su nombre, y pedir a Cristian su texto. Cuando llegue, se sustituye la línea por una cita como la de Pedro y se cierra la tarea.
 
 ### Confiabilidad (hito M5)
 

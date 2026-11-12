@@ -22,8 +22,8 @@ Mejoras de la categoría 4 (métricas 4.1–4.4). Varias tareas necesitan datos 
 
 ## 4.4 Personas que avalan
 
-- [ ] CO-04 Referencias de personas que avalan @owner:francisco @prio:high ^T33
+- [/] CO-04 Referencias de personas que avalan @owner:francisco @prio:high @started:2026-11-12 ^T33
       Fuente: C, M, J, I, S (media 0,2).
-  - [ ] Pedir permiso y texto a 2–3 personas (tutor del TFG, responsable de prácticas, compañeros) @est:1h @owner:francisco ^T34
-  - [ ] Sección «Referencias» (cita, nombre, cargo y relación); si no llegan a tiempo, «Disponibles bajo petición» con enlace de contacto @est:2h @owner:francisco @dep:T34+3d ^T35
+  - [!] Pedir permiso y texto a 2–3 personas (tutor del TFG, responsable de prácticas, compañeros) @est:1h @owner:francisco @blocked:"Falta el permiso y el texto de Cristian (tutor del TFG); confirmar con Pedro María el texto literal y que acepta salir con su nombre" ^T34
+  - [x] Sección «Referencias» (cita, nombre, cargo y relación); si no llegan a tiempo, «Disponibles bajo petición» con enlace de contacto @est:2h @owner:francisco @dep:T34+3d @started:2026-11-12 @done:2026-11-12 ^T35
         Los 3 días laborables de espera son una suposición; ajustar. No publicar datos de terceros sin su permiso.
