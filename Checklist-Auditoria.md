@@ -57,8 +57,9 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Alta · C, M · métrica 1.2
   - Pista visible junto al carrusel y `aria-keyshortcuts` en los botones ‹ ›.
   - Hecho el 2026-11-12: «También puedes cambiar de página con las teclas ← y →» bajo el carrusel en las 5 páginas. Va con `hidden` en el HTML y la muestra `main.js`, que también pone `aria-keyshortcuts="ArrowLeft"`/`"ArrowRight"` en los enlaces ‹ ›: sin JavaScript no hay atajo y no se anuncia. Con `@media (hover: none)` (pantallas táctiles) no se muestra. Comprobado en el DOM final de Edge y con captura.
-- [ ] **US-05** Página 404 propia con botón para volver al inicio
+- [x] **US-05** Página 404 propia con botón para volver al inicio
   - Media · C, S · métrica 1.2
+  - Hecho el 2026-11-12: `404.html` en la raíz, que GitHub Pages sirve sola, con `noindex`, explicación, botón «Volver al inicio» (`.button`, la misma clase que el botón del formulario), enlaces a las demás páginas y a la ayuda, y correo para avisar de enlaces rotos. Límite: usa rutas relativas, así que con una URL inexistente en una subcarpeta (`/webPersonal/a/b`) la página sale sin estilos. Funciona bien en el caso normal (`/webPersonal/loquesea.html`). La versión bilingüe está prevista en US-09 (T12).
 - [x] **US-06** Formulario de contacto con mensaje de confirmación
   - Media · M, S, C · métricas 1.2, 4.3
   - **Decisión previa:** el sitio es estático. Hay que elegir entre un servicio externo (Formspree o Getform, con revisión de privacidad) y un formulario con `mailto:` más confirmación en página. Si no se quiere, se cancela la tarea.
