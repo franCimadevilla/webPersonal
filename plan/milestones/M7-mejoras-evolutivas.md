@@ -19,14 +19,14 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
         touch-action: pan-y para no bloquear el scroll vertical. No iniciar el gesto en los ~20 px del borde (gesto «átrás» del sistema). Los botones siguen siendo la alternativa de un solo toque.
   - [x] Probar a 1280, 1366 y 1920 px, en móvil real, sin JavaScript y con file:// ; medir CLS y LCP en las 5 páginas @est:2h @owner:francisco @dep:T55 @started:2026-11-12 @done:2026-11-12 ^T56
         Con file:// las vistas previas no aparecen (fetch bloqueado) y la web debe seguir funcionando.
-- [ ] EV-02 Ajustes de las vistas previas laterales: altura del viewport, capa de blur, 1/4 de la página y transición por desplazamiento @owner:francisco ^T58
+- [/] EV-02 Ajustes de las vistas previas laterales: altura del viewport, capa de blur, 1/4 de la página y transición por desplazamiento @owner:francisco @started:2026-11-12 ^T58
       Petición de Francisco del 2026-11-12 sobre EV-01 (T51). Solo desde 1200 px; por debajo, sin JavaScript y con file:// siguen las flechas actuales.
       Supuestos que debe confirmar Francisco antes de empezar: (a) «1/4 de la página» = la cuarta parte del ancho de la página vecina, la que queda junto a la actual (como las diapositivas vecinas que asoman en un carrusel); (b) la vista previa ocupa toda la altura de la ventana, también bajo la cabecera y el pie; (c) el título de la página vecina se mantiene, por encima del blur; (d) en la transición, la vista previa se desplaza hasta el centro y ocupa el sitio de la página actual.
-  - [ ] Vista previa a toda la altura del viewport (100vh/100dvh) en lugar del marco 3:4 con tope de 60vh @est:2h @owner:francisco @dep:T56 ^T59
+  - [x] Vista previa a toda la altura del viewport (100vh/100dvh) en lugar del marco 3:4 con tope de 60vh @est:2h @owner:francisco @dep:T56 @started:2026-11-12 @done:2026-11-12 ^T59
         Quitar aspect-ratio y max-height de .page-preview-frame; la franja ya va de arriba abajo (position: fixed; top: 0; bottom: 0).
         Decidir cómo convive con la cabecera y el pie (z-index 50): la vista previa pasa por debajo o empieza bajo la cabecera. Mantener el área táctil y el anillo de foco del enlace en toda la franja.
         Título: superpuesto arriba o centrado, siempre legible. Sin CLS: el hueco ya lo reserva el script del <head> (data-previews).
-  - [ ] Mostrar solo 1/4 de la página vecina: la franja junto a la página actual (izquierda: cuarto derecho de la anterior; derecha: cuarto izquierdo de la siguiente) @est:3h @owner:francisco @dep:T59 ^T60
+  - [/] Mostrar solo 1/4 de la página vecina: la franja junto a la página actual (izquierda: cuarto derecho de la anterior; derecha: cuarto izquierdo de la siguiente) @est:3h @owner:francisco @dep:T59 @started:2026-11-12 ^T60
         La miniatura deja de verse entera: escala = ancho del hueco / 240 px (un cuarto de 960). Por ejemplo 0,67 a 1280, 0,85 a 1366 y 2 a 1920. Habrá que decidir un tope (¿1?) para no ampliar la página.
         scalePreviews() en main.js calcula la escala y alinea la miniatura al borde interior con transform-origin top right (izquierda) o top left (derecha), según el lado.
         Revisar el clon en las 5 páginas: con más escala se leen los textos y se ven más las cajas grises de multimedia. Probar a 1280, 1366 y 1920 px.

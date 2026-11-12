@@ -1035,7 +1035,7 @@ audio {
     [data-previews] & {
       @media (min-width: 1200px) {
         width: calc((100% - 960px) / 2);
-        padding: 0 1rem;
+        padding: 0;
         background: transparent;
         backdrop-filter: none;
         border: 0;
@@ -1046,23 +1046,18 @@ audio {
   }
 }
 
-/* Vista previa de la página vecina: título en tamaño normal y, debajo,
-   la miniatura en un marco recortado. main.js escala la miniatura al ancho
-   del marco. Solo se ve desde 1200 px; por debajo queda la flecha. */
+/* Vista previa de la página vecina (EV-01, EV-02): ocupa toda la franja,
+   de arriba abajo de la ventana, con el título superpuesto en el centro.
+   main.js escala la miniatura. Solo se ve desde 1200 px; por debajo queda
+   la flecha. */
 .page-preview {
   display: none;
 
   @media (min-width: 1200px) {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+    position: relative;
+    display: block;
     width: 100%;
-    max-width: 22rem;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
+    height: 100%;
   }
 }
 
@@ -1073,26 +1068,41 @@ audio {
 }
 
 .page-preview-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.35rem 0.85rem;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
   color: var(--heading);
   font-weight: 600;
   line-height: 1.3;
   text-align: center;
+  white-space: nowrap;
 }
 
+/* Marco de la miniatura: toda la altura de la ventana (la franja es fija,
+   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. */
 .page-preview-frame {
+  position: absolute;
+  inset: 0;
   display: block;
-  aspect-ratio: 3 / 4;
-  max-height: 60vh;
   overflow: hidden;
   background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
 }
 
 /* La copia del <main> vecino, a su tamaño real (960 px) antes de escalar.
-   No recibe el puntero: el clic llega al enlace que la contiene. */
+   Empieza a la altura del contenido de la página actual (bajo la cabecera,
+   de 4rem). No recibe el puntero: el clic llega al enlace que la contiene. */
 .page-preview-page {
+  position: absolute;
+  top: 4rem;
+  left: 0;
   display: block;
   width: 960px;
   padding: 2rem 3.5rem 3rem;
