@@ -15,7 +15,7 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
         Hueco lateral ≈ (ancho − 960) / 2: 160 px a 1280, 203 px a 1366, 240 px a 1440.
   - [x] Deslizamiento al hacer clic en la vista previa, en los botones ‹ › o con ← →, y entrada de la página nueva por el lado correcto; sin animación con prefers-reduced-motion @est:3h @owner:francisco @dep:T53 @started:2026-11-12 @done:2026-11-12 ^T54
         Guardar la dirección en sessionStorage. Comprobar que se aplica antes del primer pintado; si no, hace falta un script mínimo en <head> en las páginas ES y EN. Hoy slide-in siempre entra desde la derecha.
-  - [/] Deslizar con el dedo en móvil (≤768 px): umbral, predominio horizontal, sin activarse sobre vídeo, audio ni controles de rango @est:2.5h @owner:francisco @dep:T54 @started:2026-11-12 ^T55
+  - [x] Deslizar con el dedo en móvil (≤768 px): umbral, predominio horizontal, sin activarse sobre vídeo, audio ni controles de rango @est:2.5h @owner:francisco @dep:T54 @started:2026-11-12 @done:2026-11-12 ^T55
         touch-action: pan-y para no bloquear el scroll vertical. No iniciar el gesto en los ~20 px del borde (gesto «átrás» del sistema). Los botones siguen siendo la alternativa de un solo toque.
-  - [ ] Probar a 1280, 1366 y 1920 px, en móvil real, sin JavaScript y con file:// ; medir CLS y LCP en las 5 páginas @est:2h @owner:francisco @dep:T55 ^T56
+  - [/] Probar a 1280, 1366 y 1920 px, en móvil real, sin JavaScript y con file:// ; medir CLS y LCP en las 5 páginas @est:2h @owner:francisco @dep:T55 @started:2026-11-12 ^T56
         Con file:// las vistas previas no aparecen (fetch bloqueado) y la web debe seguir funcionando.

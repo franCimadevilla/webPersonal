@@ -160,6 +160,58 @@
     }
   });
 
+  // ── Deslizar con el dedo en móvil (EV-01) ──────────────────────────────
+  // Hasta 768 px, un deslizamiento horizontal claro cambia de página: hacia
+  // la izquierda, la siguiente; hacia la derecha, la anterior. No actúa
+  // sobre elementos que usan el gesto (vídeo, audio, campos, controles de
+  // rango, zonas con desplazamiento horizontal), ni si empieza en los 20 px
+  // del borde, donde el sistema tiene su gesto «atrás», ni si hay texto
+  // seleccionado. Los enlaces ‹ › siguen siendo la alternativa de un toque.
+  var narrow = window.matchMedia ? window.matchMedia('(max-width: 768px)') : null;
+  var SWIPE_MIN = 60;    // px en horizontal
+  var SWIPE_RATIO = 1.5; // el horizontal debe superar 1,5 veces al vertical
+  var SWIPE_TIME = 800;  // ms como máximo
+  var EDGE = 20;         // px de cada borde que se reservan al sistema
+  var touch = null;
+
+  function scrollsSideways(el) {
+    for (; el && el !== document.body; el = el.parentElement) {
+      if (el.scrollWidth > el.clientWidth + 1) {
+        var overflow = window.getComputedStyle(el).overflowX;
+        if (overflow === 'auto' || overflow === 'scroll') return true;
+      }
+    }
+    return false;
+  }
+
+  if (narrow && prevLink && nextLink) {
+    document.addEventListener('touchstart', function (event) {
+      touch = null;
+      if (!narrow.matches || event.touches.length !== 1) return;
+      var t = event.touches[0];
+      var target = event.target;
+      if (t.clientX < EDGE || t.clientX > window.innerWidth - EDGE) return;
+      if (target.closest && target.closest(OWN_ARROWS + ', input[type="range"]')) return;
+      if (scrollsSideways(target)) return;
+      touch = { x: t.clientX, y: t.clientY, time: Date.now() };
+    }, { passive: true });
+
+    document.addEventListener('touchend', function (event) {
+      if (!touch || event.changedTouches.length !== 1) return;
+      var t = event.changedTouches[0];
+      var dx = t.clientX - touch.x;
+      var dy = t.clientY - touch.y;
+      var quick = Date.now() - touch.time <= SWIPE_TIME;
+      touch = null;
+      if (!quick || Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < SWIPE_RATIO * Math.abs(dy)) return;
+      if (window.getSelection && String(window.getSelection())) return;
+      if (dx < 0) slideTo(nextLink.href, 'next');
+      else slideTo(prevLink.href, 'prev');
+    }, { passive: true });
+
+    document.addEventListener('touchcancel', function () { touch = null; }, { passive: true });
+  }
+
   // ── Vistas previas laterales (EV-01) ──────────────────────────────────
   // En pantallas de 1200 px o más, las flechas laterales muestran la página
   // anterior y la siguiente en miniatura. Se leen con fetch después del
