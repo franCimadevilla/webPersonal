@@ -981,7 +981,93 @@ audio {
       right: 0;
       border-left: 1px solid var(--border);
     }
+
+    /* Con vista previa (EV-01) y desde 1200 px, la franja ocupa todo el
+       hueco lateral, (ancho − 960 px) / 2, y en lugar de la flecha muestra
+       el título y la miniatura de la página vecina. Va al final para ganar
+       por orden a :hover y a :first-child/:last-child, que pesan lo mismo. */
+    &[data-preview] {
+      @media (min-width: 1200px) {
+        width: calc((100% - 960px) / 2);
+        padding: 0 1rem;
+        background: transparent;
+        backdrop-filter: none;
+        border: 0;
+        box-shadow: none;
+        font-size: 1rem;
+      }
+    }
   }
+}
+
+/* Vista previa de la página vecina: título en tamaño normal y, debajo,
+   la miniatura en un marco recortado. main.js escala la miniatura al ancho
+   del marco. Solo se ve desde 1200 px; por debajo queda la flecha. */
+.page-preview {
+  display: none;
+
+  @media (min-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 22rem;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+}
+
+.page-lateral-arrow {
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
+.page-preview-title {
+  color: var(--heading);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.page-preview-frame {
+  display: block;
+  aspect-ratio: 3 / 4;
+  max-height: 60vh;
+  overflow: hidden;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* La copia del <main> vecino, a su tamaño real (960 px) antes de escalar.
+   No recibe el puntero: el clic llega al enlace que la contiene. */
+.page-preview-page {
+  display: block;
+  width: 960px;
+  padding: 2rem 3.5rem 3rem;
+  transform-origin: top left;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  pointer-events: none;
+
+  & * {
+    animation: none;
+  }
+}
+
+/* Hueco gris de una imagen, vídeo o audio que la miniatura no descarga. */
+.page-preview-media {
+  display: block;
+  max-width: 100%;
+  background: var(--border);
+  border-radius: 4px;
 }
 
 /* ── Pie de página ────────────────────────────────────────── */
