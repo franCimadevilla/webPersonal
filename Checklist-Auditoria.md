@@ -64,7 +64,7 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Media · M, S, C · métricas 1.2, 4.3
   - **Decisión previa:** el sitio es estático. Hay que elegir entre un servicio externo (Formspree o Getform, con revisión de privacidad) y un formulario con `mailto:` más confirmación en página. Si no se quiere, se cancela la tarea.
   - Decidido por Francisco el 2026-11-12: FormSubmit (formsubmit.co).
-  - Hecho el 2026-11-12: formulario «Escríbeme» en Inicio (nombre, correo y mensaje, con `label`, `autocomplete` y `required`), trampa `_honey` oculta y nota de privacidad. Sin JavaScript se envía de forma normal y FormSubmit muestra su confirmación (con captcha). Con JavaScript se envía a `formsubmit.co/ajax/…` y el resultado aparece en una región `role="status"` («Gracias, tu mensaje se ha enviado…» o un error con el correo como alternativa). Probado con `fetch` simulado (éxito y error); **no se ha hecho ningún envío real**. **Pendiente de Francisco:** tras el push, enviar un mensaje de prueba desde la web y confirmar el correo de activación que manda FormSubmit; sin ese paso no entrega nada. Opcional: cambiar el correo del `action` por el alias aleatorio que da FormSubmit tras la activación.
+  - Hecho el 2026-11-12: formulario «Escríbeme» en Inicio (nombre, correo y mensaje, con `label`, `autocomplete` y `required`), trampa `_honey` oculta y nota de privacidad. Sin JavaScript se envía de forma normal y FormSubmit muestra su confirmación (con captcha). Con JavaScript se envía a `formsubmit.co/ajax/…` y el resultado aparece en una región `role="status"` («Gracias, tu mensaje se ha enviado…» o un error con el correo como alternativa). Probado con `fetch` simulado (éxito y error); **no se ha hecho ningún envío real**. **Pendiente de Francisco:** tras el push, enviar un mensaje de prueba desde la web y confirmar el correo de activación que manda FormSubmit; sin ese paso no entrega nada. Está en el plan como tarea de revisión manual (T57, `#manual`). Opcional: cambiar el correo del `action` por el alias aleatorio que da FormSubmit tras la activación.
 - [x] **US-07** Imágenes en Sobre mí y capturas en las tarjetas de Proyectos
   - Baja · S · métrica 1.3
   - Solo en WebP ligero, para no empeorar el rendimiento (EF-01).
@@ -217,7 +217,7 @@ Son decisiones por defecto. No bloquean el plan: cada una se puede revisar antes
 2. Rendimiento: EF-01, EF-02, EF-03.
 3. Contenido, empezando por pedir las referencias (CO-04) porque hay que esperar respuesta: CO-01 a CO-04.
 4. Navegación y accesibilidad del código: US-02 a US-08, US-10, FU-02, FU-04, AC-02 a AC-05, CF-05.
-5. Versión en inglés (US-09) y buscador (FU-01), cuando el contenido ya esté cerrado.
+5. Versión en inglés (US-09) y buscador (FU-01), cuando el contenido ya esté cerrado. *Bloqueado por Francisco el 2026-11-12 hasta hablar del CV (CO-03): T10, T11, T12, T24, T25 y T26 están en «bloqueada» en el plan.*
 6. Mejora evolutiva EV-01, cuando la versión en inglés ya esté hecha.
 7. Verificación final: AC-06, AC-07, CF-06, CF-07, EF-04.
 

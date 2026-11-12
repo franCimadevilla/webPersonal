@@ -23,6 +23,9 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
       Fuente: C, S. Métrica: 1.2. GitHub Pages sirve 404.html desde la raíz: usar rutas que funcionen a cualquier profundidad.
 - [x] US-06 Formulario de contacto con mensaje de confirmación @est:4h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T6
       Fuente: M, S (C lo echa en falta en 1.2). Métricas: 1.2, 4.3. Sitio estático: Formspree/Getform (externo, revisar privacidad) o formulario mailto con confirmación. Decidir antes de empezar; cancelar si no se quiere.
+- [?] US-06 Revisión manual: activar FormSubmit tras el push (mensaje de prueba y correo de activación) @est:0.5h @owner:francisco @dep:T6 @prio:high @started:2026-11-12 #manual ^T57
+      Tras publicar la web, enviar un mensaje de prueba desde el formulario de Inicio y confirmar el correo de activación que manda FormSubmit. Sin ese paso el formulario no entrega nada.
+      Opcional: sustituir el correo del action por el alias aleatorio que da FormSubmit tras la activación.
 
 ## 1.3 Aspectos estéticos
 
@@ -38,9 +41,9 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 
 - [ ] US-09 Versión en inglés con selector de idioma @owner:francisco @prio:high ^T9
       Fuente: C, M, J, I, S (media 1.5 = 0,4). Se hace al final del contenido para no traducir dos veces; carpeta /en/ con los mismos nombres de fichero.
-  - [ ] Copiar las 5 páginas a /en/ y traducir textos, alt, aria-label y pies de foto @est:5h @owner:francisco @dep:T1,T2,T3,T4,T5,T6,T7,T8,T13,T14,T17,T19,T20,T27,T29,T30,T31,T32,T35,T36,T37,T41,T45,T49 ^T10
-  - [ ] Selector de idioma ES/EN en la cabecera, <html lang> y enlaces hreflang @est:2h @owner:francisco @dep:T10 ^T11
-  - [ ] Rutas relativas, carrusel (main.js) y 404 bilingüe funcionando bajo /en/ @est:1h @owner:francisco @dep:T11 ^T12
+  - [!] Copiar las 5 páginas a /en/ y traducir textos, alt, aria-label y pies de foto @est:5h @owner:francisco @dep:T1,T2,T3,T4,T5,T6,T7,T8,T13,T14,T17,T19,T20,T27,T29,T30,T31,T32,T35,T36,T37,T41,T45,T49 @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T10
+  - [!] Selector de idioma ES/EN en la cabecera, <html lang> y enlaces hreflang @est:2h @owner:francisco @dep:T10 @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T11
+  - [!] Rutas relativas, carrusel (main.js) y 404 bilingüe funcionando bajo /en/ @est:1h @owner:francisco @dep:T11 @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T12
 
 ## 1.6 Enlaces a redes sociales
 

@@ -9,9 +9,9 @@ Mejoras de la categoría 3 (métricas 3.1 y 3.2).
 
 - [ ] FU-01 Buscador del sitio (Pagefind) @owner:francisco @prio:high ^T23
       Fuente: C, M, J, I, S (todos 0). Pagefind indexa en el workflow de Pages y funciona en GitHub Pages sin servidor.
-  - [ ] Integrar Pagefind en el workflow de Pages y probarlo en local @est:3h @owner:francisco ^T24
-  - [ ] Caja de búsqueda accesible en la cabecera y página de resultados con aria-live @est:4h @owner:francisco @dep:T24,T11 ^T25
-  - [ ] Estilos, mensaje «sin resultados» y pruebas en ES/EN @est:2h @owner:francisco @dep:T25 ^T26
+  - [!] Integrar Pagefind en el workflow de Pages y probarlo en local @est:3h @owner:francisco @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T24
+  - [!] Caja de búsqueda accesible en la cabecera y página de resultados con aria-live @est:4h @owner:francisco @dep:T24,T11 @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T25
+  - [!] Estilos, mensaje «sin resultados» y pruebas en ES/EN @est:2h @owner:francisco @dep:T25 @blocked:"Paso 5 bloqueado por Francisco hasta hablar del CV (CO-03)" ^T26
 
 ## 3.2 Facilidad de navegación
 
