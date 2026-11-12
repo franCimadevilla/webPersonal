@@ -73,9 +73,15 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Media · S · métricas 1.4, 2.1
   - Aplica a los puntos del carrusel (hoy 12×12 px), el menú y los botones.
   - Hecho el 2026-11-12: los puntos miden 44×44 px y el punto visible de 12 px se dibuja con `::before`; los enlaces del menú y el nombre de la cabecera tienen 44 px de alto (la cabecera conserva su altura porque se reduce su relleno); los enlaces ‹ › del carrusel, 44 px de alto. Medido con un script en Edge a 1280 y 500 px: los 15 controles cumplen. Los enlaces dentro de un texto quedan fuera, porque WCAG 2.5.8 los exime.
-- [ ] **US-09** Versión en inglés con selector de idioma
+- [x] **US-09** Versión en inglés con selector de idioma
   - Alta · C, M, J, I, S · métrica 1.5
   - Carpeta `/en/` con los mismos nombres de fichero, selector ES/EN en la cabecera, `<html lang="en">` y `hreflang`. Es la última tarea de contenido, para no traducir nada dos veces.
+  - Hecho el 2026-11-12 (T10–T12):
+    - **Páginas:** `en/` tiene las 5 páginas del recorrido y Ayuda, con los mismos nombres de fichero y `<html lang="en">`. Se han traducido textos, `alt`, `aria-label`, pies de foto, títulos y descripciones; comprobado con un script que busca restos en español. Lo que solo existe en español se dice: la transcripción del podcast queda en español con `lang="es"` («in Spanish» en el desplegable), el CV se enlaza con `hreflang="es"` y «in Spanish», y las referencias llevan «Translated from Spanish» además de «Pending confirmation». El asunto del correo del formulario sigue en español, porque lo lee Francisco, y añade «(versión en inglés)».
+    - **Selector:** enlace «English»/«Español» en la cabecera de las 12 páginas, que lleva a la misma página en el otro idioma (`lang` y `hreflang` en el enlace, 44 px de alto). En escritorio va tras el menú, separado por una línea; en móvil, arriba a la derecha, sin añadir otra fila. Cada página declara `<link rel="alternate">` es, en y x-default con la URL absoluta de GitHub Pages. Ayuda lo explica.
+    - **Script y 404:** `main.js` elige los textos del formulario según `<html lang>`; probado con un `fetch` simulado en los dos idiomas. El atajo ← → navega dentro de la misma carpeta. La 404, que GitHub Pages sirve en cualquier ruta inexistente, es bilingüe (bloque «Page not found» con `lang="en"` y botón a `en/index.html`) y usa rutas desde la raíz (`/webPersonal/…`). Así ya no pierde los estilos en rutas profundas como `/webPersonal/en/no/existe`, comprobado con un servidor local que imita a GitHub Pages. A cambio, abierta como fichero suelto (`file://`) sale sin estilos.
+    - **Comprobado:** un script recorre las 13 páginas y da 389 enlaces internos y 0 rotos (anclas incluidas); las etiquetas están bien cerradas y Contentsquare está en todas. Capturas de Inicio en inglés y de la cabecera a 1280 y 500 px.
+    - **Que revise Francisco:** la traducción, sobre todo cómo se nombran el grado («Bachelor's Degree in Software Engineering»), el máster («Master's Degree in Web Engineering») y la matrícula de honor («nominated for distinction»).
 - [x] **US-10** Pie común con correo, GitHub y LinkedIn (iconos SVG con texto) en las 5 páginas
   - Media · S (C, M, J, I puntúan 1.6 entre 7 y 10) · métricas 1.6, 4.3
   - Cubre también «el bloque de contacto en todas las páginas». Otras redes solo si existen (M).

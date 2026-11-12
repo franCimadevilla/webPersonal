@@ -56,6 +56,18 @@
   // Formulario de contacto (US-06). Sin JavaScript se envía de forma normal
   // y FormSubmit muestra su página de confirmación. Con JavaScript se envía
   // a su punto AJAX y la confirmación aparece aquí, en una región role=status.
+  // Los textos dependen del idioma de la página (<html lang>): la versión
+  // inglesa en /en/ usa este mismo script.
+  var TEXT = document.documentElement.lang === 'en' ? {
+    sending: 'Sending…',
+    ok: 'Thank you, your message has been sent. I will reply as soon as I can.',
+    error: 'The message could not be sent. Please try again or write to me at cimadevilla.francisco@gmail.com.'
+  } : {
+    sending: 'Enviando…',
+    ok: 'Gracias, tu mensaje se ha enviado. Te responderé lo antes posible.',
+    error: 'No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbeme a cimadevilla.francisco@gmail.com.'
+  };
+
   var form = document.getElementById('contact-form');
   var status = document.getElementById('contact-status');
   if (form && status && window.fetch && window.FormData) {
@@ -64,7 +76,7 @@
       var button = form.querySelector('[type="submit"]');
       button.disabled = true;
       status.className = 'contact-status';
-      status.textContent = 'Enviando…';
+      status.textContent = TEXT.sending;
       fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
         method: 'POST',
         headers: { Accept: 'application/json' },
@@ -75,11 +87,11 @@
           if (String(data.success) !== 'true') throw new Error(data.message);
           form.reset();
           status.className = 'contact-status is-ok';
-          status.textContent = 'Gracias, tu mensaje se ha enviado. Te responderé lo antes posible.';
+          status.textContent = TEXT.ok;
         })
         .catch(function () {
           status.className = 'contact-status is-error';
-          status.textContent = 'No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbeme a cimadevilla.francisco@gmail.com.';
+          status.textContent = TEXT.error;
         })
         .then(function () { button.disabled = false; });
     });
