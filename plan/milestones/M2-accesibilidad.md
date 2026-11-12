@@ -18,11 +18,11 @@ Mejoras de la categoría 2 (métricas 2.1–2.3).
 
 - [x] AC-04 Emojis decorativos con aria-hidden @est:0.5h @owner:francisco @prio:low @started:2026-11-12 @done:2026-11-12 ^T17
       Fuente: S (lo pide en 1.3). Métricas: 1.3, 2.2.
-- [ ] AC-05 Subtítulos y transcripción de los contenidos multimedia @owner:francisco @prio:low ^T18
+- [x] AC-05 Subtítulos y transcripción de los contenidos multimedia @owner:francisco @prio:low @started:2026-11-12 @done:2026-11-12 ^T18
       Fuente: S. Métrica: 2.2.
   - [-] Comprobar qué vídeos tienen audio y añadir <track kind="captions"> (WebVTT) @est:3h @owner:francisco @dep:T48 ^T19
         Cancelada el 2026-11-12: los 4 vídeos no tienen audio (silencio digital, comprobado en EF-02 y retirado al recodificar), así que no hay nada que subtitular.
-  - [!] Transcripción del podcast (texto en la página) @est:2h @owner:francisco @blocked:"Falta el texto de la transcripción del podcast; Francisco debe aportarlo o autorizar generarlo en local con Whisper" ^T20
+  - [x] Transcripción del podcast (texto en la página) @est:2h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T20
 
 ## 2.3 Comprobación automática
 

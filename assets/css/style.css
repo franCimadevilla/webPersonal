@@ -645,6 +645,28 @@ audio {
   width: 100%;
 }
 
+/* Transcripción del podcast, plegada bajo el reproductor. */
+.transcript {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+
+  /* Sin display:flex, que quitaría el triángulo de desplegar. El relleno
+     da los 44 px de alto del área táctil. */
+  & summary {
+    padding: 0.6rem 1rem;
+    color: var(--heading);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.transcript-body {
+  padding: 0 1rem 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
 /* ── Galería ──────────────────────────────────────────────── */
 .gallery {
   list-style: none;

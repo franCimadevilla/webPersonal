@@ -95,10 +95,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [x] **AC-04** Emojis decorativos con `aria-hidden`
   - Baja · S (en 1.3) · métricas 1.3, 2.2
   - Hecho el 2026-11-12: los 9 emojis del sitio (5 en «Actualmente» de Sobre mí y 4 en los títulos de las tarjetas de Proyectos) van dentro de `<span aria-hidden="true">`. Comprobado con un script que recorre las 7 páginas: no queda ninguno sin envolver.
-- [ ] **AC-05** Subtítulos y transcripción de los contenidos multimedia
+- [x] **AC-05** Subtítulos y transcripción de los contenidos multimedia
   - Baja · S · métrica 2.2
   - Primero comprobar qué vídeos tienen audio. *(Comprobado en EF-02: ninguno de los 4 vídeos tiene audio; solo falta la transcripción del podcast.)* Subtítulos con `<track kind="captions">` (WebVTT) y transcripción del podcast en la página.
-  - 2026-11-12: subtítulos cancelados (T19), porque los vídeos no tienen audio. La transcripción del podcast (T20) está **bloqueada a la espera de Francisco**: hace falta el texto, o permiso para generarlo en local con Whisper y revisarlo.
+  - Hecho el 2026-11-12: subtítulos cancelados (T19), porque los vídeos no tienen audio. La transcripción del podcast (T20), aportada por Francisco en `assets/audio/tanscripción.txt`, está en Multimedia dentro de un `<details>` bajo el reproductor: 10 intervenciones («Voz 1», «Voz 2») y el título del artículo con `lang="en"`. El texto es el literal del fichero; tiene algunos errores de transcripción automática que Francisco puede corregir (por ejemplo «Hola. Por un nuevo análisis a fondo», «Se Variational…», «más de un 17 a»).
 - [ ] **AC-06** Auditar las páginas ES y EN con Lighthouse, WAVE y axe, y resolver los avisos
   - Alta · J, S · métrica 2.3
   - J vio con WAVE un «posible encabezado» y un enlace repetido. Sospecha: `.site-brand` es un `<p>` con estilo de título. El enlace repetido se resuelve con FU-04.
