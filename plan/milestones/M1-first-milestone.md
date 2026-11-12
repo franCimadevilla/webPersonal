@@ -19,7 +19,7 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 
 - [x] US-04 Anunciar el atajo de teclado ← → en la interfaz @est:1.5h @owner:francisco @prio:high @started:2026-11-12 @done:2026-11-12 ^T4
       Fuente: C, M. Métrica: 1.2. Pista visible junto al carrusel + aria-keyshortcuts en los botones ‹ ›.
-- [ ] US-05 Página 404 propia con botón para volver al inicio @est:1.5h @owner:francisco ^T5
+- [x] US-05 Página 404 propia con botón para volver al inicio @est:1.5h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T5
       Fuente: C, S. Métrica: 1.2. GitHub Pages sirve 404.html desde la raíz: usar rutas que funcionen a cualquier profundidad.
 - [x] US-06 Formulario de contacto con mensaje de confirmación @est:4h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T6
       Fuente: M, S (C lo echa en falta en 1.2). Métricas: 1.2, 4.3. Sitio estático: Formspree/Getform (externo, revisar privacidad) o formulario mailto con confirmación. Decidir antes de empezar; cancelar si no se quiere.

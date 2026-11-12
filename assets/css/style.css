@@ -541,7 +541,11 @@ dl {
   font-size: 0.9rem;
 }
 
-.contact-submit {
+/* Botón principal; sirve para <button> y para enlaces con aspecto de botón
+   (formulario de contacto, página 404). */
+.button {
+  display: inline-flex;
+  align-items: center;
   min-height: 2.75rem;
   padding: 0.5rem 1.4rem;
   border: 0;
@@ -550,10 +554,12 @@ dl {
   color: #ffffff;
   font: inherit;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
 
   &:hover {
     background: #1e3a8a;
+    text-decoration: none;
   }
 
   &:disabled {
