@@ -91,8 +91,9 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Media · C · métrica 2.1
   - Ignorar el atajo con Alt/Ctrl/Mayús/Meta y cuando el foco esté en vídeo, audio o campos de texto. Hoy Alt+← (atrás del navegador) y las flechas sobre un `<video controls>` cambian de página.
   - Hecho el 2026-11-12: `main.js` ignora el atajo con Alt, Ctrl, Mayús o Meta, durante la composición de texto (IME) y con el foco en `input`, `textarea`, `select`, `video`, `audio`, `[contenteditable]` y los roles slider, listbox, menu y tablist. Probado en Edge con 12 casos (`defaultPrevented`): solo navega la flecha sin modificadores fuera de esos elementos.
-- [ ] **AC-04** Emojis decorativos con `aria-hidden`
+- [x] **AC-04** Emojis decorativos con `aria-hidden`
   - Baja · S (en 1.3) · métricas 1.3, 2.2
+  - Hecho el 2026-11-12: los 9 emojis del sitio (5 en «Actualmente» de Sobre mí y 4 en los títulos de las tarjetas de Proyectos) van dentro de `<span aria-hidden="true">`. Comprobado con un script que recorre las 7 páginas: no queda ninguno sin envolver.
 - [ ] **AC-05** Subtítulos y transcripción de los contenidos multimedia
   - Baja · S · métrica 2.2
   - Primero comprobar qué vídeos tienen audio. *(Comprobado en EF-02: ninguno de los 4 vídeos tiene audio; solo falta la transcripción del podcast.)* Subtítulos con `<track kind="captions">` (WebVTT) y transcripción del podcast en la página.

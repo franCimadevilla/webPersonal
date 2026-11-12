@@ -16,7 +16,7 @@ Mejoras de la categoría 2 (métricas 2.1–2.3).
 
 ## 2.2 Sin elementos gráficos
 
-- [ ] AC-04 Emojis decorativos con aria-hidden @est:0.5h @owner:francisco @prio:low ^T17
+- [x] AC-04 Emojis decorativos con aria-hidden @est:0.5h @owner:francisco @prio:low @started:2026-11-12 @done:2026-11-12 ^T17
       Fuente: S (lo pide en 1.3). Métricas: 1.3, 2.2.
 - [ ] AC-05 Subtítulos y transcripción de los contenidos multimedia @owner:francisco @prio:low ^T18
       Fuente: S. Métrica: 2.2.
