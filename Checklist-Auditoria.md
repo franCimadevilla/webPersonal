@@ -111,9 +111,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 
 Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 
-- [ ] **CO-01** Ampliar aficiones con detalles personales (qué deporte, viajes, música, cine…)
+- [x] **CO-01** Ampliar aficiones con detalles personales (qué deporte, viajes, música, cine…)
   - Alta · C, M, J, S · métrica 4.1
   - Enlazar con la Galería.
+  - Hecho el 2026-11-12: «Intereses y aficiones» de Sobre mí se divide en «Intereses profesionales» y «Fuera del trabajo» (deporte, viajes con enlace a la Galería, música y lectura), con los datos de Francisco.
 - [ ] **CO-02** Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en los proyectos
   - Alta · C, M, J, S · métrica 4.2
   - Observación propia: Sobre mí dice «Realizando unas prácticas» y «realicé unas prácticas». Aclarar si están en curso.
@@ -128,7 +129,7 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [x] **CF-01** Corregir el texto del enlace a LinkedIn y unificar el de GitHub
   - Alta · J · métricas 5.1, 1.6
   - Texto `in/franciscoc-cimadevilla`, enlace `.../in/francisco-cimadevilla`. El texto de GitHub (`francimadevilla`) difiere en mayúsculas del enlace (`franCimadevilla`).
-  - Hecho el 2026-11-11: el texto visible ahora coincide con el enlace (`linkedin.com/in/francisco-cimadevilla` y `github.com/franCimadevilla`). **Pendiente de Francisco:** confirmar que `francisco-cimadevilla` es de verdad su URL de LinkedIn. Si el bueno es `franciscoc-cimadevilla`, hay que cambiar el `href` y el texto en `index.html`.
+  - Hecho el 2026-11-11: el texto visible ahora coincide con el enlace (`linkedin.com/in/francisco-cimadevilla` y `github.com/franCimadevilla`). **Pendiente de Francisco:** confirmar que `francisco-cimadevilla` es de verdad su URL de LinkedIn. Si el bueno es `franciscoc-cimadevilla`, hay que cambiar el `href` y el texto en `index.html`. *Confirmado por Francisco el 2026-11-12: la URL buena es `francisco-cimadevilla`.*
 - [x] **CF-02** Errata «NotebookLLM» → «NotebookLM» y pie de foto mezclado («Neuschwanstein Castle» → «Castillo de Neuschwanstein»)
   - Media · S · métrica 5.1
 - [x] **CF-03** «Última actualización: dd/mm/aaaa» con `<time>` en el pie de todas las páginas

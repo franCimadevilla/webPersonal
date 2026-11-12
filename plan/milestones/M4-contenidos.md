@@ -7,12 +7,12 @@ Mejoras de la categoría 4 (métricas 4.1–4.4). Varias tareas necesitan datos 
 
 ## 4.1 Aficiones
 
-- [ ] CO-01 Ampliar aficiones con detalles personales (deporte concreto, viajes, música/cine…) @est:1.5h @owner:francisco @prio:high ^T30
+- [x] CO-01 Ampliar aficiones con detalles personales (deporte concreto, viajes, música/cine…) @est:1.5h @owner:francisco @prio:high @started:2026-11-12 @done:2026-11-12 ^T30
       Fuente: C, M, J, S (media 6,8). Necesita datos de Francisco. Enlazar con la Galería.
 
 ## 4.2 Formación y experiencia
 
-- [ ] CO-02 Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en proyectos @est:2h @owner:francisco @prio:high ^T31
+- [/] CO-02 Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en proyectos @est:2h @owner:francisco @prio:high @started:2026-11-12 ^T31
       Fuente: C, M, J, S. Necesita datos de Francisco. Observación propia: Sobre mí dice «Realizando unas prácticas» y «realicé unas prácticas»; aclarar si están en curso.
 
 ## 4.3 Información de contacto
