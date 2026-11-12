@@ -16,7 +16,7 @@ Mejoras de la categoría 5 (métricas 5.1–5.4).
 
 ## 5.2 y 5.3 Validación HTML y CSS
 
-- [ ] CF-05 Quitar reglas CSS sin uso con pointer-events y revisar los avisos del validador @est:1.5h @owner:francisco ^T39
+- [x] CF-05 Quitar reglas CSS sin uso con pointer-events y revisar los avisos del validador @est:1.5h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T39
       Fuente: J (2 errores pointer-events), C, I (1 aviso). Métrica: 5.3. Observación: ningún elemento usa disabled ni aria-disabled, así que .carousel-btn:disabled y .page-lateral-nav [aria-disabled] sobran.
 - [ ] CF-06 Revalidar HTML y CSS en el W3C (ES y EN) y guardar la evidencia @est:2h @owner:francisco @dep:T21,T39,T41 @prio:high ^T40
       Fuente: S (pide el resultado pegado); C, M, J, I ya dan 0 errores. Métricas: 5.2, 5.3. Se puede usar tests/w3c-validate.js.

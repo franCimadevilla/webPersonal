@@ -152,9 +152,10 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
   - S la llama «la mejora más barata».
 - [ ] **CF-04** Automatizar esa fecha con la del último commit en el workflow de Pages
   - Baja · opcional · métrica 5.4
-- [ ] **CF-05** Quitar las reglas CSS sin uso con `pointer-events` y revisar los avisos del validador
+- [x] **CF-05** Quitar las reglas CSS sin uso con `pointer-events` y revisar los avisos del validador
   - Media · J, C, I · métrica 5.3
   - J obtuvo 2 errores en el perfil CSS3. Ningún elemento usa `disabled` ni `aria-disabled`, así que `.carousel-btn:disabled` y `.page-lateral-nav [aria-disabled]` sobran. Revisar también el aviso de extensión de proveedor (C, I) y el de fuentes (J).
+  - Hecho el 2026-11-12: fuera `.carousel-btn:disabled` (desde FU-02 es un enlace y no puede deshabilitarse) y `.page-lateral-nav a[aria-disabled]`. Ya no queda ningún `pointer-events` en el CSS. Se quita `-apple-system` de `font-family`, que es la extensión de proveedor que marca el validador (`system-ui` ya cubre Safari). Se conserva `.button:disabled`, que usa el formulario mientras envía. El aviso de fuentes (J) y el resultado final del validador se comprueban en CF-06, porque el validador es un servicio externo.
 - [ ] **CF-06** Revalidar HTML y CSS en el W3C (ES y EN) y guardar la evidencia
   - Alta · S (C, M, J e I ya dan 0 errores) · métricas 5.2, 5.3
   - Se puede usar `tests/w3c-validate.js`.

@@ -21,8 +21,8 @@
       falta subir especificidad para que un estado pise a otro.
    4. Cada estado usa una sola pseudo-clase, nunca cadenas del tipo
       :hover:not(:disabled) (0,3,0). Si un estado tiene que excluir a otro
-      caso, se resuelve con la cascada: por ejemplo, `pointer-events: none`
-      en el botón deshabilitado impide que :hover llegue a activarse.
+      caso, se resuelve con la cascada: un estado posterior con la misma
+      especificidad pisa al anterior.
    5. El techo del fichero es (0,2,1) = 21: un estado sobre un descendiente.
 
    Navegadores: CSS Nesting requiere Chrome 112+, Safari 16.5+ o
@@ -63,7 +63,7 @@ body {
   background-image: radial-gradient(var(--border) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
 }
 
@@ -694,15 +694,6 @@ audio {
     color: var(--accent);
     box-shadow: 0 2px 6px rgba(30, 64, 175, 0.15);
   }
-
-  /* Sustituye a `:hover:not(:disabled)`, que costaba (0,3,0) = 30. Al
-     quitarle el puntero, un botón deshabilitado ya no es sensible al
-     ratón, así que :hover no puede activarse y no hay que excluirlo. */
-  &:disabled {
-    opacity: 0.35;
-    cursor: default;
-    pointer-events: none;
-  }
 }
 
 .carousel-dots {
@@ -787,12 +778,6 @@ audio {
     /* Pegadas al borde de la ventana: el anillo va hacia dentro. */
     &:focus-visible {
       outline-offset: -5px;
-    }
-
-    &[aria-disabled="true"] {
-      opacity: 0.15;
-      pointer-events: none;
-      cursor: default;
     }
 
     &:first-child {
