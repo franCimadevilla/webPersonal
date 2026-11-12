@@ -11,7 +11,7 @@ Mejoras de la categoría 2 (métricas 2.1–2.3).
       Fuente: M, S. Métrica: 2.1. Requiere id en <main>.
 - [ ] AC-02 Estilo :focus-visible propio y consistente @est:1h @owner:francisco ^T15
       Fuente: S (C y M validan el foco del navegador). Métrica: 2.1.
-- [ ] AC-03 Atajo ← → seguro: ignorar Alt/Ctrl/Mayús/Meta y el foco en vídeo, audio e inputs @est:1.5h @owner:francisco ^T16
+- [x] AC-03 Atajo ← → seguro: ignorar Alt/Ctrl/Mayús/Meta y el foco en vídeo, audio e inputs @est:1.5h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T16
       Fuente: C (choca con lectores de pantalla). Métrica: 2.1. Observación al revisar main.js: Alt+← (atrás del navegador) y las flechas sobre <video controls>/<audio> cambian de página.
 
 ## 2.2 Sin elementos gráficos

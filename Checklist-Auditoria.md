@@ -78,9 +78,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Alta · M, S · métrica 2.1
 - [ ] **AC-02** Estilo `:focus-visible` propio y consistente
   - Media · S (C y M dan por válido el foco del navegador) · métrica 2.1
-- [ ] **AC-03** Atajo ← → seguro
+- [x] **AC-03** Atajo ← → seguro
   - Media · C · métrica 2.1
   - Ignorar el atajo con Alt/Ctrl/Mayús/Meta y cuando el foco esté en vídeo, audio o campos de texto. Hoy Alt+← (atrás del navegador) y las flechas sobre un `<video controls>` cambian de página.
+  - Hecho el 2026-11-12: `main.js` ignora el atajo con Alt, Ctrl, Mayús o Meta, durante la composición de texto (IME) y con el foco en `input`, `textarea`, `select`, `video`, `audio`, `[contenteditable]` y los roles slider, listbox, menu y tablist. Probado en Edge con 12 casos (`defaultPrevented`): solo navega la flecha sin modificadores fuera de esos elementos.
 - [ ] **AC-04** Emojis decorativos con `aria-hidden`
   - Baja · S (en 1.3) · métricas 1.3, 2.2
 - [ ] **AC-05** Subtítulos y transcripción de los contenidos multimedia
