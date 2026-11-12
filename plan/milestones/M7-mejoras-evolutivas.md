@@ -30,11 +30,11 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
         La miniatura deja de verse entera: escala = ancho del hueco / 240 px (un cuarto de 960). Por ejemplo 0,67 a 1280, 0,85 a 1366 y 2 a 1920. Habrá que decidir un tope (¿1?) para no ampliar la página.
         scalePreviews() en main.js calcula la escala y alinea la miniatura al borde interior con transform-origin top right (izquierda) o top left (derecha), según el lado.
         Revisar el clon en las 5 páginas: con más escala se leen los textos y se ven más las cajas grises de multimedia. Probar a 1280, 1366 y 1920 px.
-  - [/] Capa de blur sobre la vista previa para difuminar el contenido, con el título nítido por encima @est:2h @owner:francisco @dep:T60 @started:2026-11-12 ^T61
+  - [x] Capa de blur sobre la vista previa para difuminar el contenido, con el título nítido por encima @est:2h @owner:francisco @dep:T60 @started:2026-11-12 @done:2026-11-12 ^T61
         Capa (pseudo-elemento o <span>) con backdrop-filter: blur() o filter: blur() sobre .page-preview-page; quizá un degradado hacia el borde exterior para que se funda con el fondo.
         Plan B si no hay backdrop-filter: capa semitransparente. El título por encima del blur debe tener contraste ≥ 4,5:1.
         Medir el coste: un blur que ocupa toda la altura en dos franjas puede pesar en GPU al hacer scroll y durante la transición (T62). Comprobar fluidez y que el hover no lo recalcule.
-  - [ ] Transición por desplazamiento: al navegar, la página actual sale hacia un lado y la vista previa se desplaza hasta el centro (efecto carrusel) antes de cargar la página nueva @est:4h @owner:francisco @dep:T60 ^T62
+  - [/] Transición por desplazamiento: al navegar, la página actual sale hacia un lado y la vista previa se desplaza hasta el centro (efecto carrusel) antes de cargar la página nueva @est:4h @owner:francisco @dep:T60 @started:2026-11-12 ^T62
         Sustituye la salida actual (fundido + 80 px). Al hacer clic en la vista previa, en ‹ › o con ← → (y el gesto táctil en móvil, sin vista previa), .page se traslada un ancho completo hacia el lado contrario y la vista previa viaja del hueco al centro, quitando el blur y pasando a escala 1 (técnica FLIP con transform, sin animar width/left).
         La página nueva tiene que empezar donde terminó la animación, sin salto: su contenido ya está en el centro (entrada sin desplazamiento o muy corta), y las nuevas vistas previas aparecen después.
         Mantener: prefers-reduced-motion (sin animación), clics con Ctrl/Cmd/Mayús, temporizador de respaldo, bfcache (pageshow) y data-enter del <head>. La miniatura del lado contrario se desplaza también hacia fuera.
