@@ -34,14 +34,64 @@
   var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var root = document.documentElement;
 
+  // EV-02: con las vistas previas a la vista, el carrusel se mueve entero un
+  // hueco (960 px, el ancho de .page): la página actual sale hacia el lado
+  // contrario y se difumina, la vista previa del destino viaja al centro,
+  // pierde el blur y pasa a tamaño real, y la del otro lado sale de la
+  // pantalla. Solo se animan transform y filter. La página nueva aparece ya
+  // centrada (data-enter="…-carousel" sin animación de entrada).
+  var CAROUSEL_SHIFT = 960;
+
+  function carouselReady() {
+    return !!(wide && wide.matches && root.hasAttribute('data-previews') &&
+      document.querySelectorAll('.page-preview-page').length === 2);
+  }
+
+  function moveCarousel(dir, done) {
+    var pages = document.querySelectorAll('.page-preview-page');
+    var shift = dir === 'next' ? -CAROUSEL_SHIFT : CAROUSEL_SHIFT;
+    var incoming = null;
+    for (var i = 0; i < pages.length; i++) {
+      var page = pages[i];
+      var side = page.parentNode.parentNode.getAttribute('data-side');
+      var scale = previewScale(page.parentNode);
+      page.style.transition = 'transform 0.5s ease-in-out, filter 0.5s ease-in-out';
+      if (side === dir) {
+        incoming = page;
+        page.style.transform = 'translateX(' + shift + 'px) scale(1)';
+        page.style.filter = 'blur(0)';
+      } else {
+        page.style.transform = 'translateX(' + shift + 'px) scale(' + scale + ')';
+      }
+    }
+    if (incoming) {
+      incoming.addEventListener('transitionend', function (event) {
+        if (event.propertyName === 'transform') done();
+      });
+    }
+  }
+
+  // Al volver con «Atrás» desde la caché del navegador: todo a su sitio.
+  function resetCarousel() {
+    var pages = document.querySelectorAll('.page-preview-page');
+    for (var i = 0; i < pages.length; i++) {
+      pages[i].style.transition = 'none';
+      pages[i].style.filter = '';
+    }
+    scalePreviews();
+    for (i = 0; i < pages.length; i++) pages[i].style.transition = '';
+  }
+
   function slideTo(url, dir) {
     if (!url) return;
     if ((reduceMotion && reduceMotion.matches) || root.hasAttribute('data-slide')) {
       if (!root.hasAttribute('data-slide')) window.location.href = url;
       return;
     }
+    var carousel = carouselReady();
+    var state = carousel ? dir + '-carousel' : dir;
     try {
-      window.sessionStorage.setItem('slide-enter', dir);
+      window.sessionStorage.setItem('slide-enter', state);
     } catch (error) { /* sin almacenamiento: la página nueva entra como siempre */ }
     var page = document.querySelector('main');
     var left = false;
@@ -50,15 +100,22 @@
       left = true;
       window.location.href = url;
     };
-    root.setAttribute('data-slide', dir);
-    if (page) page.addEventListener('animationend', leave);
-    window.setTimeout(leave, 400); // por si la animación no llega a lanzarse
+    root.setAttribute('data-slide', state);
+    if (carousel) {
+      moveCarousel(dir, leave);
+      window.setTimeout(leave, 700); // por si no llega transitionend
+    } else {
+      if (page) page.addEventListener('animationend', leave);
+      window.setTimeout(leave, 400); // por si la animación no llega a lanzarse
+    }
   }
 
   // Al volver con «Atrás», el navegador puede restaurar la página tal como
   // se quedó (bfcache): se quita el estado de salida para que se vea.
   window.addEventListener('pageshow', function () {
+    var wasSliding = root.hasAttribute('data-slide');
     root.removeAttribute('data-slide');
+    if (wasSliding) resetCarousel();
   });
 
   // Al pasar de la última página se vuelve a la primera y al revés (bucle),
