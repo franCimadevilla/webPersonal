@@ -207,6 +207,24 @@ code {
   }
 }
 
+/* ── Migas de pan («Inicio › Proyectos») ──────────────────── */
+/* El separador › va en el HTML con aria-hidden: así no hace falta un
+   `li + li::before`, que pasaría del techo de especificidad. */
+.breadcrumb {
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+
+  & ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
 h1,
 h2,
 h3 {

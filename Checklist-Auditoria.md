@@ -46,8 +46,9 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [x] **US-01** Numeración y etiquetas coherentes del carrusel
   - Alta · C, J · métricas 1.1, 1.2, 3.2, 5.1
   - Hoy los puntos dicen Inicio = «3 de 5», Sobre mí = 4, Proyectos = 5, Multimedia = 1 y Galería = 2. Pasar a Inicio = 1 … Galería = 5 en los 25 puntos de las 5 páginas.
-- [ ] **US-02** Migas de pan textuales («Inicio › Proyectos») en las 4 páginas interiores
+- [x] **US-02** Migas de pan textuales («Inicio › Proyectos») en las 4 páginas interiores
   - Media · C, M, I, S · métrica 1.1
+  - Hecho el 2026-11-12: `<nav class="breadcrumb" aria-label="Migas de pan">` con `<ol>` al principio del `<main>` de Sobre mí, Proyectos, Multimedia y Galería. La página actual lleva `aria-current="page"` y el separador › tiene `aria-hidden`.
 - [ ] **US-03** Página «Ayuda y mapa del sitio» enlazada desde el pie
   - Media · C, M, I, S · métricas 1.1, 1.2
   - Estructura del sitio, atajos de teclado y cómo contactar. Queda fuera del carrusel de 5 páginas. Se escribe después de FU-03, para documentar el comportamiento final.
