@@ -164,8 +164,9 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [x] **CF-03** «Última actualización: dd/mm/aaaa» con `<time>` en el pie de todas las páginas
   - Alta · C, M, J, I, S (media 1,4) · métrica 5.4
   - S la llama «la mejora más barata».
-- [ ] **CF-04** Automatizar esa fecha con la del último commit en el workflow de Pages
+- [x] **CF-04** Automatizar esa fecha con la del último commit en el workflow de Pages
   - Baja · opcional · métrica 5.4
+  - Hecho el 2026-11-12: `tools/stamp-date.py` (solo biblioteca estándar de Python) cambia el `<time>` del pie de las 15 páginas por la fecha del último commit. En español va como dd/mm/aaaa y en inglés como «12 November 2026»; avisa si una página no tiene la fecha. El workflow de Pages lo ejecuta antes de publicar, así que la fecha desplegada es siempre la del commit que se despliega. Probado en local con otra fecha (cambian las 15 páginas en los dos formatos) y, al volver a la del commit, los ficheros quedan idénticos. La fecha escrita en el repositorio solo se ve en local. No se ha probado dentro de GitHub Actions, porque no se ha hecho push.
 - [x] **CF-05** Quitar las reglas CSS sin uso con `pointer-events` y revisar los avisos del validador
   - Media · J, C, I · métrica 5.3
   - J obtuvo 2 errores en el perfil CSS3. Ningún elemento usa `disabled` ni `aria-disabled`, así que `.carousel-btn:disabled` y `.page-lateral-nav [aria-disabled]` sobran. Revisar también el aviso de extensión de proveedor (C, I) y el de fuentes (J).

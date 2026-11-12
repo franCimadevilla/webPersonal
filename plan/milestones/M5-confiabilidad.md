@@ -25,5 +25,5 @@ Mejoras de la categoría 5 (métricas 5.1–5.4).
 
 - [x] CF-03 «Última actualización: dd/mm/aaaa» con <time> en el pie de todas las páginas @est:1h @owner:francisco @prio:high @done:2026-11-11 ^T41
       Fuente: C, M, J, I, S (media 1,4). Métrica: 5.4.
-- [ ] CF-04 Automatizar la fecha con la del último commit en el workflow de Pages @est:1.5h @owner:francisco @dep:T41 @prio:low ^T42
+- [x] CF-04 Automatizar la fecha con la del último commit en el workflow de Pages @est:1.5h @owner:francisco @dep:T41 @prio:low @done:2026-11-12 ^T42
       Opcional. Evita que la fecha quede obsoleta.
