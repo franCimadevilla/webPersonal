@@ -68,6 +68,7 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **US-07** Imágenes en Sobre mí y capturas en las tarjetas de Proyectos
   - Baja · S · métrica 1.3
   - Solo en WebP ligero, para no empeorar el rendimiento (EF-01).
+  - 2026-11-12, pendiente de Francisco: para Sobre mí hacen falta fotos suyas (por ejemplo, de sus aficiones). Para las tarjetas de Proyectos hay capturas de TFG, WiChat y Outfitly sacadas de los vídeos (`assets/img/posters/`), pero no de BasaltDB.
 - [x] **US-08** Áreas táctiles de al menos 44×44 px
   - Media · S · métricas 1.4, 2.1
   - Aplica a los puntos del carrusel (hoy 12×12 px), el menú y los botones.
@@ -97,6 +98,7 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **AC-05** Subtítulos y transcripción de los contenidos multimedia
   - Baja · S · métrica 2.2
   - Primero comprobar qué vídeos tienen audio. *(Comprobado en EF-02: ninguno de los 4 vídeos tiene audio; solo falta la transcripción del podcast.)* Subtítulos con `<track kind="captions">` (WebVTT) y transcripción del podcast en la página.
+  - 2026-11-12: subtítulos cancelados (T19), porque los vídeos no tienen audio. La transcripción del podcast (T20) está **bloqueada a la espera de Francisco**: hace falta el texto, o permiso para generarlo en local con Whisper y revisarlo.
 - [ ] **AC-06** Auditar las páginas ES y EN con Lighthouse, WAVE y axe, y resolver los avisos
   - Alta · J, S · métrica 2.3
   - J vio con WAVE un «posible encabezado» y un enlace repetido. Sospecha: `.site-brand` es un `<p>` con estilo de título. El enlace repetido se resuelve con FU-04.
