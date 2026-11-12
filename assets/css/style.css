@@ -494,6 +494,51 @@ dl {
   }
 }
 
+/* Captura en la parte superior de una tarjeta de proyecto. */
+.project-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* ── Fotos de Sobre mí ────────────────────────────────────── */
+.photo {
+  /* Gana al reset `figure { margin: 0 }` (clase frente a elemento). */
+  max-width: 18rem;
+  margin: 1rem 0 1.5rem;
+
+  & img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+}
+
+/* Fila de fotos de la misma altura: cada <figure> lleva en el HTML un
+   flex-grow proporcional a la relación de aspecto de su imagen. */
+.photo-row {
+  display: flex;
+  gap: 1rem;
+  max-width: 40rem;
+  margin: 1rem 0 1.5rem;
+
+  & figure {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  & img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+}
+
 /* ── Referencias (cita + quién la firma) ───────────────────── */
 .reference {
   /* Gana al reset `figure { margin: 0 }` (clase frente a elemento). */

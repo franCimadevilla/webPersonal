@@ -26,7 +26,7 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 
 ## 1.3 Aspectos estéticos
 
-- [ ] US-07 Imágenes optimizadas en Sobre mí y capturas en las tarjetas de Proyectos @est:3h @owner:francisco @dep:T44 @prio:low ^T7
+- [x] US-07 Imágenes optimizadas en Sobre mí y capturas en las tarjetas de Proyectos @est:3h @owner:francisco @dep:T44 @prio:low @started:2026-11-12 @done:2026-11-12 ^T7
       Fuente: S. Métrica: 1.3. Solo WebP ligero para no empeorar el rendimiento (EF-01). Opcional.
 
 ## 1.4 Adaptabilidad a móviles
