@@ -26,7 +26,7 @@
    5. El techo del fichero es (0,2,1) = 21: un estado sobre un descendiente.
 
    Navegadores: CSS Nesting requiere Chrome 112+, Safari 16.5+ o
-   Firefox 117+. El @media final se deja fuera de la jerarquía a propósito.
+   Firefox 117+. Los @media finales se dejan fuera de la jerarquía a propósito.
    ========================================================================== */
 
 :root {
@@ -526,15 +526,22 @@ audio {
   box-shadow: 0 -1px 3px rgba(15, 23, 42, 0.03);
 }
 
+/* Enlace con el destino en el texto («‹ Anterior: Multimedia»). Es un <a>
+   y no un <button>: navega también sin JavaScript. */
 .carousel-btn {
-  font-size: 1.5rem;
-  line-height: 1;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--heading);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 
@@ -680,12 +687,33 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  /* Los puntos pasan a su propia fila y los dos enlaces quedan debajo. */
   .carousel {
+    flex-wrap: wrap;
     padding: 0.85rem 1.25rem;
-    gap: 1rem;
+    gap: 0.75rem 1rem;
+  }
+
+  .carousel-dots {
+    order: -1;
+    width: 100%;
+    justify-content: center;
   }
 
   footer {
     padding: 1rem 1.25rem;
+  }
+}
+
+/* En pantallas muy estrechas «Anterior:» y «Siguiente:» se ocultan a la
+   vista, pero el lector de pantalla los sigue leyendo. */
+@media (max-width: 400px) {
+  .carousel-btn-dir {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

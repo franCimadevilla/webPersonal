@@ -99,8 +99,9 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **FU-01** Buscador del sitio con Pagefind
   - Alta · C, M, J, I, S (los cinco dan 0) · métrica 3.1
   - Pagefind indexa en el workflow de Pages y funciona en GitHub Pages sin servidor. Caja de búsqueda accesible en la cabecera y página de resultados con `aria-live`. Va después de la versión en inglés, para indexar las dos lenguas y tocar la cabecera una sola vez.
-- [ ] **FU-02** Flechas y botones del carrusel con el destino en el texto («Anterior: Proyectos»)
+- [x] **FU-02** Flechas y botones del carrusel con el destino en el texto («Anterior: Proyectos»)
   - Media · S (relacionado con lo que C y J dicen de las etiquetas) · métricas 3.2, 1.2
+  - Hecho el 2026-11-12: los botones ‹ › del carrusel inferior son ahora enlaces `<a rel="prev|next">` con el destino visible («‹ Anterior: Galería», «Siguiente: Sobre mí ›») en las 5 páginas, así que también funcionan sin JavaScript. Por debajo de 400 px «Anterior:»/«Siguiente:» se ocultan a la vista pero se leen. En móvil los puntos van en su fila y los enlaces debajo. Las flechas laterales fijas ya decían el destino en su `aria-label`; EV-01 las sustituirá por vistas previas con título.
 - [x] **FU-03** Prev/next unificado con bucle en teclado, flechas laterales y botones
   - Alta · C, S · métricas 3.2, 2.1, 5.1
   - Hoy los botones y las flechas laterales hacen bucle y el teclado no.

@@ -2,9 +2,10 @@
    Sitio web personal — Navegación del carrusel
 
    Los puntos y enlaces activos se marcan de forma estática en cada página
-   (progressive enhancement: la web funciona sin JavaScript). Este script
-   solo controla los botones ‹ › y el atajo de teclado, que hacen bucle igual
-   que las flechas laterales (Inicio ‹ Galería y Galería › Inicio).
+   (progressive enhancement: la web funciona sin JavaScript). Los enlaces
+   ‹ › del carrusel y las flechas laterales son <a> normales con el bucle ya
+   escrito en el HTML (Inicio ‹ Galería y Galería › Inicio). Este script solo
+   añade el atajo de teclado ← →, con el mismo bucle.
    ========================================================================== */
 
 (function () {
@@ -23,22 +24,11 @@
   var index = PAGES.findIndex(function (page) { return page.id === currentId; });
   if (index === -1) index = 0;
 
-  var prevBtn = document.getElementById('btn-prev');
-  var nextBtn = document.getElementById('btn-next');
-
-  // Un único cálculo para botones, flechas laterales y teclado: al pasar de
-  // la última página se vuelve a la primera y al revés (bucle).
+  // Al pasar de la última página se vuelve a la primera y al revés (bucle),
+  // igual que en los enlaces del HTML.
   function goTo(nextIndex) {
     var total = PAGES.length;
     window.location.href = PAGES[((nextIndex % total) + total) % total].url;
-  }
-
-  // Botones ‹ ›
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function () { goTo(index - 1); });
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function () { goTo(index + 1); });
   }
 
   // Elementos que usan las flechas por sí mismos: campos de texto, listas,
