@@ -114,9 +114,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [x] **FU-03** Prev/next unificado con bucle en teclado, flechas laterales y botones
   - Alta · C, S · métricas 3.2, 2.1, 5.1
   - Hoy los botones y las flechas laterales hacen bucle y el teclado no.
-- [ ] **FU-04** Contexto en los enlaces repetidos («Repositorio de BasaltDB») con texto oculto visualmente
+- [x] **FU-04** Contexto en los enlaces repetidos («Repositorio de BasaltDB») con texto oculto visualmente
   - Media · S, J · métricas 3.2, 2.3
   - Afecta a las tarjetas de Proyectos (Repositorio, Docs y Demo se repiten en las 4).
+  - Hecho el 2026-11-12: utilidad `.visually-hidden` y texto oculto en los 6 enlaces de las tarjetas. Los nombres accesibles, comprobados en el DOM de Edge, son únicos: «Repositorio del TFG», «Docs del TFG», «Demo del TFG en YouTube», «Repositorio de BasaltDB», «Repositorio de WiChat» y «Repositorio de Outfitly». A la vista no cambia nada.
 
 ### Contenidos (hito M4)
 

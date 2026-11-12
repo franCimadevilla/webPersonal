@@ -19,5 +19,5 @@ Mejoras de la categoría 3 (métricas 3.1 y 3.2).
       Fuente: S (C y J piden etiquetas claras). Métricas: 3.2, 1.2.
 - [x] FU-03 Prev/next unificado con bucle en teclado, flechas laterales y botones @est:1h @owner:francisco @prio:high @done:2026-11-11 ^T28
       Fuente: C, S (S ve un error en que « › » de Galería lleve a Inicio; se mantiene el bucle y se etiqueta el destino en FU-02). Métricas: 3.2, 2.1, 5.1. Hoy el teclado no hace bucle y los botones sí.
-- [ ] FU-04 Contexto en enlaces repetidos («Repositorio de BasaltDB») con texto oculto visualmente @est:1.5h @owner:francisco ^T29
+- [x] FU-04 Contexto en enlaces repetidos («Repositorio de BasaltDB») con texto oculto visualmente @est:1.5h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T29
       Fuente: S, J (WAVE: enlace repetido). Métricas: 3.2, 2.3. Tarjetas de Proyectos.
