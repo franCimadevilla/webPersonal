@@ -174,8 +174,12 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [ ] **CF-06** Revalidar HTML y CSS en el W3C (ES y EN) y guardar la evidencia
   - Alta · S (C, M, J e I ya dan 0 errores) · métricas 5.2, 5.3
   - Se puede usar `tests/w3c-validate.js`.
-- [ ] **CF-07** Revisar enlaces internos y externos tras los cambios (ES y EN)
+- [x] **CF-07** Revisar enlaces internos y externos tras los cambios (ES y EN)
   - Media · C · métrica 5.1
+  - Hecho el 2026-11-12:
+    - **Internos:** un script recorre las 15 páginas (ES, EN, Ayuda, Buscar y 404) y comprueba 436 enlaces y recursos (`href`, `src`, `srcset`, `poster`, anclas incluidas, y las rutas `/webPersonal/…` de la 404): 0 rotos.
+    - **Externos:** GET a los 9 enlaces. Responden 200 los 6 de GitHub, la documentación del TFG, la Universidad de Oviedo y la demo de YouTube. LinkedIn devuelve 999, su respuesta habitual a clientes automáticos; la dirección es la que confirmó Francisco.
+    - **Pendiente tras el push:** los `<link rel="alternate" hreflang>` apuntan a la web publicada, que todavía no tiene `en/` ni `buscar.html`; hay que abrir uno después de desplegar.
 
 ### Eficiencia (hito M6)
 

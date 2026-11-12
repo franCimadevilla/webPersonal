@@ -11,7 +11,7 @@ Mejoras de la categoría 5 (métricas 5.1–5.4).
       Fuente: J. Métricas: 5.1, 1.6.
 - [x] CF-02 Errata «NotebookLLM» → «NotebookLM» y pie de foto mezclado «Neuschwanstein Castle» → «Castillo de Neuschwanstein» @est:0.5h @owner:francisco @done:2026-11-11 ^T37
       Fuente: S. Métrica: 5.1.
-- [ ] CF-07 Revisar enlaces internos y externos tras los cambios (ES y EN) @est:1h @owner:francisco @dep:T12,T26,T35,T56 ^T38
+- [x] CF-07 Revisar enlaces internos y externos tras los cambios (ES y EN) @est:1h @owner:francisco @dep:T12,T26,T35,T56 @done:2026-11-12 ^T38
       Fuente: C (comprobó los externos). Métrica: 5.1.
 
 ## 5.2 y 5.3 Validación HTML y CSS
