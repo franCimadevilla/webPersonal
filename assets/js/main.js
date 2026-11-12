@@ -108,4 +108,154 @@
       goTo(index + 1);
     }
   });
+
+  // ── Vistas previas laterales (EV-01) ──────────────────────────────────
+  // En pantallas de 1200 px o más, las flechas laterales muestran la página
+  // anterior y la siguiente en miniatura. Se leen con fetch después del
+  // evento load, para no competir con la carga de la página actual, y se
+  // clonan sin imágenes, vídeos ni audio: en su lugar quedan cajas con las
+  // proporciones de width/height. El clon es decorativo (aria-hidden, inert)
+  // y el enlace conserva su aria-label. Sin fetch (por ejemplo con file://)
+  // las flechas siguen como estaban.
+  var lateral = document.querySelectorAll('.page-lateral-nav a');
+  var wide = window.matchMedia ? window.matchMedia('(min-width: 1200px)') : null;
+  var PREVIEW_WIDTH = 960; // ancho real de .page, que la miniatura reduce
+  var previewsRequested = false;
+
+  // «Proyectos · Francisco Cimadevilla» → «Proyectos»
+  function pageName(doc) {
+    var parts = doc.title.split('·');
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i].replace(/^\s+|\s+$/g, '');
+      if (part && part !== 'Francisco Cimadevilla') return part;
+    }
+    return '';
+  }
+
+  function replaceWith(old, replacement) {
+    old.parentNode.replaceChild(replacement, old);
+  }
+
+  // Deja el <main> vecino listo para mostrarse como miniatura. Se hace
+  // dentro del documento de DOMParser, que no descarga nada: si las <img>
+  // llegaran al documento real, empezarían a descargarse.
+  function stripPreview(page) {
+    var i;
+    var doc = page.ownerDocument;
+    // Multimedia → cajas con las mismas proporciones (sin descargar nada).
+    var media = page.querySelectorAll('picture, img, video, audio, iframe');
+    for (i = 0; i < media.length; i++) {
+      var el = media[i];
+      if (!page.contains(el)) continue; // la <img> de un <picture> ya sustituido
+      var size = el.tagName === 'PICTURE' ? el.querySelector('img') : el;
+      var box = doc.createElement('span');
+      box.className = 'page-preview-media';
+      var w = size && size.getAttribute('width');
+      var h = size && size.getAttribute('height');
+      if (w && h) {
+        box.style.width = w + 'px';
+        box.style.aspectRatio = w + ' / ' + h;
+      } else {
+        box.style.height = '3.5rem';
+      }
+      replaceWith(el, box);
+    }
+    // Sin scripts, sin enlaces anidados dentro del enlace y sin ids repetidos.
+    var scripts = page.querySelectorAll('script, noscript');
+    for (i = 0; i < scripts.length; i++) scripts[i].parentNode.removeChild(scripts[i]);
+    var links = page.querySelectorAll('a');
+    for (i = 0; i < links.length; i++) {
+      var span = doc.createElement('span');
+      span.className = links[i].className;
+      while (links[i].firstChild) span.appendChild(links[i].firstChild);
+      replaceWith(links[i], span);
+    }
+    var all = page.querySelectorAll('[id], [for], [aria-labelledby], [aria-describedby], [tabindex]');
+    for (i = 0; i < all.length; i++) {
+      all[i].removeAttribute('id');
+      all[i].removeAttribute('for');
+      all[i].removeAttribute('aria-labelledby');
+      all[i].removeAttribute('aria-describedby');
+      all[i].removeAttribute('tabindex');
+    }
+  }
+
+  // La miniatura mide lo que su marco: escala = ancho del marco / 960 px.
+  function scalePreviews() {
+    var frames = document.querySelectorAll('.page-preview-frame');
+    for (var i = 0; i < frames.length; i++) {
+      var scale = frames[i].clientWidth / PREVIEW_WIDTH;
+      if (scale > 0) frames[i].firstChild.style.transform = 'scale(' + scale + ')';
+    }
+  }
+
+  function buildPreview(link, isPrev) {
+    window.fetch(link.href)
+      .then(function (response) {
+        if (!response.ok) throw new Error(response.status);
+        return response.text();
+      })
+      .then(function (html) {
+        var doc = new window.DOMParser().parseFromString(html, 'text/html');
+        var main = doc.querySelector('main');
+        if (!main) return;
+        var name = pageName(doc);
+
+        stripPreview(main);
+        var page = document.createElement('div');
+        page.className = 'page-preview-page';
+        page.setAttribute('inert', '');
+        while (main.firstChild) page.appendChild(document.adoptNode(main.firstChild));
+
+        var preview = document.createElement('span');
+        preview.className = 'page-preview';
+        preview.setAttribute('aria-hidden', 'true');
+        var title = document.createElement('span');
+        title.className = 'page-preview-title';
+        title.textContent = isPrev ? '‹ ' + name : name + ' ›';
+        var frame = document.createElement('span');
+        frame.className = 'page-preview-frame';
+        frame.appendChild(page);
+        preview.appendChild(title);
+        preview.appendChild(frame);
+
+        // La flecha se queda para las anchuras sin vista previa.
+        var arrow = document.createElement('span');
+        arrow.className = 'page-lateral-arrow';
+        arrow.textContent = link.textContent;
+        link.textContent = '';
+        link.appendChild(arrow);
+        link.appendChild(preview);
+        link.setAttribute('data-preview', '');
+        scalePreviews();
+      })
+      .catch(function () { /* sin vista previa: queda la flecha */ });
+  }
+
+  function requestPreviews() {
+    if (previewsRequested || !wide || !wide.matches) return;
+    previewsRequested = true;
+    for (var i = 0; i < lateral.length; i++) buildPreview(lateral[i], i === 0);
+  }
+
+  if (lateral.length === 2 && wide && window.fetch && window.DOMParser) {
+    var whenLoaded = function () {
+      requestPreviews();
+      // Si la ventana se ensancha más tarde, se construyen entonces.
+      if (wide.addEventListener) wide.addEventListener('change', requestPreviews);
+      else if (wide.addListener) wide.addListener(requestPreviews);
+    };
+    if (document.readyState === 'complete') whenLoaded();
+    else window.addEventListener('load', whenLoaded);
+
+    var resizeQueued = false;
+    window.addEventListener('resize', function () {
+      if (resizeQueued) return;
+      resizeQueued = true;
+      window.requestAnimationFrame(function () {
+        resizeQueued = false;
+        scalePreviews();
+      });
+    });
+  }
 })();

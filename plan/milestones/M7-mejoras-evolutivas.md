@@ -7,11 +7,11 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
 
 ## Carrusel con vistas previas
 
-- [ ] EV-01 Carrusel con vistas previas laterales y deslizamiento (efecto de la tienda de Steam) @owner:francisco ^T51
+- [/] EV-01 Carrusel con vistas previas laterales y deslizamiento (efecto de la tienda de Steam) @owner:francisco @started:2026-11-12 ^T51
       Petición propia. Métricas que toca: 1.1, 1.3, 3.2 (mejora) y 1.4, 2.1, 2.3, 6.1 (a vigilar). Las vistas previas sustituyen a las flechas laterales fijas desde ≈1200 px; entre 769 y 1199 px y sin JavaScript se conservan las flechas actuales.
-  - [ ] Leer las páginas vecinas con fetch tras el evento load y construir el clon sin multimedia (sin id, aria-hidden, inert, cajas con las proporciones de width/height) @est:4h @owner:francisco @dep:T27,T28,T16,T8,T45,T12 ^T52
+  - [x] Leer las páginas vecinas con fetch tras el evento load y construir el clon sin multimedia (sin id, aria-hidden, inert, cajas con las proporciones de width/height) @est:4h @owner:francisco @dep:T27,T28,T16,T8,T45,T12 @started:2026-11-12 @done:2026-11-12 ^T52
         Los textos del JS («Anterior», «Siguiente») van en ES y EN según <html lang>. El título de cada vista previa sale del <title> de la página vecina.
-  - [ ] CSS de las vistas previas: miniatura escalada y recortada, título en tamaño normal, enlace real con nombre accesible y reemplazo de .page-lateral-nav desde ≈1200 px @est:3h @owner:francisco @dep:T52 ^T53
+  - [/] CSS de las vistas previas: miniatura escalada y recortada, título en tamaño normal, enlace real con nombre accesible y reemplazo de .page-lateral-nav desde ≈1200 px @est:3h @owner:francisco @dep:T52 @started:2026-11-12 ^T53
         Hueco lateral ≈ (ancho − 960) / 2: 160 px a 1280, 203 px a 1366, 240 px a 1440.
   - [ ] Deslizamiento al hacer clic en la vista previa, en los botones ‹ › o con ← →, y entrada de la página nueva por el lado correcto; sin animación con prefers-reduced-motion @est:3h @owner:francisco @dep:T53 ^T54
         Guardar la dirección en sessionStorage. Comprobar que se aplica antes del primer pintado; si no, hace falta un script mínimo en <head> en las páginas ES y EN. Hoy slide-in siempre entra desde la derecha.
