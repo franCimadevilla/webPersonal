@@ -111,7 +111,7 @@ code {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 3.5rem;
+  padding: 0.5rem 3.5rem;
   background: var(--bg-soft);
   border-bottom: 1px solid var(--border);
   border-top: 3px solid var(--accent);
@@ -123,7 +123,11 @@ code {
   font-size: 1.1rem;
   font-weight: 700;
 
+  /* Área táctil de 44 px de alto (US-08). */
   & a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     color: var(--heading);
     text-decoration: none;
 
@@ -137,11 +141,18 @@ code {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 0 0.75rem;
   margin: 0;
   padding: 0;
 
+  /* Área táctil de al menos 44×44 px (US-08). */
   & a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
     color: var(--text-muted);
     text-decoration: none;
 
@@ -532,7 +543,7 @@ audio {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.25rem 1rem;
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -564,26 +575,36 @@ audio {
 .carousel-dots {
   list-style: none;
   display: flex;
-  gap: 0.75rem;
+  gap: 0;
   margin: 0;
   padding: 0;
 }
 
+/* El enlace mide 44×44 px (área táctil, US-08) y el punto visible de 12 px
+   se dibuja con ::before en el centro. */
 .carousel-dot {
-  display: block;
-  width: 12px;
-  height: 12px;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
-  background: var(--text-muted);
-  transition: background-color 0.15s ease, transform 0.15s ease;
 
-  &:hover {
+  &::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+
+  &:hover::before {
     background: var(--heading);
   }
 
-  /* Empata con :hover y va después: el punto actual no cambia al pasar
-     el ratón por encima. */
-  &[aria-current] {
+  /* Empata con :hover::before (0,2,1) y va después: el punto actual no
+     cambia al pasar el ratón por encima. */
+  &[aria-current]::before {
     background: var(--accent);
     transform: scale(1.15);
   }
@@ -658,12 +679,13 @@ footer {
   .site-header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1rem 1.25rem;
-    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    gap: 0;
   }
 
   .page-nav {
-    gap: 0.6rem 1rem;
+    gap: 0 0.5rem;
+    margin-left: -0.25rem;
   }
 
   .page {

@@ -62,9 +62,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **US-07** Imágenes en Sobre mí y capturas en las tarjetas de Proyectos
   - Baja · S · métrica 1.3
   - Solo en WebP ligero, para no empeorar el rendimiento (EF-01).
-- [ ] **US-08** Áreas táctiles de al menos 44×44 px
+- [x] **US-08** Áreas táctiles de al menos 44×44 px
   - Media · S · métricas 1.4, 2.1
   - Aplica a los puntos del carrusel (hoy 12×12 px), el menú y los botones.
+  - Hecho el 2026-11-12: los puntos miden 44×44 px y el punto visible de 12 px se dibuja con `::before`; los enlaces del menú y el nombre de la cabecera tienen 44 px de alto (la cabecera conserva su altura porque se reduce su relleno); los enlaces ‹ › del carrusel, 44 px de alto. Medido con un script en Edge a 1280 y 500 px: los 15 controles cumplen. Los enlaces dentro de un texto quedan fuera, porque WCAG 2.5.8 los exime.
 - [ ] **US-09** Versión en inglés con selector de idioma
   - Alta · C, M, J, I, S · métrica 1.5
   - Carpeta `/en/` con los mismos nombres de fichero, selector ES/EN en la cabecera, `<html lang="en">` y `hreflang`. Es la última tarea de contenido, para no traducir nada dos veces.

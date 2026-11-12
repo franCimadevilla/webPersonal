@@ -31,7 +31,7 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 
 ## 1.4 Adaptabilidad a móviles
 
-- [ ] US-08 Áreas táctiles ≥ 44×44 px (puntos del carrusel, menú, botones) @est:2h @owner:francisco ^T8
+- [x] US-08 Áreas táctiles ≥ 44×44 px (puntos del carrusel, menú, botones) @est:2h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T8
       Fuente: S (revisar tamaño de botones táctiles). Métricas: 1.4, 2.1. Observación al revisar el CSS: .carousel-dot mide 12×12 px.
 
 ## 1.5 Internacionalización
