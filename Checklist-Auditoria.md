@@ -115,9 +115,10 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
   - Alta · C, M, J, S · métrica 4.1
   - Enlazar con la Galería.
   - Hecho el 2026-11-12: «Intereses y aficiones» de Sobre mí se divide en «Intereses profesionales» y «Fuera del trabajo» (deporte, viajes con enlace a la Galería, música y lectura), con los datos de Francisco.
-- [ ] **CO-02** Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en los proyectos
+- [x] **CO-02** Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en los proyectos
   - Alta · C, M, J, S · métrica 4.2
   - Observación propia: Sobre mí dice «Realizando unas prácticas» y «realicé unas prácticas». Aclarar si están en curso.
+  - Hecho el 2026-11-12: Proyectos tiene las fechas del grado (2022 – julio de 2026) y del máster (desde septiembre de 2026), y una sección «Experiencia» con la ficha de las prácticas en NTT Data (feb.–abr. 2026 y oct. 2026 – feb. 2027, en curso; migración de microservicios de un cliente retail). Sobre mí e Inicio dicen lo mismo, así que ya no se contradicen. Los años de los proyectos (TFG 2025–2026, WiChat 2025, Outfitly 2025–2026, BasaltDB desde 2026) salen de las fechas de los repositorios en GitHub: **Francisco debe confirmarlos**. No hay dato del tamaño del equipo.
 - [ ] **CO-03** CV descargable en PDF accesible, enlazado desde Inicio y Proyectos
   - Media · S · métricas 4.3, 4.2
 - [ ] **CO-04** Referencias de personas que avalan
