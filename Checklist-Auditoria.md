@@ -133,13 +133,13 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
 - [x] **CO-02** Fechas de grado y máster, ficha de prácticas (empresa, fechas, equipo, logros) y años en los proyectos
   - Alta · C, M, J, S · métrica 4.2
   - Observación propia: Sobre mí dice «Realizando unas prácticas» y «realicé unas prácticas». Aclarar si están en curso.
-  - Hecho el 2026-11-12: Proyectos tiene las fechas del grado (2022 – julio de 2026) y del máster (desde septiembre de 2026), y una sección «Experiencia» con la ficha de las prácticas en NTT Data (feb.–abr. 2026 y oct. 2026 – feb. 2027, en curso; migración de microservicios de un cliente retail). Sobre mí e Inicio dicen lo mismo, así que ya no se contradicen. Los años de los proyectos (TFG 2025–2026, WiChat 2025, Outfitly 2025–2026, BasaltDB desde 2026) salen de las fechas de los repositorios en GitHub: **Francisco debe confirmarlos**. No hay dato del tamaño del equipo.
+  - Hecho el 2026-11-12: Proyectos tiene las fechas del grado (2022 – julio de 2026) y del máster (desde septiembre de 2026), y una sección «Experiencia» con la ficha de las prácticas en NTT Data (feb.–abr. 2026 y oct. 2026 – feb. 2027, en curso; migración de microservicios de un cliente retail). Sobre mí e Inicio dicen lo mismo, así que ya no se contradicen. Los años de los proyectos (TFG 2025–2026, WiChat 2025, Outfitly 2025–2026, BasaltDB desde 2026) salen de las fechas de los repositorios en GitHub; Francisco los confirmó el 2026-11-12. No hay dato del tamaño del equipo.
 - [ ] **CO-03** CV descargable en PDF accesible, enlazado desde Inicio y Proyectos
   - Media · S · métricas 4.3, 4.2
 - [ ] **CO-04** Referencias de personas que avalan
   - Alta · C, M, J, I, S (media 0,2) · métrica 4.4
   - Pedir permiso y texto a 2–3 personas (tutor del TFG, responsable de prácticas, compañeros). Después, sección «Referencias» con cita, nombre, cargo y relación. Si no llegan a tiempo: «Disponibles bajo petición» con enlace a contacto. No publicar datos de terceros sin su permiso.
-  - 2026-11-12, sección hecha y tarea abierta: Proyectos tiene la sección «Referencias», con la recomendación de Pedro María (responsable de prácticas en NTT Data) tal como la resumió Francisco, y a Cristian (tutor del TFG) como «referencia disponible bajo petición» con enlace a contacto. No se publica una cita inventada de Cristian. **Antes del push**, Francisco debe confirmar con Pedro María el texto literal y que acepta salir con su nombre, y pedir a Cristian su texto. Cuando llegue, se sustituye la línea por una cita como la de Pedro y se cierra la tarea.
+  - 2026-11-12, sección hecha y tarea abierta: Proyectos tiene la sección «Referencias» con dos citas, la de Pedro María (responsable de prácticas en NTT Data), tal como la resumió Francisco, y la de Cristian (tutor del TFG), escrita como borrador para que él la apruebe. Por decisión de Francisco, las dos se publican con la marca visible «Pendiente de confirmación» (`.reference-pending`). Cuando cada uno confirme su texto, se quita su marca; con las dos confirmadas, se cierra la tarea (T34, en revisión).
 
 ### Confiabilidad (hito M5)
 

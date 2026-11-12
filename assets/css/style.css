@@ -516,6 +516,18 @@ dl {
   }
 }
 
+/* Aviso de que la persona aún no ha confirmado el texto de su referencia. */
+.reference-pending {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0 0.5rem;
+  border: 1px solid #92400e;
+  border-radius: 999px;
+  color: #92400e;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 /* ── Formulario de contacto ──────────────────────────────── */
 .contact-form {
   max-width: 36rem;
