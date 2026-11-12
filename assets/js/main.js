@@ -226,7 +226,10 @@
     slideOnClick(lateral[1], 'next');
   }
   var wide = window.matchMedia ? window.matchMedia('(min-width: 1200px)') : null;
-  var PREVIEW_WIDTH = 960; // ancho real de .page, que la miniatura reduce
+  var PREVIEW_WIDTH = 960; // ancho real de .page
+  // EV-02: la franja enseña solo la cuarta parte de la página vecina, la que
+  // queda junto a la actual (como las diapositivas que asoman en un carrusel).
+  var PREVIEW_VISIBLE = PREVIEW_WIDTH / 4;
   var previewsRequested = false;
 
   // «Proyectos · Francisco Cimadevilla» → «Proyectos»
@@ -287,12 +290,21 @@
     }
   }
 
-  // La miniatura mide lo que su marco: escala = ancho del marco / 960 px.
+  // Escala = ancho del marco / 240 px: así cabe justo un cuarto de la
+  // página. El marco mide como mucho 240 px, de modo que la escala no pasa
+  // de 1 (0,67 a 1280 px, 0,85 a 1366 px, 1 desde 1440 px). El CSS ancla
+  // marco y miniatura al borde interior según el lado (data-side).
+  function previewScale(frame) {
+    return frame.clientWidth / PREVIEW_VISIBLE;
+  }
+
   function scalePreviews() {
     var frames = document.querySelectorAll('.page-preview-frame');
     for (var i = 0; i < frames.length; i++) {
-      var scale = frames[i].clientWidth / PREVIEW_WIDTH;
-      if (scale > 0) frames[i].firstChild.style.transform = 'scale(' + scale + ')';
+      var scale = previewScale(frames[i]);
+      if (scale > 0 && !root.hasAttribute('data-slide')) {
+        frames[i].firstChild.style.transform = 'scale(' + scale + ')';
+      }
     }
   }
 
@@ -317,6 +329,7 @@
         var preview = document.createElement('span');
         preview.className = 'page-preview';
         preview.setAttribute('aria-hidden', 'true');
+        preview.setAttribute('data-side', isPrev ? 'prev' : 'next');
         var title = document.createElement('span');
         title.className = 'page-preview-title';
         title.textContent = isPrev ? '‹ ' + name : name + ' ›';

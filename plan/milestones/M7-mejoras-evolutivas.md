@@ -26,11 +26,11 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
         Quitar aspect-ratio y max-height de .page-preview-frame; la franja ya va de arriba abajo (position: fixed; top: 0; bottom: 0).
         Decidir cómo convive con la cabecera y el pie (z-index 50): la vista previa pasa por debajo o empieza bajo la cabecera. Mantener el área táctil y el anillo de foco del enlace en toda la franja.
         Título: superpuesto arriba o centrado, siempre legible. Sin CLS: el hueco ya lo reserva el script del <head> (data-previews).
-  - [/] Mostrar solo 1/4 de la página vecina: la franja junto a la página actual (izquierda: cuarto derecho de la anterior; derecha: cuarto izquierdo de la siguiente) @est:3h @owner:francisco @dep:T59 @started:2026-11-12 ^T60
+  - [x] Mostrar solo 1/4 de la página vecina: la franja junto a la página actual (izquierda: cuarto derecho de la anterior; derecha: cuarto izquierdo de la siguiente) @est:3h @owner:francisco @dep:T59 @started:2026-11-12 @done:2026-11-12 ^T60
         La miniatura deja de verse entera: escala = ancho del hueco / 240 px (un cuarto de 960). Por ejemplo 0,67 a 1280, 0,85 a 1366 y 2 a 1920. Habrá que decidir un tope (¿1?) para no ampliar la página.
         scalePreviews() en main.js calcula la escala y alinea la miniatura al borde interior con transform-origin top right (izquierda) o top left (derecha), según el lado.
         Revisar el clon en las 5 páginas: con más escala se leen los textos y se ven más las cajas grises de multimedia. Probar a 1280, 1366 y 1920 px.
-  - [ ] Capa de blur sobre la vista previa para difuminar el contenido, con el título nítido por encima @est:2h @owner:francisco @dep:T60 ^T61
+  - [/] Capa de blur sobre la vista previa para difuminar el contenido, con el título nítido por encima @est:2h @owner:francisco @dep:T60 @started:2026-11-12 ^T61
         Capa (pseudo-elemento o <span>) con backdrop-filter: blur() o filter: blur() sobre .page-preview-page; quizá un degradado hacia el borde exterior para que se funda con el fondo.
         Plan B si no hay backdrop-filter: capa semitransparente. El título por encima del blur debe tener contraste ≥ 4,5:1.
         Medir el coste: un blur que ocupa toda la altura en dos franjas puede pesar en GPU al hacer scroll y durante la transición (T62). Comprobar fluidez y que el hover no lo recalcule.

@@ -1084,16 +1084,39 @@ audio {
   line-height: 1.3;
   text-align: center;
   white-space: nowrap;
+
+  /* Centrado sobre el marco, que mide como mucho 15rem junto al borde
+     interior de la franja. */
+  [data-side="next"] & {
+    left: min(50%, 7.5rem);
+  }
+
+  [data-side="prev"] & {
+    right: min(50%, 7.5rem);
+    left: auto;
+    transform: translate(50%, -50%);
+  }
 }
 
 /* Marco de la miniatura: toda la altura de la ventana (la franja es fija,
-   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. */
+   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. Mide
+   como mucho 15rem (240 px, un cuarto de la página a tamaño real) y va
+   pegado al borde interior: en pantallas muy anchas el resto de la franja
+   queda libre, en lugar de ampliar la miniatura. */
 .page-preview-frame {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
   display: block;
+  width: min(100%, 15rem);
   overflow: hidden;
   background: var(--bg-soft);
+
+  [data-side="prev"] & {
+    right: 0;
+    left: auto;
+  }
 }
 
 /* La copia del <main> vecino, a su tamaño real (960 px) antes de escalar.
@@ -1112,6 +1135,15 @@ audio {
   line-height: 1.6;
   text-align: left;
   pointer-events: none;
+
+  /* EV-02: se ve el cuarto de la página que queda junto a la actual. La
+     anterior (franja izquierda) se ancla por su borde derecho; la
+     siguiente, por el izquierdo. */
+  [data-side="prev"] & {
+    right: 0;
+    left: auto;
+    transform-origin: top right;
+  }
 
   & * {
     animation: none;
