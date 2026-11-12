@@ -78,8 +78,9 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 
 - [x] **AC-01** Enlace «Saltar al contenido» en las 5 páginas
   - Alta · M, S · métrica 2.1
-- [ ] **AC-02** Estilo `:focus-visible` propio y consistente
+- [x] **AC-02** Estilo `:focus-visible` propio y consistente
   - Media · S (C y M dan por válido el foco del navegador) · métrica 2.1
+  - Hecho el 2026-11-12: regla global `:focus-visible` con anillo de 3 px en `--accent` (contraste 8,6:1), separado 2 px y con esquinas de 4 px. Los componentes con forma propia (puntos, enlaces ‹ ›) la conservan y el anillo la sigue. En las flechas laterales, pegadas al borde de la ventana, el anillo va hacia dentro. Comprobado con capturas del menú, un punto, un enlace ‹ › y una flecha lateral.
 - [x] **AC-03** Atajo ← → seguro
   - Media · C · métrica 2.1
   - Ignorar el atajo con Alt/Ctrl/Mayús/Meta y cuando el foco esté en vídeo, audio o campos de texto. Hoy Alt+← (atrás del navegador) y las flechas sobre un `<video controls>` cambian de página.

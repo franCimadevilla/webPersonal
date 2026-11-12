@@ -75,6 +75,17 @@ a {
   }
 }
 
+/* Foco del teclado, igual en todo el sitio: anillo de 3 px en el color de
+   acento (contraste 8,6:1 con el fondo) separado 2 px del elemento. Solo
+   con :focus-visible, así que un clic con el ratón no lo muestra. Es una
+   pseudo-clase suelta (0,1,0): cada componente puede ajustar el
+   desplazamiento con su propio &:focus-visible. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 code {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.875em;
@@ -659,6 +670,11 @@ audio {
       border-color: var(--accent);
       color: var(--accent);
       box-shadow: 0 0 16px rgba(30, 64, 175, 0.12);
+    }
+
+    /* Pegadas al borde de la ventana: el anillo va hacia dentro. */
+    &:focus-visible {
+      outline-offset: -5px;
     }
 
     &[aria-disabled="true"] {

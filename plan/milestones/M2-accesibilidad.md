@@ -9,7 +9,7 @@ Mejoras de la categoría 2 (métricas 2.1–2.3).
 
 - [x] AC-01 Enlace «Saltar al contenido» en las 5 páginas @est:1h @owner:francisco @prio:high @done:2026-11-11 ^T14
       Fuente: M, S. Métrica: 2.1. Requiere id en <main>.
-- [ ] AC-02 Estilo :focus-visible propio y consistente @est:1h @owner:francisco ^T15
+- [x] AC-02 Estilo :focus-visible propio y consistente @est:1h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T15
       Fuente: S (C y M validan el foco del navegador). Métrica: 2.1.
 - [x] AC-03 Atajo ← → seguro: ignorar Alt/Ctrl/Mayús/Meta y el foco en vídeo, audio e inputs @est:1.5h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T16
       Fuente: C (choca con lectores de pantalla). Métrica: 2.1. Observación al revisar main.js: Alt+← (atrás del navegador) y las flechas sobre <video controls>/<audio> cambian de página.
