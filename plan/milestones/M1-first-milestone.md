@@ -42,8 +42,8 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 - [/] US-09 Versión en inglés con selector de idioma @owner:francisco @prio:high @started:2026-11-12 ^T9
       Fuente: C, M, J, I, S (media 1.5 = 0,4). Se hace al final del contenido para no traducir dos veces; carpeta /en/ con los mismos nombres de fichero.
   - [x] Copiar las 5 páginas a /en/ y traducir textos, alt, aria-label y pies de foto @est:5h @owner:francisco @dep:T1,T2,T3,T4,T5,T6,T7,T8,T13,T14,T17,T19,T20,T27,T29,T30,T31,T32,T35,T36,T37,T41,T45,T49 @started:2026-11-12 @done:2026-11-12 ^T10
-  - [/] Selector de idioma ES/EN en la cabecera, <html lang> y enlaces hreflang @est:2h @owner:francisco @dep:T10 @started:2026-11-12 ^T11
-  - [ ] Rutas relativas, carrusel (main.js) y 404 bilingüe funcionando bajo /en/ @est:1h @owner:francisco @dep:T11 ^T12
+  - [x] Selector de idioma ES/EN en la cabecera, <html lang> y enlaces hreflang @est:2h @owner:francisco @dep:T10 @started:2026-11-12 @done:2026-11-12 ^T11
+  - [/] Rutas relativas, carrusel (main.js) y 404 bilingüe funcionando bajo /en/ @est:1h @owner:francisco @dep:T11 @started:2026-11-12 ^T12
 
 ## 1.6 Enlaces a redes sociales
 
