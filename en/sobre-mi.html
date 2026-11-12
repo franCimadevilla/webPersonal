@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- EV-01: lado por el que entra la página al llegar deslizando (lo guarda main.js). -->
-  <script>try{var d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');document.documentElement.setAttribute('data-enter',d)}}catch(e){}</script>
+  <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
+       (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
+  <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
   <title>About me · Francisco Cimadevilla</title>
   <meta name="description" content="About me: background, education, what I am working on now, and my interests and hobbies.">
   <meta name="author" content="Francisco Cimadevilla">

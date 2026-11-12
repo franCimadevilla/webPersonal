@@ -326,34 +326,54 @@
         preview.appendChild(title);
         preview.appendChild(frame);
 
-        // La flecha se queda para las anchuras sin vista previa.
-        var arrow = document.createElement('span');
-        arrow.className = 'page-lateral-arrow';
-        arrow.textContent = link.textContent;
-        link.textContent = '';
-        link.appendChild(arrow);
         link.appendChild(preview);
-        link.setAttribute('data-preview', '');
         scalePreviews();
       })
-      .catch(function () { /* sin vista previa: queda la flecha */ });
+      .catch(unprepare);
+  }
+
+  // El hueco de las vistas previas (data-previews en <html>) lo reserva el
+  // script del <head> antes del primer pintado; aquí solo hace falta si la
+  // ventana se ensancha después. La flecha pasa a un <span> que el CSS
+  // muestra solo por debajo de 1200 px.
+  function prepare(link) {
+    root.setAttribute('data-previews', '');
+    var arrow = document.createElement('span');
+    arrow.className = 'page-lateral-arrow';
+    arrow.textContent = link.textContent;
+    link.textContent = '';
+    link.appendChild(arrow);
+  }
+
+  // Si una página vecina no se ha podido leer, vuelven las dos flechas de
+  // siempre, para que los dos lados se vean iguales.
+  function unprepare() {
+    root.removeAttribute('data-previews');
+    for (var i = 0; i < lateral.length; i++) {
+      var arrow = lateral[i].querySelector('.page-lateral-arrow');
+      if (arrow) lateral[i].textContent = arrow.textContent;
+    }
   }
 
   function requestPreviews() {
-    if (previewsRequested || !wide || !wide.matches) return;
+    if (previewsRequested || !wide.matches) return;
     previewsRequested = true;
-    for (var i = 0; i < lateral.length; i++) buildPreview(lateral[i], i === 0);
+    var i;
+    for (i = 0; i < lateral.length; i++) prepare(lateral[i]);
+    var build = function () {
+      for (var j = 0; j < lateral.length; j++) buildPreview(lateral[j], j === 0);
+    };
+    // Se leen después del evento load, para no competir con la página actual.
+    if (document.readyState === 'complete') build();
+    else window.addEventListener('load', build);
   }
 
-  if (lateral.length === 2 && wide && window.fetch && window.DOMParser) {
-    var whenLoaded = function () {
-      requestPreviews();
-      // Si la ventana se ensancha más tarde, se construyen entonces.
-      if (wide.addEventListener) wide.addEventListener('change', requestPreviews);
-      else if (wide.addListener) wide.addListener(requestPreviews);
-    };
-    if (document.readyState === 'complete') whenLoaded();
-    else window.addEventListener('load', whenLoaded);
+  // Con file:// el navegador no deja leer otras páginas: ni se intenta.
+  if (lateral.length === 2 && wide && window.fetch && window.DOMParser && window.location.protocol !== 'file:') {
+    requestPreviews();
+    // Si la ventana se ensancha más tarde, se construyen entonces.
+    if (wide.addEventListener) wide.addEventListener('change', requestPreviews);
+    else if (wide.addListener) wide.addListener(requestPreviews);
 
     var resizeQueued = false;
     window.addEventListener('resize', function () {

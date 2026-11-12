@@ -229,15 +229,15 @@ Son decisiones por defecto. No bloquean el plan: cada una se puede revisar antes
 2. Rendimiento: EF-01, EF-02, EF-03.
 3. Contenido, empezando por pedir las referencias (CO-04) porque hay que esperar respuesta: CO-01 a CO-04.
 4. Navegación y accesibilidad del código: US-02 a US-08, US-10, FU-02, FU-04, AC-02 a AC-05, CF-05.
-5. Versión en inglés (US-09) y buscador (FU-01), cuando el contenido ya esté cerrado. *Bloqueado por Francisco el 2026-11-12 hasta hablar del CV (CO-03): T10, T11, T12, T24, T25 y T26 están en «bloqueada» en el plan.*
-6. Mejora evolutiva EV-01, cuando la versión en inglés ya esté hecha.
+5. Versión en inglés (US-09) y buscador (FU-01), cuando el contenido ya esté cerrado. *Bloqueado por Francisco el 2026-11-12 hasta hablar del CV; desbloqueado ese mismo día, cuando aportó el CV (CO-03). Hecho el 2026-11-12.*
+6. Mejora evolutiva EV-01, cuando la versión en inglés ya esté hecha. *Hecho el 2026-11-12.*
 7. Verificación final: AC-06, AC-07, CF-06, CF-07, EF-04.
 
 ## 6. Mejoras evolutivas
 
 Estas mejoras no salen de la auditoría: las pide Francisco. Van en el hito M7 del plan, y las verificaciones finales (AC-06, CF-07 y EF-04) esperan a que terminen.
 
-- [ ] **EV-01** Carrusel con vistas previas laterales y deslizamiento (efecto de la tienda de Steam)
+- [x] **EV-01** Carrusel con vistas previas laterales y deslizamiento (efecto de la tienda de Steam)
   - Media · petición propia · mejora 1.1, 1.3 y 3.2; hay que vigilar 1.4, 2.1, 2.3 y 6.1 · ≈14,5 h
   - **Qué hace:** a los lados de la página actual se ven las páginas anterior y siguiente en miniatura, con su título en tamaño normal. Al hacer clic en una de ellas, en los botones ‹ › o con ← →, la página se desliza hacia ese lado y se navega. La página nueva entra por el lado correcto.
   - **Decisiones tomadas:**
@@ -253,8 +253,16 @@ Estas mejoras no salen de la auditoría: las pide Francisco. Van en el hito M7 d
     - El gesto táctil no debe activarse sobre vídeo, audio ni controles de rango, ni en los ~20 px del borde (gesto «atrás» del sistema). Los botones siguen siendo la alternativa de un solo toque.
   - **Dependencias:** FU-02, FU-03, AC-03, US-08, EF-01 (los `width`/`height` de las cajas) y US-09.
   - **Subtareas:**
-    - [ ] Leer las páginas vecinas y construir el clon sin multimedia (4 h)
-    - [ ] CSS de las vistas previas y reemplazo de las flechas laterales (3 h)
-    - [ ] Deslizamiento con entrada direccional y `prefers-reduced-motion` (3 h)
-    - [ ] Deslizar con el dedo en móvil (2,5 h)
-    - [ ] Pruebas a 1280, 1366 y 1920 px, en móvil real, sin JavaScript y con `file://`, y medición de CLS y LCP (2 h)
+    - [x] Leer las páginas vecinas y construir el clon sin multimedia (4 h)
+    - [x] CSS de las vistas previas y reemplazo de las flechas laterales (3 h)
+    - [x] Deslizamiento con entrada direccional y `prefers-reduced-motion` (3 h)
+    - [x] Deslizar con el dedo en móvil (2,5 h)
+    - [x] Pruebas a 1280, 1366 y 1920 px, en móvil real, sin JavaScript y con `file://`, y medición de CLS y LCP (2 h)
+  - Hecho el 2026-11-12 (T52–T56):
+    - **Miniaturas:** desde 1200 px, `main.js` lee con `fetch`, después del evento `load`, la página anterior y la siguiente. Limpia su `<main>` dentro del documento de `DOMParser`, así que no descarga nada: imágenes, vídeos y audio pasan a cajas grises con sus proporciones, los enlaces a `<span>` y se quitan los `id`. Lo mete en las flechas laterales con `aria-hidden` e `inert`. El enlace conserva su `aria-label` («Página siguiente: Proyectos»), que contiene el título visible. Comprobado: no se descarga ninguna imagen de las páginas vecinas.
+    - **Estilos:** la franja ocupa el hueco (ancho − 960 px) / 2, con el título de la página vecina en tamaño normal y la miniatura escalada en un marco 3:4 recortado. Entre 769 y 1199 px, sin JavaScript y con `file://` quedan las flechas de siempre (comprobado en los tres casos).
+    - **Deslizamiento:** con un clic en la vista previa, en los enlaces ‹ › o con ← →, el contenido sale hacia el lado contrario en 0,28 s y se navega a la página real. La dirección viaja en `sessionStorage` y la página nueva entra por el lado correcto. Los clics con Ctrl, Cmd o Mayús abren en otra pestaña como siempre. Con `prefers-reduced-motion` no hay animación, tampoco la de entrada de `.page`, que antes no lo respetaba. Al volver con «Atrás» desde la caché del navegador, la página se ve.
+    - **Móvil:** hasta 768 px se cambia de página deslizando el dedo: 60 px o más, con el horizontal al menos 1,5 veces el vertical y en menos de 0,8 s. No actúa desde los 20 px del borde, sobre vídeo, audio, campos, controles de rango o zonas con desplazamiento horizontal, ni con texto seleccionado. Los escuchadores son pasivos, así que el desplazamiento vertical no se bloquea y no hace falta `touch-action`.
+    - **Script en el `<head>`** de las 10 páginas del carrusel: aplica la dirección de entrada y, desde 1200 px, reserva el hueco de las vistas previas antes del primer pintado. Hizo falta porque la primera medición daba CLS 0,016: `main.js` se ejecuta después de pintar y la franja derecha se ensanchaba.
+    - **Comprobado en Edge (headless, servidor local):** capturas a 1000, 1280, 1366 y 1920 px; DOM de las miniaturas y recursos descargados; navegación con y sin movimiento reducido; 7 casos de gesto táctil sintético (solo navegan los válidos, y no por encima de 768 px). CLS 0,000 en las 5 páginas (y en Inicio EN) a 1366 y 1920 px; LCP local de 0,2–0,6 s. Las mediciones en local no sustituyen a PageSpeed (EF-04).
+    - **No comprobado:** en un móvil real (gesto y rendimiento), y que la animación de salida llegue a `animationend` en un navegador real. Edge headless no hace avanzar las animaciones CSS, así que allí navegó el temporizador de respaldo de 400 ms. Queda para AC-07 / la revisión de Francisco.
