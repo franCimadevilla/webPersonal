@@ -86,7 +86,12 @@ def index_page(folder, page):
         html = f.read()
     parser = MainParser()
     parser.feed(html)
-    title = clean(parser.h1 or '')
+    # Nombre corto de la página, el mismo del menú: la parte del <title> que
+    # no es el nombre del autor («Proyectos · Francisco Cimadevilla»).
+    m = re.search(r'<title>(.*?)</title>', html, re.S)
+    parts = [clean(p) for p in m.group(1).split('·')] if m else []
+    names = [p for p in parts if p != 'Francisco Cimadevilla']
+    title = names[0] if names else clean(parser.h1 or '')
     entries = []
     for section in parser.sections:
         text = clean(''.join(section['text']))
