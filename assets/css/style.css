@@ -706,6 +706,65 @@ dl {
   }
 }
 
+/* ── Buscador (FU-01) ─────────────────────────────────────── */
+/* La etiqueta ocupa su fila; debajo, la caja y el botón comparten fila
+   (el botón baja si no cabe). */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  max-width: 36rem;
+  margin: 1.5rem 0 1rem;
+
+  & label {
+    flex: 1 0 100%;
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  & input {
+    flex: 1 1 14rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    color: var(--text);
+    font: inherit;
+  }
+}
+
+.search-status {
+  font-weight: 600;
+}
+
+.search-results {
+  padding: 0;
+  list-style: none;
+
+  & li {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  & p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Amarillo claro con texto oscuro: contraste de 15:1. */
+  & mark {
+    padding: 0 0.1em;
+    background: #fef08a;
+    color: var(--heading);
+    border-radius: 2px;
+  }
+}
+
 /* ── Imágenes, vídeo, audio ───────────────────────────────── */
 figure {
   margin: 0;
