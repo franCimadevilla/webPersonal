@@ -71,9 +71,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [ ] **US-09** Versión en inglés con selector de idioma
   - Alta · C, M, J, I, S · métrica 1.5
   - Carpeta `/en/` con los mismos nombres de fichero, selector ES/EN en la cabecera, `<html lang="en">` y `hreflang`. Es la última tarea de contenido, para no traducir nada dos veces.
-- [ ] **US-10** Pie común con correo, GitHub y LinkedIn (iconos SVG con texto) en las 5 páginas
+- [x] **US-10** Pie común con correo, GitHub y LinkedIn (iconos SVG con texto) en las 5 páginas
   - Media · S (C, M, J, I puntúan 1.6 entre 7 y 10) · métricas 1.6, 4.3
   - Cubre también «el bloque de contacto en todas las páginas». Otras redes solo si existen (M).
+  - Hecho el 2026-11-12: lista `.footer-links` en el pie de las 5 páginas con Correo (`mailto:`), GitHub y LinkedIn; cada enlace lleva un icono SVG en línea con `aria-hidden` y `currentColor`, y texto visible. Áreas táctiles de 44 px de alto. No se añaden otras redes porque no constan.
 
 ### Accesibilidad (hito M2)
 

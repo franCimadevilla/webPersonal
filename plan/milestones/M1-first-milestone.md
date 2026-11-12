@@ -44,5 +44,5 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
 
 ## 1.6 Enlaces a redes sociales
 
-- [ ] US-10 Pie común con correo, GitHub y LinkedIn (iconos SVG + texto) en las 5 páginas @est:3h @owner:francisco ^T13
+- [x] US-10 Pie común con correo, GitHub y LinkedIn (iconos SVG + texto) en las 5 páginas @est:3h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T13
       Fuente: S (C, M, J, I puntúan 1.6 entre 7 y 10). Métricas: 1.6, 4.3. Cubre también «bloque de contacto en todas las páginas» (4.3). Otras redes solo si existen (M).
