@@ -12,7 +12,7 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
       Fuente: C, J. Métricas: 1.1, 1.2, 3.2, 5.1. Hoy Inicio=«3 de 5», Sobre mí=4, Proyectos=5, Multimedia=1, Galería=2 (5 HTML × 5 puntos).
 - [x] US-02 Migas de pan textuales (Inicio › Sección) en las 4 páginas interiores @est:3h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T2
       Fuente: C, M, I, S. Métrica: 1.1. <nav aria-label="Ruta de navegación"> con <ol> y aria-current en el último nivel.
-- [ ] US-03 Página «Ayuda y mapa del sitio» enlazada desde el pie @est:4h @owner:francisco @dep:T28 ^T3
+- [x] US-03 Página «Ayuda y mapa del sitio» enlazada desde el pie @est:4h @owner:francisco @dep:T28 @started:2026-11-12 @done:2026-11-12 ^T3
       Fuente: C, M, I, S. Métricas: 1.1, 1.2. Estructura del sitio, atajos de teclado y cómo contactar. Fuera del carrusel de 5 páginas.
 
 ## 1.2 Ayuda y retroalimentación

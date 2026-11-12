@@ -49,9 +49,10 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
 - [x] **US-02** Migas de pan textuales («Inicio › Proyectos») en las 4 páginas interiores
   - Media · C, M, I, S · métrica 1.1
   - Hecho el 2026-11-12: `<nav class="breadcrumb" aria-label="Migas de pan">` con `<ol>` al principio del `<main>` de Sobre mí, Proyectos, Multimedia y Galería. La página actual lleva `aria-current="page"` y el separador › tiene `aria-hidden`.
-- [ ] **US-03** Página «Ayuda y mapa del sitio» enlazada desde el pie
+- [x] **US-03** Página «Ayuda y mapa del sitio» enlazada desde el pie
   - Media · C, M, I, S · métricas 1.1, 1.2
   - Estructura del sitio, atajos de teclado y cómo contactar. Queda fuera del carrusel de 5 páginas. Se escribe después de FU-03, para documentar el comportamiento final.
+  - Hecho el 2026-11-12: `ayuda.html` con mapa del sitio (las 5 páginas y sus secciones con enlaces), cómo moverse (menú, migas, carrusel, flechas laterales, bucle), atajos de teclado (← → y sus excepciones, Tab, «Saltar al contenido», Intro) y cómo contactar. Enlace «Ayuda y mapa del sitio» en el pie de las 6 páginas (`aria-current` en la propia ayuda). No lleva carrusel ni `main.js`. Tampoco lleva el script de Contentsquare: **Francisco decide si lo añade**.
 - [x] **US-04** Anunciar el atajo de teclado ← → en la interfaz
   - Alta · C, M · métrica 1.2
   - Pista visible junto al carrusel y `aria-keyshortcuts` en los botones ‹ ›.
