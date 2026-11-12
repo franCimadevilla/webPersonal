@@ -7,10 +7,11 @@ Mejoras de la categoría 3 (métricas 3.1 y 3.2).
 
 ## 3.1 Buscador
 
-- [ ] FU-01 Buscador del sitio (Pagefind) @owner:francisco @prio:high ^T23
+- [/] FU-01 Buscador del sitio (propio, sin dependencias; sustituye a Pagefind) @owner:francisco @prio:high @started:2026-11-12 ^T23
       Fuente: C, M, J, I, S (todos 0). Pagefind indexa en el workflow de Pages y funciona en GitHub Pages sin servidor.
-  - [ ] Integrar Pagefind en el workflow de Pages y probarlo en local @est:3h @owner:francisco ^T24
-  - [ ] Caja de búsqueda accesible en la cabecera y página de resultados con aria-live @est:4h @owner:francisco @dep:T24,T11 ^T25
+      2026-11-12: Pagefind es una dependencia externa (binario en el workflow y su JS en la web), y las reglas del proyecto no permiten añadirlas. Se sustituye por un índice propio generado con Python y una búsqueda en JS ES5, también sin servidor.
+  - [x] Índice de búsqueda propio generado con Python, regenerado en el workflow de Pages y probado en local @est:3h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T24
+  - [/] Caja de búsqueda accesible en la cabecera y página de resultados con aria-live @est:4h @owner:francisco @dep:T24,T11 @started:2026-11-12 ^T25
   - [ ] Estilos, mensaje «sin resultados» y pruebas en ES/EN @est:2h @owner:francisco @dep:T25 ^T26
 
 ## 3.2 Facilidad de navegación
