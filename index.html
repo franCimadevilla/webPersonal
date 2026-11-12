@@ -75,6 +75,33 @@
           </dd>
         </div>
       </dl>
+
+      <h3 id="titulo-formulario">Escríbeme</h3>
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/cimadevilla.francisco@gmail.com"
+        method="POST" aria-labelledby="titulo-formulario" aria-describedby="contact-note">
+        <input type="hidden" name="_subject" value="Mensaje desde la web personal">
+        <input type="hidden" name="_template" value="table">
+        <!-- Trampa para bots: oculta, nadie debería rellenarla -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
+        <p class="contact-field">
+          <label for="cf-nombre">Nombre</label>
+          <input id="cf-nombre" type="text" name="nombre" autocomplete="name" required>
+        </p>
+        <p class="contact-field">
+          <label for="cf-email">Correo electrónico</label>
+          <input id="cf-email" type="email" name="email" autocomplete="email" required>
+        </p>
+        <p class="contact-field">
+          <label for="cf-mensaje">Mensaje</label>
+          <textarea id="cf-mensaje" name="mensaje" rows="5" required></textarea>
+        </p>
+        <p class="contact-note" id="contact-note">Todos los campos son obligatorios. El mensaje se envía a través de
+          FormSubmit (formsubmit.co) y solo uso tus datos para responderte.</p>
+        <p>
+          <button type="submit" class="contact-submit">Enviar mensaje</button>
+        </p>
+        <p class="contact-status" id="contact-status" role="status"></p>
+      </form>
     </section>
   </main>
 

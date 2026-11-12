@@ -53,6 +53,38 @@
     return !(target && target.closest && target.closest(OWN_ARROWS));
   }
 
+  // Formulario de contacto (US-06). Sin JavaScript se envía de forma normal
+  // y FormSubmit muestra su página de confirmación. Con JavaScript se envía
+  // a su punto AJAX y la confirmación aparece aquí, en una región role=status.
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('contact-status');
+  if (form && status && window.fetch && window.FormData) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var button = form.querySelector('[type="submit"]');
+      button.disabled = true;
+      status.className = 'contact-status';
+      status.textContent = 'Enviando…';
+      fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form)
+      })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          if (String(data.success) !== 'true') throw new Error(data.message);
+          form.reset();
+          status.className = 'contact-status is-ok';
+          status.textContent = 'Gracias, tu mensaje se ha enviado. Te responderé lo antes posible.';
+        })
+        .catch(function () {
+          status.className = 'contact-status is-error';
+          status.textContent = 'No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbeme a cimadevilla.francisco@gmail.com.';
+        })
+        .then(function () { button.disabled = false; });
+    });
+  }
+
   // Atajo de teclado: flechas izquierda/derecha para desplazarse
   document.addEventListener('keydown', function (event) {
     if (!shortcutAllowed(event)) return;

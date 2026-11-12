@@ -58,9 +58,11 @@ Las cinco métricas en negrita (media inferior a 3,5) son 1.2, 1.5, 3.1, 4.4 y 5
   - Hecho el 2026-11-12: «También puedes cambiar de página con las teclas ← y →» bajo el carrusel en las 5 páginas. Va con `hidden` en el HTML y la muestra `main.js`, que también pone `aria-keyshortcuts="ArrowLeft"`/`"ArrowRight"` en los enlaces ‹ ›: sin JavaScript no hay atajo y no se anuncia. Con `@media (hover: none)` (pantallas táctiles) no se muestra. Comprobado en el DOM final de Edge y con captura.
 - [ ] **US-05** Página 404 propia con botón para volver al inicio
   - Media · C, S · métrica 1.2
-- [ ] **US-06** Formulario de contacto con mensaje de confirmación
+- [x] **US-06** Formulario de contacto con mensaje de confirmación
   - Media · M, S, C · métricas 1.2, 4.3
   - **Decisión previa:** el sitio es estático. Hay que elegir entre un servicio externo (Formspree o Getform, con revisión de privacidad) y un formulario con `mailto:` más confirmación en página. Si no se quiere, se cancela la tarea.
+  - Decidido por Francisco el 2026-11-12: FormSubmit (formsubmit.co).
+  - Hecho el 2026-11-12: formulario «Escríbeme» en Inicio (nombre, correo y mensaje, con `label`, `autocomplete` y `required`), trampa `_honey` oculta y nota de privacidad. Sin JavaScript se envía de forma normal y FormSubmit muestra su confirmación (con captcha). Con JavaScript se envía a `formsubmit.co/ajax/…` y el resultado aparece en una región `role="status"` («Gracias, tu mensaje se ha enviado…» o un error con el correo como alternativa). Probado con `fetch` simulado (éxito y error); **no se ha hecho ningún envío real**. **Pendiente de Francisco:** tras el push, enviar un mensaje de prueba desde la web y confirmar el correo de activación que manda FormSubmit; sin ese paso no entrega nada. Opcional: cambiar el correo del `action` por el alias aleatorio que da FormSubmit tras la activación.
 - [ ] **US-07** Imágenes en Sobre mí y capturas en las tarjetas de Proyectos
   - Baja · S · métrica 1.3
   - Solo en WebP ligero, para no empeorar el rendimiento (EF-01).
