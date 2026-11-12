@@ -4,8 +4,9 @@
    Los puntos y enlaces activos se marcan de forma estática en cada página
    (progressive enhancement: la web funciona sin JavaScript). Los enlaces
    ‹ › del carrusel y las flechas laterales son <a> normales con el bucle ya
-   escrito en el HTML (Inicio ‹ Galería y Galería › Inicio). Este script solo
-   añade el atajo de teclado ← →, con el mismo bucle.
+   escrito en el HTML (Inicio ‹ Galería y Galería › Inicio). Este script
+   añade el atajo de teclado ← → con el mismo bucle, el formulario por AJAX,
+   y en EV-01 las vistas previas laterales y el deslizamiento entre páginas.
    ========================================================================== */
 
 (function () {
@@ -24,11 +25,59 @@
   var index = PAGES.findIndex(function (page) { return page.id === currentId; });
   if (index === -1) index = 0;
 
+  // ── Deslizamiento entre páginas (EV-01) ──────────────────────────────
+  // Al ir a la página anterior o a la siguiente, el contenido sale hacia el
+  // lado contrario y después se navega a la página real (sin pushState). La
+  // dirección se guarda en sessionStorage y el script del <head> de la
+  // página nueva la aplica antes del primer pintado (data-enter), para que
+  // entre por el lado correcto. Con prefers-reduced-motion se navega sin más.
+  var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var root = document.documentElement;
+
+  function slideTo(url, dir) {
+    if (!url) return;
+    if ((reduceMotion && reduceMotion.matches) || root.hasAttribute('data-slide')) {
+      if (!root.hasAttribute('data-slide')) window.location.href = url;
+      return;
+    }
+    try {
+      window.sessionStorage.setItem('slide-enter', dir);
+    } catch (error) { /* sin almacenamiento: la página nueva entra como siempre */ }
+    var page = document.querySelector('main');
+    var left = false;
+    var leave = function () {
+      if (left) return;
+      left = true;
+      window.location.href = url;
+    };
+    root.setAttribute('data-slide', dir);
+    if (page) page.addEventListener('animationend', leave);
+    window.setTimeout(leave, 400); // por si la animación no llega a lanzarse
+  }
+
+  // Al volver con «Atrás», el navegador puede restaurar la página tal como
+  // se quedó (bfcache): se quita el estado de salida para que se vea.
+  window.addEventListener('pageshow', function () {
+    root.removeAttribute('data-slide');
+  });
+
   // Al pasar de la última página se vuelve a la primera y al revés (bucle),
   // igual que en los enlaces del HTML.
   function goTo(nextIndex) {
     var total = PAGES.length;
-    window.location.href = PAGES[((nextIndex % total) + total) % total].url;
+    slideTo(PAGES[((nextIndex % total) + total) % total].url, nextIndex < index ? 'prev' : 'next');
+  }
+
+  // Clic normal (botón principal, sin teclas modificadoras): con Ctrl, Cmd,
+  // Mayús o la rueda el enlace se abre en otra pestaña como siempre.
+  function slideOnClick(link, dir) {
+    if (!link) return;
+    link.addEventListener('click', function (event) {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      slideTo(link.href, dir);
+    });
   }
 
   // El atajo solo existe con JavaScript: aquí se anuncia, con la pista
@@ -39,6 +88,8 @@
   if (hint) hint.hidden = false;
   if (prevLink) prevLink.setAttribute('aria-keyshortcuts', 'ArrowLeft');
   if (nextLink) nextLink.setAttribute('aria-keyshortcuts', 'ArrowRight');
+  slideOnClick(prevLink, 'prev');
+  slideOnClick(nextLink, 'next');
 
   // Elementos que usan las flechas por sí mismos: campos de texto, listas,
   // controles de rango y reproductores. Ahí el atajo no debe actuar.
@@ -118,6 +169,10 @@
   // y el enlace conserva su aria-label. Sin fetch (por ejemplo con file://)
   // las flechas siguen como estaban.
   var lateral = document.querySelectorAll('.page-lateral-nav a');
+  if (lateral.length === 2) {
+    slideOnClick(lateral[0], 'prev');
+    slideOnClick(lateral[1], 'next');
+  }
   var wide = window.matchMedia ? window.matchMedia('(min-width: 1200px)') : null;
   var PREVIEW_WIDTH = 960; // ancho real de .page, que la miniatura reduce
   var previewsRequested = false;

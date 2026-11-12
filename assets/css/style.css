@@ -252,6 +252,24 @@ code {
   &:focus {
     outline: none;
   }
+
+  /* EV-01: al llegar desde la página siguiente entra por la izquierda; al
+     irse, sale hacia el lado contrario al de la página de destino. */
+  [data-enter="prev"] & {
+    animation-name: slide-in-prev;
+  }
+
+  [data-slide="next"] & {
+    animation: slide-out-next 0.28s ease-in forwards;
+  }
+
+  [data-slide="prev"] & {
+    animation: slide-out-prev 0.28s ease-in forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes slide-in {
@@ -262,6 +280,31 @@ code {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-next {
+  to {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes slide-out-prev {
+  to {
+    opacity: 0;
+    transform: translateX(80px);
   }
 }
 
