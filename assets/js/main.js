@@ -25,6 +25,21 @@
   var index = PAGES.findIndex(function (page) { return page.id === currentId; });
   if (index === -1) index = 0;
 
+  // ── Pausa del tagline de la portada (EV-03) ──────────────────────────
+  // La casilla funciona sola con CSS; aquí solo se recuerda durante la
+  // visita, para que la frase no vuelva a moverse al regresar a Inicio.
+  var taglinePause = document.getElementById('tagline-pause');
+  if (taglinePause) {
+    try {
+      if (window.sessionStorage.getItem('tagline-paused') === '1') taglinePause.checked = true;
+    } catch (error) { /* sin almacenamiento: la casilla funciona igual */ }
+    taglinePause.addEventListener('change', function () {
+      try {
+        window.sessionStorage.setItem('tagline-paused', taglinePause.checked ? '1' : '0');
+      } catch (error) { /* idem */ }
+    });
+  }
+
   // ── Deslizamiento entre páginas (EV-01) ──────────────────────────────
   // Al ir a la página anterior o a la siguiente, el contenido sale hacia el
   // lado contrario y después se navega a la página real (sin pushState). La

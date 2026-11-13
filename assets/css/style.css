@@ -403,7 +403,42 @@ h2 {
    (--i). Con fuente monoespaciada, 1ch = un carácter, así que steps(--n)
    revela una letra por paso. Las tres frases ocupan la misma celda de la
    rejilla: la altura no cambia y no hay desplazamiento de contenido (CLS).
-   Sin CSS se ven como una lista; con movimiento reducido, quietas. */
+   Sin CSS se ven como una lista. Se anima también con movimiento reducido
+   (EV-03, decisión de Francisco): escribir letra a letra no desplaza nada
+   en pantalla. Como se repite sin fin, la casilla «Pausar animación» la
+   detiene (WCAG 2.2.2), sin JavaScript: .tagline-box pasa la pausa a las
+   frases con una variable heredada. */
+/* La casilla va debajo y no al lado: al lado se movería mientras la frase
+   se escribe. */
+.tagline-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+
+  &:has(:checked) {
+    --tagline-play: paused;
+  }
+}
+
+.tagline-pause {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+
+  & input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+}
+
 .tagline {
   display: grid;
   margin: 0;
@@ -423,18 +458,7 @@ h2 {
     white-space: nowrap;
     border-right: 2px solid transparent;
     animation: tagline-type 12s calc(var(--i) * 4s) infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    gap: 0.25rem;
-
-    & li {
-      grid-area: auto;
-      width: auto;
-      white-space: normal;
-      border-right: 0;
-      animation: none;
-    }
+    animation-play-state: var(--tagline-play, running);
   }
 }
 

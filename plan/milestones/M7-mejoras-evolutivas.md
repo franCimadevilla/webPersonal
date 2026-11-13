@@ -41,3 +41,14 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
   - [x] Pruebas de EV-02: 1280, 1366 y 1920 px, CLS y fluidez, movimiento reducido, sin JavaScript, file://, teclado y foco @est:2h @owner:francisco @dep:T61,T62 @started:2026-11-12 @done:2026-11-12 ^T63
         CLS debe seguir en 0. Medir los fotogramas de la animación y del scroll con el blur (DevTools > Performance) y que LCP no empeore.
         Revisar que el anillo de foco se vea sobre el blur. Actualizar la sección 6 del checklist y, si cambia el comportamiento, la Ayuda (ES y EN). Probar en un navegador real, porque headless no hace avanzar las animaciones CSS.
+
+## Portada y Sobre mí
+
+- [x] EV-03 Tagline de la portada: animación de escritura siempre visible y botón de pausa @est:3h @owner:francisco @done:2026-11-13 ^T64
+      Petición de Francisco del 2026-11-13: el tagline no hacía lo que hacía el Typing SVG externo (cada frase se escribe letra a letra, se borra y pasa a la siguiente).
+      Causa: Windows tiene desactivados los efectos de animación, así que el navegador informa prefers-reduced-motion: reduce y el CSS mostraba las tres frases quietas. Con movimiento permitido la animación ya funcionaba.
+      Decisión de Francisco: el tagline se anima siempre (escribir letra a letra no desplaza nada en pantalla); el deslizamiento entre páginas sigue sin animación con movimiento reducido.
+      Hecho: casilla «Pausar animación» / «Pause animation» (WCAG 2.2.2) que funciona sin JavaScript (:has + variable heredada); main.js la recuerda durante la visita. Ayuda ES y EN actualizada. Detalle en la entrada EV-03 del checklist.
+- [ ] EV-04 Sobre mí: integrar las imágenes en el texto en lugar de ponerlas al pie de cada párrafo @est:3h @owner:francisco ^T65
+      Petición de Francisco del 2026-11-13. Las fotos van hoy debajo del párrafo, como pie.
+      Integrarlas en la maquetación (junto al texto en pantallas anchas, debajo en móvil), sin CLS (width/height) y con el mismo texto alternativo y pie. ES y EN.
