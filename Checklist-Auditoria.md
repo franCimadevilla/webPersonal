@@ -296,3 +296,10 @@ Estas mejoras no salen de la auditoría: las pide Francisco. Van en el hito M7 d
     - **Ayuda** (ES y EN): nuevo punto «Animaciones», con la pausa y lo que pasa con reducir movimiento. Índice del buscador regenerado.
     - **Comprobado en Edge (headless, que informa `reduce` como el equipo de Francisco):** con el CSS real, la animación corre y escribe, mantiene y borra cada frase (anchuras congeladas a 0–9 s, ES y EN); al marcar la casilla `animation-play-state` pasa a `paused` y se guarda; al desmarcarla, `running`. Nombre accesible de la casilla correcto. Captura a 1280 px.
     - **No comprobado:** lector de pantalla real y navegador real con los efectos de animación activados.
+- [x] **EV-04** Sobre mí: fotos integradas en el texto en lugar de al pie de los párrafos
+  - Petición de Francisco del 2026-11-13 · T65 en el plan (hito M7)
+  - Hecho el 2026-11-13:
+    - La foto de la graduación va al principio de «Mi historia» y la del concurso de Empathy al de «Intereses y aficiones» (ES y EN). Desde 720 px flotan a la derecha (15rem) y el texto y las listas las rodean; la de la graduación llega hasta «Actualmente». En el móvil quedan encima del texto, como antes. `clear: right` impide que una foto se monte en la anterior. La fila de esquí y surf se queda al final, como cierre de «Fuera del trabajo».
+    - `h2` pasa a `display: flow-root`: junto a una foto el título se estrecha, en lugar de pasar su línea inferior por debajo de ella. Sin fotos flotantes no cambia nada.
+    - Mismos `alt`, pies de foto, `width`/`height` (sin CLS) y carga diferida. Índice del buscador regenerado.
+    - **Comprobado en Edge (headless):** capturas de Sobre mí a 1280 px (ES y EN), 800 y 500 px.

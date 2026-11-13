@@ -49,6 +49,6 @@ Mejoras que no salen de la auditoría sino de una petición de Francisco. Detall
       Causa: Windows tiene desactivados los efectos de animación, así que el navegador informa prefers-reduced-motion: reduce y el CSS mostraba las tres frases quietas. Con movimiento permitido la animación ya funcionaba.
       Decisión de Francisco: el tagline se anima siempre (escribir letra a letra no desplaza nada en pantalla); el deslizamiento entre páginas sigue sin animación con movimiento reducido.
       Hecho: casilla «Pausar animación» / «Pause animation» (WCAG 2.2.2) que funciona sin JavaScript (:has + variable heredada); main.js la recuerda durante la visita. Ayuda ES y EN actualizada. Detalle en la entrada EV-03 del checklist.
-- [ ] EV-04 Sobre mí: integrar las imágenes en el texto en lugar de ponerlas al pie de cada párrafo @est:3h @owner:francisco ^T65
+- [x] EV-04 Sobre mí: integrar las imágenes en el texto en lugar de ponerlas al pie de cada párrafo @est:3h @owner:francisco @started:2026-11-13 @done:2026-11-13 ^T65
       Petición de Francisco del 2026-11-13. Las fotos van hoy debajo del párrafo, como pie.
       Integrarlas en la maquetación (junto al texto en pantallas anchas, debajo en móvil), sin CLS (width/height) y con el mismo texto alternativo y pie. ES y EN.

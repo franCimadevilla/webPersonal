@@ -369,7 +369,10 @@ h1 {
   letter-spacing: -0.02em;
 }
 
+/* flow-root: junto a una foto flotante (.photo) el título se estrecha, en
+   lugar de pasar su línea inferior por debajo de la foto. */
 h2 {
+  display: flow-root;
   margin-top: 2rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--border);
@@ -635,10 +638,21 @@ dl {
 }
 
 /* ── Fotos de Sobre mí ────────────────────────────────────── */
+/* Foto de Sobre mí (EV-04): va al principio de su sección y, desde 720 px,
+   flota a la derecha para que el texto la rodee, en lugar de quedar al pie
+   del párrafo. En el móvil queda encima del texto. clear: right evita que
+   una foto se monte en la de la sección anterior. */
 .photo {
   /* Gana al reset `figure { margin: 0 }` (clase frente a elemento). */
   max-width: 18rem;
   margin: 1rem 0 1.5rem;
+
+  @media (min-width: 720px) {
+    float: right;
+    clear: right;
+    width: 15rem;
+    margin: 0.35rem 0 1.25rem 2rem;
+  }
 
   & img {
     width: 100%;
