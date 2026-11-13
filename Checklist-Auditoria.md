@@ -171,9 +171,14 @@ Las cuatro primeras tareas necesitan datos que solo puede aportar Francisco.
   - Media · J, C, I · métrica 5.3
   - J obtuvo 2 errores en el perfil CSS3. Ningún elemento usa `disabled` ni `aria-disabled`, así que `.carousel-btn:disabled` y `.page-lateral-nav [aria-disabled]` sobran. Revisar también el aviso de extensión de proveedor (C, I) y el de fuentes (J).
   - Hecho el 2026-11-12: fuera `.carousel-btn:disabled` (desde FU-02 es un enlace y no puede deshabilitarse) y `.page-lateral-nav a[aria-disabled]`. Ya no queda ningún `pointer-events` en el CSS. Se quita `-apple-system` de `font-family`, que es la extensión de proveedor que marca el validador (`system-ui` ya cubre Safari). Se conserva `.button:disabled`, que usa el formulario mientras envía. El aviso de fuentes (J) y el resultado final del validador se comprueban en CF-06, porque el validador es un servicio externo.
-- [ ] **CF-06** Revalidar HTML y CSS en el W3C (ES y EN) y guardar la evidencia
+- [x] **CF-06** Revalidar HTML y CSS en el W3C (ES y EN) y guardar la evidencia
   - Alta · S (C, M, J e I ya dan 0 errores) · métricas 5.2, 5.3
   - Se puede usar `tests/w3c-validate.js`.
+  - Hecho el 2026-11-13, a petición de Francisco, sobre el commit fa7db9d (tras EV-03 y EV-04). Evidencia: `tests/resultados/w3c-2026-11-13.json`.
+    - **HTML (validator.w3.org/nu):** las 15 páginas (ES, EN y 404) con 0 errores y 0 avisos.
+    - **CSS (Jigsaw), perfil `css3svg`** (CSS 3 + SVG, el que trae por defecto el formulario del W3C): 0 errores y 124 avisos. Los avisos son consejos de «color sin fondo», «redefiniciones» que salen de cómo Jigsaw aplana el anidamiento o de un longhand tras su shorthand (`animation` y luego `animation-play-state`, a propósito), y variables CSS que no comprueba.
+    - **CSS, perfil `css3`:** 5 errores, todos falsos: `pointer-events` (2) y `clip-path` (3) son propiedades estándar (CSS UI 4 y CSS Masking) que ese perfil no incluye. `clip-path: inset(50%)` es parte del patrón de texto solo para lectores de pantalla y `pointer-events: none` hace que el área pulsable de las vistas previas sea exactamente la miniatura (EV-02), así que se mantienen.
+    - **Arreglos en `tests/w3c-validate.js`:** Jigsaw responde ahora 500 a los POST `application/x-www-form-urlencoded` (incluso con un CSS trivial), así que el script envía `multipart/form-data`. Además, leía la salida de texto con un patrón que no casaba y daba siempre 0 mensajes de CSS: ahora pide JSON. Nueva opción `--css-profile` (por defecto `css3`).
 - [x] **CF-07** Revisar enlaces internos y externos tras los cambios (ES y EN)
   - Media · C · métrica 5.1
   - Hecho el 2026-11-12:

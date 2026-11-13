@@ -27,6 +27,7 @@ const args = parseArgs({
     'css-string': { type: 'string' },
     url:          { type: 'string' },
     concurrency:  { type: 'string', default: '3' },
+    'css-profile':{ type: 'string' },
     help:         { type: 'boolean', short: 'h' }
   },
   allowPositionals: true
@@ -45,11 +46,16 @@ Uso:
 
 Opciones:
   --concurrency N   Peticiones simultáneas (default: 3)
+  --css-profile P   Perfil del validador CSS (default: css3; css3svg admite
+                    pointer-events y clip-path)
 `);
   process.exit(0);
 }
 
 const CONCURRENCY = parseInt(args.values.concurrency || '3', 10);
+// css3 no conoce pointer-events ni clip-path (los marca como error);
+// css3svg sí. Ver CF-06 en Checklist-Auditoria.md.
+const CSS_PROFILE = args.values['css-profile'] || 'css3';
 
 // ---------------------------------------------------------------------------
 // Utilidades
@@ -140,34 +146,37 @@ async function validateHTMLContent(content) {
 }
 
 async function validateCSSContent(content) {
-  const form = new URLSearchParams();
+  // multipart/form-data: desde noviembre de 2026 Jigsaw responde 500 a los
+  // POST application/x-www-form-urlencoded, incluso con un CSS trivial.
+  const form = new FormData();
   form.append('text', content);
-  form.append('output', 'text');
+  form.append('output', 'json');
   form.append('warning', '2');
-  form.append('profile', 'css3');
+  form.append('profile', CSS_PROFILE);
 
   const res = await fetch('https://jigsaw.w3.org/css-validator/validator', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       'User-Agent': 'W3C-Recursive-Validator/1.0'
     },
     body: form
   });
   if (!res.ok) throw new Error(`CSS validator HTTP ${res.status}`);
-  const text = await res.text();
-  return parseCSSTextOutput(text);
+  return parseCSSJsonOutput(await res.json());
 }
 
-function parseCSSTextOutput(text) {
+// La salida de texto de Jigsaw («Line : 118 selector …», en varias líneas)
+// no casaba con el patrón anterior y daba siempre 0 mensajes: se usa JSON.
+function parseCSSJsonOutput(data) {
+  const v = data.cssvalidation || {};
   const messages = [];
-  for (const line of text.split('\n')) {
-    const match = line.match(/^(\d+)\s+(error|warning|info)\s+(.+)$/i);
-    if (match) {
+  for (const [type, list] of [['error', v.errors || []], ['warning', v.warnings || []]]) {
+    for (const m of list) {
+      const context = m.context ? `${String(m.context).trim()} — ` : '';
       messages.push({
-        type: match[2].toLowerCase(),
-        message: match[3].trim(),
-        lastLine: parseInt(match[1], 10)
+        type,
+        message: `${context}${String(m.message || '').replace(/\s*:\s*$/, '').trim()}`,
+        lastLine: m.line ?? null
       });
     }
   }
