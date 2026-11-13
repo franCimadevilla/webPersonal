@@ -49,13 +49,16 @@
 
   function moveCarousel(dir, done) {
     var pages = document.querySelectorAll('.page-preview-page');
-    // El marco está separado de la página actual por un margen
-    // (--preview-gap): el desplazamiento lo incluye para que la miniatura
-    // acabe justo donde está la página.
+    // El marco va pegado al borde de la pantalla, separado de la página
+    // actual por un hueco: el desplazamiento lo incluye para que la
+    // miniatura acabe justo donde está la página.
     var gap = 0;
     for (var g = 0; g < pages.length; g++) {
       var frame = pages[g].parentNode;
-      if (frame.parentNode.getAttribute('data-side') === 'next') gap = frame.offsetLeft;
+      if (frame.parentNode.getAttribute('data-side') === 'next') {
+        // Con decimales: offsetLeft redondea y dejaría un salto de 1 px.
+        gap = frame.getBoundingClientRect().left - frame.parentNode.getBoundingClientRect().left;
+      }
     }
     var shift = dir === 'next' ? -(CAROUSEL_SHIFT + gap) : CAROUSEL_SHIFT + gap;
     var incoming = null;
@@ -357,8 +360,9 @@
 
   // Escala = ancho del marco / 120 px: así cabe justo un octavo de la
   // página. El marco mide la mitad del hueco que deja el margen, y como
-  // mucho 120 px, de modo que la escala no pasa de 1. El CSS ancla marco y
-  // miniatura junto al borde interior según el lado (data-side).
+  // mucho 120 px, de modo que la escala no pasa de 1. El CSS pega el marco
+  // al borde de la pantalla y, dentro, ancla la miniatura por el lado que
+  // queda junto a la página actual (data-side).
   function previewScale(frame) {
     return frame.clientWidth / PREVIEW_VISIBLE;
   }
