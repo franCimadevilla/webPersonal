@@ -11,10 +11,10 @@ El sitio se reutilizará posteriormente en la asignatura **Experiencia de Usuari
 | Página | Contenido |
 | --- | --- |
 | **Home** | Información personal principal |
-| **R1 · Sobre mí** | Descripción detallada y aficiones/intereses |
-| **R2 · Credenciales / Proyectos** | Formación, habilidades y proyectos |
-| **L1 · Multimedia** | Vídeos y podcast de interés |
-| **L2 · Fotos y lugares visitados** | Galería fotográfica y viajes |
+| **Sobre mí** | Descripción detallada y aficiones/intereses |
+| **Credenciales / Proyectos** | Formación, habilidades y proyectos |
+| **Multimedia** | Vídeos y podcast de interés |
+| **Fotos y lugares visitados** | Galería fotográfica y viajes |
 
 ### Home
 - Nombre y apellidos.
@@ -23,24 +23,24 @@ El sitio se reutilizará posteriormente en la asignatura **Experiencia de Usuari
 - Breve presentación o frase de bienvenida.
 - Semántica: `header` + `main` + `figure`/`img` con `figcaption`.
 
-### R1 · Sobre mí
+### Sobre mí
 - Descripción más detallada sobre mi vida y trayectoria.
 - **Aficiones e intereses**: películas, deportes, música, viajes, etc., organizados por secciones temáticas.
 - Datos de contacto y para mandar un coreo.
 - Semántica: `article` y varias `section` (una por tema de interés).
 
-### R2 · Credenciales / Proyectos
+### Credenciales / Proyectos
 - Formación académica y certificaciones.
 - Experiencia y habilidades técnicas/blandas.
 - Proyectos personales o académicos (con enlaces o capturas de pantalla).
 - Semántica: listas `ul`/`dl` para credenciales y `figure` para las capturas de proyectos.
 
-### L1 · Multimedia (Vídeos y Podcast)
+### Multimedia (Vídeos y Podcast)
 - Vídeos de interés (insertados con `<video>` o mediante incrustación).
 - **Podcast de interés** incluido con `<audio controls>` y su descripción/título en `figcaption`.
 - Semántica: `video`, `audio` y `figure` con `figcaption`.
 
-### L2 · Fotos y lugares visitados
+### Fotos y lugares visitados
 - Galería de fotografías personales.
 - Lugares visitados, cada uno con una foto y una breve descripción.
 - Semántica: galería de `figure`/`img` con `figcaption` agrupada en `section`.
@@ -49,10 +49,10 @@ El sitio se reutilizará posteriormente en la asignatura **Experiencia de Usuari
 
 - [x] Información personal (nombre, apellidos, email) → **Home**
 - [x] Fotografía personal → **Home**
-- [x] Aficiones / actividades / temas de interés → **R1 · Sobre mí**
-- [x] Fotos → **L2 · Fotos y lugares visitados**
-- [x] Vídeos → **L1 · Multimedia**
-- [x] Audios (podcast de interés) → **L1 · Multimedia**
+- [x] Aficiones / actividades / temas de interés → **Sobre mí**
+- [x] Fotos → **Fotos y lugares visitados**
+- [x] Vídeos → **Multimedia**
+- [x] Audios (podcast de interés) → **Multimedia**
 - [x] Mínimo 5 páginas → **5 páginas**
 
 ## 4. Estilo y navegación
@@ -76,10 +76,10 @@ El sitio se reutilizará posteriormente en la asignatura **Experiencia de Usuari
 ```
 Actividad2/
 ├── index.html          # Home (página 1)
-├── sobre-mi.html       # R1 · Sobre mí (página 2)
-├── proyectos.html      # R2 · Credenciales / Proyectos (página 3)
-├── multimedia.html     # L1 · Vídeos y podcast (página 4)
-├── galeria.html        # L2 · Fotos y lugares visitados (página 5)
+├── sobre-mi.html       # Sobre mí (página 2)
+├── proyectos.html      # Credenciales / Proyectos (página 3)
+├── multimedia.html     # Vídeos y podcast (página 4)
+├── galeria.html        # Fotos y lugares visitados (página 5)
 ├── assets/
 │   ├── css/
 │   │   └── style.css   # Estilos comunes + carrusel y diseño responsive

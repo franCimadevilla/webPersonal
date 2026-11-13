@@ -23,7 +23,7 @@ Mejoras de la categoría 1 (métricas 1.1–1.6) de la auditoría tanda 1. Detal
       Fuente: C, S. Métrica: 1.2. GitHub Pages sirve 404.html desde la raíz: usar rutas que funcionen a cualquier profundidad.
 - [x] US-06 Formulario de contacto con mensaje de confirmación @est:4h @owner:francisco @started:2026-11-12 @done:2026-11-12 ^T6
       Fuente: M, S (C lo echa en falta en 1.2). Métricas: 1.2, 4.3. Sitio estático: Formspree/Getform (externo, revisar privacidad) o formulario mailto con confirmación. Decidir antes de empezar; cancelar si no se quiere.
-- [?] US-06 Revisión manual: activar FormSubmit tras el push (mensaje de prueba y correo de activación) @est:0.5h @owner:francisco @dep:T6 @prio:high @started:2026-11-12 #manual ^T57
+- [x] US-06 Revisión manual: activar FormSubmit tras el push (mensaje de prueba y correo de activación) @est:0.5h @owner:francisco @dep:T6 @prio:high @started:2026-11-12 @done:2026-11-13 #manual ^T57
       Tras publicar la web, enviar un mensaje de prueba desde el formulario de Inicio y confirmar el correo de activación que manda FormSubmit. Sin ese paso el formulario no entrega nada.
       Opcional: sustituir el correo del action por el alias aleatorio que da FormSubmit tras la activación.
 

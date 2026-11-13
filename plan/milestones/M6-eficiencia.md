@@ -20,5 +20,5 @@ Mejoras de la categoría 6 (métricas 6.1 y 6.2).
 
 ## 6.2 Tiempo de carga
 
-- [ ] EF-04 Remedir con PageSpeed Insights (móvil) y Lighthouse y registrar antes/después @est:2h @owner:francisco @dep:T45,T48,T49,T12,T26,T56 @prio:high ^T50
+- [/] EF-04 Remedir con PageSpeed Insights (móvil) y Lighthouse y registrar antes/después @est:2h @owner:francisco @dep:T45,T48,T49,T12,T26,T56 @prio:high @started:2026-11-13 ^T50
       Fuente: C, M, J, I. Métricas: 6.1, 6.2, 1.4. Objetivo: Rendimiento ≥ 90 en todas las páginas, LCP < 2,5 s y CLS < 0,1. Las 5 páginas llevan un script de Contentsquare sin commitear: medir con y sin él.

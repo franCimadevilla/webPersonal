@@ -26,7 +26,7 @@ Mejoras de la categoría 2 (métricas 2.1–2.3).
 
 ## 2.3 Comprobación automática
 
-- [ ] AC-06 Auditar con Lighthouse, WAVE y axe las páginas ES y EN y resolver avisos @est:2.5h @owner:francisco @dep:T12,T26,T15,T16,T28,T56 @prio:high ^T21
+- [/] AC-06 Auditar con Lighthouse, WAVE y axe las páginas ES y EN y resolver avisos @est:2.5h @owner:francisco @dep:T12,T26,T15,T16,T28,T56 @prio:high @started:2026-11-13 ^T21
       Fuente: J (WAVE: posible encabezado y enlace repetido), S. Métrica: 2.3. Sospecha: .site-brand es un <p> con estilo de título. Los enlaces repetidos se resuelven con FU-04.
-- [ ] AC-07 Prueba manual: solo teclado, NVDA e imágenes/CSS desactivados @est:2h @owner:francisco @dep:T21 ^T22
+- [?] AC-07 Prueba manual: solo teclado, NVDA e imágenes/CSS desactivados @est:2h @owner:francisco @dep:T21 @started:2026-11-12 #manual ^T22
       Fuente: C, M, J, I (método de prueba). Métricas: 2.1, 2.2, 2.3. Documentar el resultado.
