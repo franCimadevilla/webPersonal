@@ -1057,16 +1057,19 @@ audio {
       border-left: 1px solid var(--border);
     }
 
-    /* Con vistas previas (EV-01) y desde 1200 px, la franja ocupa todo el
-       hueco lateral, (ancho − 960 px) / 2, y en lugar de la flecha muestra
-       el título y la miniatura de la página vecina. El script del <head>
-       pone data-previews antes del primer pintado, para que la franja no
-       cambie de tamaño cuando llegan las miniaturas (CLS). Va al final para
-       ganar por orden a :hover y a :first-child/:last-child, que pesan lo
-       mismo: (0,2,1). */
+    /* Con vistas previas (EV-01, EV-02) y desde 1200 px, en lugar de la
+       flecha muestra el título y la miniatura de la página vecina, y mide
+       lo mismo que la miniatura, así que el área que se puede pulsar es
+       exactamente la miniatura: la mitad del hueco lateral, (ancho − 960 px)
+       / 2, tras un margen de 1,5rem con la página actual, y como mucho 7.5rem
+       (un octavo de la página a tamaño real). El script del <head> pone
+       data-previews antes del primer pintado, para que el enlace no cambie
+       de tamaño cuando llegan las miniaturas (CLS). Va al final para ganar
+       por orden a :hover y a :first-child/:last-child, que pesan lo mismo:
+       (0,2,1). */
     [data-previews] & {
       @media (min-width: 1200px) {
-        width: calc((100% - 960px) / 2);
+        width: min(((100% - 960px) / 2 - 1.5rem) / 2, 7.5rem);
         padding: 0;
         background: transparent;
         backdrop-filter: none;
@@ -1090,11 +1093,6 @@ audio {
     display: block;
     width: 100%;
     height: 100%;
-    /* Ancho del marco: la mitad del hueco que queda tras un margen mínimo
-       con la página actual, y como mucho 7.5rem (un octavo de la página a
-       tamaño real). Lo usan el marco y el título. */
-    --preview-gap: 1.5rem;
-    --preview-frame: min((100% - var(--preview-gap)) / 2, 7.5rem);
 
     animation: preview-in 0.3s ease;
 
@@ -1140,7 +1138,6 @@ audio {
   top: 50%;
   left: 50%;
   z-index: 1;
-  max-width: calc(100% - 1.5rem);
   padding: 0.35rem 0.85rem;
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.92);
@@ -1159,40 +1156,34 @@ audio {
     opacity: 0;
   }
 
-  /* Centrado sobre el marco, pegado al borde de la pantalla; con el marco
-     muy estrecho, como poco a 4rem de ese borde para que la pastilla no se
-     salga de la pantalla. */
+  /* Centrado sobre la miniatura; si es muy estrecha, como poco a 4rem del
+     borde de la pantalla para que la pastilla no se salga. Lo que sobresale
+     de la miniatura no recibe el puntero: el área que se pulsa es solo la
+     miniatura. */
+  pointer-events: none;
+
   [data-side="prev"] & {
-    left: max(var(--preview-frame) / 2, 4rem);
+    left: max(50%, 4rem);
   }
 
   [data-side="next"] & {
-    right: max(var(--preview-frame) / 2, 4rem);
+    right: max(50%, 4rem);
     left: auto;
     transform: translate(50%, -50%);
   }
 }
 
 /* Marco de la miniatura: toda la altura de la ventana (la franja es fija,
-   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. Mide
-   --preview-frame (como mucho 7.5rem, un octavo de la página a tamaño
-   real) y va pegado al borde de la pantalla: el hueco entre la página
+   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. Ocupa
+   todo el enlace, pegado al borde de la pantalla: el hueco entre la página
    actual y la miniatura queda libre (24 px como poco), en lugar de ampliar
    la miniatura. */
 .page-preview-frame {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: block;
-  width: var(--preview-frame);
   overflow: hidden;
   background: var(--bg-soft);
-
-  [data-side="prev"] & {
-    right: auto;
-    left: 0;
-  }
 
   /* EV-02: degradado hacia el borde exterior, para que la miniatura se
      funda con el fondo en lugar de acabar en un corte. */

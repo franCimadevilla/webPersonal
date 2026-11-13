@@ -50,14 +50,14 @@
   function moveCarousel(dir, done) {
     var pages = document.querySelectorAll('.page-preview-page');
     // El marco va pegado al borde de la pantalla, separado de la página
-    // actual por un hueco: el desplazamiento lo incluye para que la
-    // miniatura acabe justo donde está la página.
+    // actual (960 px, centrada) por un hueco: el desplazamiento lo incluye
+    // para que la miniatura acabe justo donde está la página. Con decimales,
+    // para no dejar un salto de 1 px.
     var gap = 0;
     for (var g = 0; g < pages.length; g++) {
       var frame = pages[g].parentNode;
       if (frame.parentNode.getAttribute('data-side') === 'next') {
-        // Con decimales: offsetLeft redondea y dejaría un salto de 1 px.
-        gap = frame.getBoundingClientRect().left - frame.parentNode.getBoundingClientRect().left;
+        gap = frame.getBoundingClientRect().left - (root.clientWidth + CAROUSEL_SHIFT) / 2;
       }
     }
     var shift = dir === 'next' ? -(CAROUSEL_SHIFT + gap) : CAROUSEL_SHIFT + gap;
