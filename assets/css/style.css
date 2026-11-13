@@ -1090,6 +1090,11 @@ audio {
     display: block;
     width: 100%;
     height: 100%;
+    /* Margen entre la página actual y la miniatura, y ancho del marco: la
+       mitad de lo que ocupa a esa escala un cuarto de página, es decir, un
+       octavo (120 px a tamaño real como mucho). Las usan el marco y el título. */
+    --preview-gap: 1.5rem;
+    --preview-frame: min((100% - var(--preview-gap)) / 2, 7.5rem);
 
     animation: preview-in 0.3s ease;
 
@@ -1154,14 +1159,15 @@ audio {
     opacity: 0;
   }
 
-  /* Centrado sobre el marco, que mide como mucho 15rem junto al borde
-     interior de la franja. */
+  /* Centrado sobre el marco, que está a --preview-gap del borde interior de
+     la franja; con el marco muy estrecho, como poco a 4rem de ese borde para
+     que la pastilla no invada la página actual. */
   [data-side="next"] & {
-    left: min(50%, 7.5rem);
+    left: max(var(--preview-gap) + var(--preview-frame) / 2, 4rem);
   }
 
   [data-side="prev"] & {
-    right: min(50%, 7.5rem);
+    right: max(var(--preview-gap) + var(--preview-frame) / 2, 4rem);
     left: auto;
     transform: translate(50%, -50%);
   }
@@ -1169,21 +1175,22 @@ audio {
 
 /* Marco de la miniatura: toda la altura de la ventana (la franja es fija,
    de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. Mide
-   como mucho 15rem (240 px, un cuarto de la página a tamaño real) y va
-   pegado al borde interior: en pantallas muy anchas el resto de la franja
-   queda libre, en lugar de ampliar la miniatura. */
+   --preview-frame (como mucho 7.5rem, un octavo de la página a tamaño
+   real) y queda a --preview-gap del borde interior: en pantallas muy
+   anchas el resto de la franja queda libre, en lugar de ampliar la
+   miniatura. */
 .page-preview-frame {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: var(--preview-gap);
   display: block;
-  width: min(100%, 15rem);
+  width: var(--preview-frame);
   overflow: hidden;
   background: var(--bg-soft);
 
   [data-side="prev"] & {
-    right: 0;
+    right: var(--preview-gap);
     left: auto;
   }
 
@@ -1232,7 +1239,7 @@ audio {
   filter: blur(var(--preview-blur, 3px));
   transition: filter 0.2s ease;
 
-  /* EV-02: se ve el cuarto de la página que queda junto a la actual. La
+  /* EV-02: se ve el octavo de la página que queda junto a la actual. La
      anterior (franja izquierda) se ancla por su borde derecho; la
      siguiente, por el izquierdo. */
   [data-side="prev"] & {

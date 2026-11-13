@@ -49,7 +49,15 @@
 
   function moveCarousel(dir, done) {
     var pages = document.querySelectorAll('.page-preview-page');
-    var shift = dir === 'next' ? -CAROUSEL_SHIFT : CAROUSEL_SHIFT;
+    // El marco está separado de la página actual por un margen
+    // (--preview-gap): el desplazamiento lo incluye para que la miniatura
+    // acabe justo donde está la página.
+    var gap = 0;
+    for (var g = 0; g < pages.length; g++) {
+      var frame = pages[g].parentNode;
+      if (frame.parentNode.getAttribute('data-side') === 'next') gap = frame.offsetLeft;
+    }
+    var shift = dir === 'next' ? -(CAROUSEL_SHIFT + gap) : CAROUSEL_SHIFT + gap;
     var incoming = null;
     for (var i = 0; i < pages.length; i++) {
       var page = pages[i];
@@ -284,9 +292,9 @@
   }
   var wide = window.matchMedia ? window.matchMedia('(min-width: 1200px)') : null;
   var PREVIEW_WIDTH = 960; // ancho real de .page
-  // EV-02: la franja enseña solo la cuarta parte de la página vecina, la que
+  // EV-02: la franja enseña solo la octava parte de la página vecina, la que
   // queda junto a la actual (como las diapositivas que asoman en un carrusel).
-  var PREVIEW_VISIBLE = PREVIEW_WIDTH / 4;
+  var PREVIEW_VISIBLE = PREVIEW_WIDTH / 8;
   var previewsRequested = false;
 
   // «Proyectos · Francisco Cimadevilla» → «Proyectos»
@@ -347,10 +355,10 @@
     }
   }
 
-  // Escala = ancho del marco / 240 px: así cabe justo un cuarto de la
-  // página. El marco mide como mucho 240 px, de modo que la escala no pasa
-  // de 1 (0,67 a 1280 px, 0,85 a 1366 px, 1 desde 1440 px). El CSS ancla
-  // marco y miniatura al borde interior según el lado (data-side).
+  // Escala = ancho del marco / 120 px: así cabe justo un octavo de la
+  // página. El marco mide la mitad del hueco que deja el margen, y como
+  // mucho 120 px, de modo que la escala no pasa de 1. El CSS ancla marco y
+  // miniatura junto al borde interior según el lado (data-side).
   function previewScale(frame) {
     return frame.clientWidth / PREVIEW_VISIBLE;
   }
