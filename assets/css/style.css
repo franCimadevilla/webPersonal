@@ -21,12 +21,12 @@
       falta subir especificidad para que un estado pise a otro.
    4. Cada estado usa una sola pseudo-clase, nunca cadenas del tipo
       :hover:not(:disabled) (0,3,0). Si un estado tiene que excluir a otro
-      caso, se resuelve con la cascada: por ejemplo, `pointer-events: none`
-      en el botón deshabilitado impide que :hover llegue a activarse.
+      caso, se resuelve con la cascada: un estado posterior con la misma
+      especificidad pisa al anterior.
    5. El techo del fichero es (0,2,1) = 21: un estado sobre un descendiente.
 
    Navegadores: CSS Nesting requiere Chrome 112+, Safari 16.5+ o
-   Firefox 117+. El @media final se deja fuera de la jerarquía a propósito.
+   Firefox 117+. Los @media finales se dejan fuera de la jerarquía a propósito.
    ========================================================================== */
 
 :root {
@@ -63,7 +63,7 @@ body {
   background-image: radial-gradient(var(--border) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
 }
 
@@ -75,6 +75,27 @@ a {
   }
 }
 
+/* Foco del teclado, igual en todo el sitio: anillo de 3 px en el color de
+   acento (contraste 8,6:1 con el fondo) separado 2 px del elemento. Solo
+   con :focus-visible, así que un clic con el ratón no lo muestra. Es una
+   pseudo-clase suelta (0,1,0): cada componente puede ajustar el
+   desplazamiento con su propio &:focus-visible. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+kbd {
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 0.9em;
+}
+
 code {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.875em;
@@ -83,6 +104,20 @@ code {
   padding: 0.15rem 0.35rem;
   border-radius: 4px;
   border: 1px solid var(--border);
+}
+
+/* Texto solo para lectores de pantalla: no se ve, pero se lee y forma
+   parte del nombre accesible del enlace (p. ej. «Repositorio de BasaltDB»). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ── Enlace «Saltar al contenido» ─────────────────────────── */
@@ -111,7 +146,7 @@ code {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 3.5rem;
+  padding: 0.5rem 3.5rem;
   background: var(--bg-soft);
   border-bottom: 1px solid var(--border);
   border-top: 3px solid var(--accent);
@@ -119,11 +154,16 @@ code {
 }
 
 .site-brand {
-  margin: 0;
+  /* El margen automático empuja el menú y el selector de idioma a la derecha. */
+  margin: 0 auto 0 0;
   font-size: 1.1rem;
   font-weight: 700;
 
+  /* Área táctil de 44 px de alto (US-08). */
   & a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     color: var(--heading);
     text-decoration: none;
 
@@ -137,11 +177,18 @@ code {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 0 0.75rem;
   margin: 0;
   padding: 0;
 
+  /* Área táctil de al menos 44×44 px (US-08). */
   & a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
     color: var(--text-muted);
     text-decoration: none;
 
@@ -154,6 +201,39 @@ code {
     &[aria-current] {
       color: var(--accent);
       font-weight: 600;
+    }
+  }
+}
+
+/* Herramientas de la cabecera: «Buscar» (FU-01) y el selector de idioma
+   (US-09), que lleva a la misma página en el otro idioma. Una línea vertical
+   las separa del menú. */
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--border);
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+    }
+
+    &[aria-current] {
+      color: var(--accent);
     }
   }
 }
@@ -172,6 +252,39 @@ code {
   &:focus {
     outline: none;
   }
+
+  /* EV-01: al llegar desde la página siguiente entra por la izquierda; al
+     irse, sale hacia el lado contrario al de la página de destino. */
+  [data-enter="prev"] & {
+    animation-name: slide-in-prev;
+  }
+
+  [data-slide="next"] & {
+    animation: slide-out-next 0.28s ease-in forwards;
+  }
+
+  [data-slide="prev"] & {
+    animation: slide-out-prev 0.28s ease-in forwards;
+  }
+
+  /* EV-02: con vistas previas, la página se desplaza un hueco entero (su
+     propio ancho) y se difumina, como las vecinas; la que llega ya está en
+     el centro y entra sin animación. */
+  [data-slide="next-carousel"] & {
+    animation: carousel-out-next 0.5s ease-in-out forwards;
+  }
+
+  [data-slide="prev-carousel"] & {
+    animation: carousel-out-prev 0.5s ease-in-out forwards;
+  }
+
+  [data-enter$="-carousel"] & {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes slide-in {
@@ -182,6 +295,63 @@ code {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-next {
+  to {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes slide-out-prev {
+  to {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes carousel-out-next {
+  to {
+    transform: translateX(-100%);
+    filter: blur(3px);
+  }
+}
+
+@keyframes carousel-out-prev {
+  to {
+    transform: translateX(100%);
+    filter: blur(3px);
+  }
+}
+
+/* ── Migas de pan («Inicio › Proyectos») ──────────────────── */
+/* El separador › va en el HTML con aria-hidden: así no hace falta un
+   `li + li::before`, que pasaría del techo de especificidad. */
+.breadcrumb {
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+
+  & ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 }
 
@@ -199,7 +369,10 @@ h1 {
   letter-spacing: -0.02em;
 }
 
+/* flow-root: junto a una foto flotante (.photo) el título se estrecha, en
+   lugar de pasar su línea inferior por debajo de la foto. */
 h2 {
+  display: flow-root;
   margin-top: 2rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--border);
@@ -228,10 +401,93 @@ h2 {
   }
 }
 
-.tagline {
+/* Frase animada: texto real que se escribe y se borra, una frase cada 4 s.
+   Cada <li> declara en el HTML su longitud (--n, en caracteres) y su turno
+   (--i). Con fuente monoespaciada, 1ch = un carácter, así que steps(--n)
+   revela una letra por paso. Las tres frases ocupan la misma celda de la
+   rejilla: la altura no cambia y no hay desplazamiento de contenido (CLS).
+   Sin CSS se ven como una lista. Se anima también con movimiento reducido
+   (EV-03, decisión de Francisco): escribir letra a letra no desplaza nada
+   en pantalla. Como se repite sin fin, la casilla «Pausar animación» la
+   detiene (WCAG 2.2.2), sin JavaScript: .tagline-box pasa la pausa a las
+   frases con una variable heredada. */
+/* La casilla va debajo y no al lado: al lado se movería mientras la frase
+   se escribe. */
+.tagline-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+
+  &:has(:checked) {
+    --tagline-play: paused;
+  }
+}
+
+.tagline-pause {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 1.5rem;
   color: var(--text-muted);
-  font-size: 1.05rem;
-  align-self: baseline;
+  font-size: 0.85rem;
+  cursor: pointer;
+
+  & input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+}
+
+.tagline {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--accent);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.25rem;
+  line-height: 1.6;
+
+  & li {
+    grid-area: 1 / 1;
+    box-sizing: content-box;
+    width: 0;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+    animation: tagline-type 12s calc(var(--i) * 4s) infinite;
+    animation-play-state: var(--tagline-play, running);
+  }
+}
+
+@keyframes tagline-type {
+  0% {
+    width: 0;
+    border-right-color: var(--accent);
+    animation-timing-function: steps(var(--n), end);
+  }
+  12% {
+    width: calc(var(--n) * 1ch);
+    animation-timing-function: linear;
+  }
+  26% {
+    width: calc(var(--n) * 1ch);
+    animation-timing-function: steps(var(--n), end);
+  }
+  33% {
+    width: 0;
+    border-right-color: var(--accent);
+  }
+  33.1%,
+  100% {
+    width: 0;
+    border-right-color: transparent;
+  }
 }
 
 /* ── Grid reutilizable ────────────────────────────────────── */
@@ -371,6 +627,254 @@ dl {
   }
 }
 
+/* Captura en la parte superior de una tarjeta de proyecto. */
+.project-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* ── Fotos de Sobre mí ────────────────────────────────────── */
+/* Foto de Sobre mí (EV-04): va al principio de su sección y, desde 720 px,
+   flota a la derecha para que el texto la rodee, en lugar de quedar al pie
+   del párrafo. En el móvil queda encima del texto. clear: right evita que
+   una foto se monte en la de la sección anterior. */
+.photo {
+  /* Gana al reset `figure { margin: 0 }` (clase frente a elemento). */
+  max-width: 18rem;
+  margin: 1rem 0 1.5rem;
+
+  @media (min-width: 720px) {
+    float: right;
+    clear: right;
+    width: 15rem;
+    margin: 0.35rem 0 1.25rem 2rem;
+  }
+
+  & img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+}
+
+/* Fila de fotos de la misma altura: cada <figure> lleva en el HTML un
+   flex-grow proporcional a la relación de aspecto de su imagen. */
+.photo-row {
+  display: flex;
+  gap: 1rem;
+  max-width: 40rem;
+  margin: 1rem 0 1.5rem;
+
+  & figure {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  & img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+}
+
+/* ── Referencias (cita + quién la firma) ───────────────────── */
+.reference {
+  /* Gana al reset `figure { margin: 0 }` (clase frente a elemento). */
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+  & blockquote {
+    margin: 0;
+    font-style: italic;
+  }
+
+  & figcaption {
+    margin-top: 0.75rem;
+    text-align: left;
+  }
+}
+
+/* Aviso de que la persona aún no ha confirmado el texto de su referencia. */
+.reference-pending {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0 0.5rem;
+  border: 1px solid #92400e;
+  border-radius: 999px;
+  color: #92400e;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ── Currículum: vista previa + descarga ──────────────────── */
+.cv {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.25rem;
+
+  & img {
+    width: 12rem;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  }
+
+  & div {
+    flex: 1 1 16rem;
+  }
+}
+
+/* ── Formulario de contacto ──────────────────────────────── */
+.contact-form {
+  max-width: 36rem;
+
+  & p {
+    margin: 0 0 1rem;
+  }
+}
+
+.contact-field {
+  & label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  & input,
+  & textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    color: var(--text);
+    font: inherit;
+  }
+
+  & textarea {
+    resize: vertical;
+  }
+}
+
+.contact-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Botón principal; sirve para <button> y para enlaces con aspecto de botón
+   (formulario de contacto, página 404). */
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #1e3a8a;
+    text-decoration: none;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+}
+
+/* Mensaje tras enviar: el texto ya dice qué pasó; el color lo refuerza. */
+.contact-status {
+  font-weight: 600;
+
+  &.is-ok {
+    color: #166534;
+  }
+
+  &.is-error {
+    color: #991b1b;
+  }
+}
+
+/* ── Buscador (FU-01) ─────────────────────────────────────── */
+/* La etiqueta ocupa su fila; debajo, la caja y el botón comparten fila
+   (el botón baja si no cabe). */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  max-width: 36rem;
+  margin: 1.5rem 0 1rem;
+
+  & label {
+    flex: 1 0 100%;
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  & input {
+    flex: 1 1 14rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    color: var(--text);
+    font: inherit;
+  }
+}
+
+.search-status {
+  font-weight: 600;
+}
+
+.search-results {
+  padding: 0;
+  list-style: none;
+
+  & li {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  & p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Amarillo claro con texto oscuro: contraste de 15:1. */
+  & mark {
+    padding: 0 0.1em;
+    background: #fef08a;
+    color: var(--heading);
+    border-radius: 2px;
+  }
+}
+
 /* ── Imágenes, vídeo, audio ───────────────────────────────── */
 figure {
   margin: 0;
@@ -384,6 +888,8 @@ iframe {
 }
 
 video {
+  width: 100%;
+  height: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
@@ -405,6 +911,28 @@ iframe {
 
 audio {
   width: 100%;
+}
+
+/* Transcripción del podcast, plegada bajo el reproductor. */
+.transcript {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+
+  /* Sin display:flex, que quitaría el triángulo de desplegar. El relleno
+     da los 44 px de alto del área táctil. */
+  & summary {
+    padding: 0.6rem 1rem;
+    color: var(--heading);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.transcript-body {
+  padding: 0 1rem 0.5rem;
+  border-top: 1px solid var(--border);
 }
 
 /* ── Galería ──────────────────────────────────────────────── */
@@ -434,24 +962,32 @@ audio {
   position: relative;
   z-index: 50;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 0.5rem 1.25rem;
   padding: 1rem 3.5rem;
   background: var(--bg-soft);
   border-top: 1px solid var(--border);
   box-shadow: 0 -1px 3px rgba(15, 23, 42, 0.03);
 }
 
+/* Enlace con el destino en el texto («‹ Anterior: Multimedia»). Es un <a>
+   y no un <button>: navega también sin JavaScript. */
 .carousel-btn {
-  font-size: 1.5rem;
-  line-height: 1;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 1rem;
+  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--heading);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 
@@ -460,42 +996,57 @@ audio {
     color: var(--accent);
     box-shadow: 0 2px 6px rgba(30, 64, 175, 0.15);
   }
-
-  /* Sustituye a `:hover:not(:disabled)`, que costaba (0,3,0) = 30. Al
-     quitarle el puntero, un botón deshabilitado ya no es sensible al
-     ratón, así que :hover no puede activarse y no hay que excluirlo. */
-  &:disabled {
-    opacity: 0.35;
-    cursor: default;
-    pointer-events: none;
-  }
 }
 
 .carousel-dots {
   list-style: none;
   display: flex;
-  gap: 0.75rem;
+  gap: 0;
   margin: 0;
   padding: 0;
 }
 
+/* El enlace mide 44×44 px (área táctil, US-08) y el punto visible de 12 px
+   se dibuja con ::before en el centro. */
 .carousel-dot {
-  display: block;
-  width: 12px;
-  height: 12px;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
-  background: var(--text-muted);
-  transition: background-color 0.15s ease, transform 0.15s ease;
 
-  &:hover {
+  &::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+
+  &:hover::before {
     background: var(--heading);
   }
 
-  /* Empata con :hover y va después: el punto actual no cambia al pasar
-     el ratón por encima. */
-  &[aria-current] {
+  /* Empata con :hover::before (0,2,1) y va después: el punto actual no
+     cambia al pasar el ratón por encima. */
+  &[aria-current]::before {
     background: var(--accent);
     transform: scale(1.15);
+  }
+}
+
+/* Pista del atajo ← →. Lleva `hidden` en el HTML y la muestra main.js, que
+   es quien activa el atajo. Sin ratón ni teclado (pantalla táctil) no se ve. */
+.carousel-hint {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+
+  @media (hover: none) {
+    display: none;
   }
 }
 
@@ -526,10 +1077,12 @@ audio {
       box-shadow: 0 0 16px rgba(30, 64, 175, 0.12);
     }
 
-    &[aria-disabled="true"] {
-      opacity: 0.15;
-      pointer-events: none;
-      cursor: default;
+    /* Pegadas al borde de la ventana: el anillo va hacia dentro. Con vista
+       previa, el marco de la miniatura lo taparía: la variable hace que la
+       propia vista previa dibuje el anillo por encima (EV-02). */
+    &:focus-visible {
+      outline-offset: -5px;
+      --preview-ring: var(--accent);
     }
 
     &:first-child {
@@ -541,7 +1094,200 @@ audio {
       right: 0;
       border-left: 1px solid var(--border);
     }
+
+    /* Con vistas previas (EV-01, EV-02) y desde 1200 px, en lugar de la
+       flecha muestra el título y la miniatura de la página vecina, y mide
+       lo mismo que la miniatura, así que el área que se puede pulsar es
+       exactamente la miniatura: la mitad del hueco lateral, (ancho − 960 px)
+       / 2, tras un margen de 1,5rem con la página actual, y como mucho 7.5rem
+       (un octavo de la página a tamaño real). El script del <head> pone
+       data-previews antes del primer pintado, para que el enlace no cambie
+       de tamaño cuando llegan las miniaturas (CLS). Va al final para ganar
+       por orden a :hover y a :first-child/:last-child, que pesan lo mismo:
+       (0,2,1). */
+    [data-previews] & {
+      @media (min-width: 1200px) {
+        width: min(((100% - 960px) / 2 - 1.5rem) / 2, 7.5rem);
+        padding: 0;
+        background: transparent;
+        backdrop-filter: none;
+        border: 0;
+        box-shadow: none;
+        font-size: 1rem;
+      }
+    }
   }
+}
+
+/* Vista previa de la página vecina (EV-01, EV-02): ocupa toda la franja,
+   de arriba abajo de la ventana, con el título superpuesto en el centro.
+   main.js escala la miniatura. Solo se ve desde 1200 px; por debajo queda
+   la flecha. */
+.page-preview {
+  display: none;
+
+  @media (min-width: 1200px) {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    animation: preview-in 0.3s ease;
+
+    /* Anillo de foco del enlace, visible sobre la miniatura (ver
+       .page-lateral-nav a:focus-visible). */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      z-index: 2;
+      border: 3px solid var(--preview-ring, transparent);
+      border-radius: 4px;
+    }
+
+    /* El blur de la miniatura se suaviza al pasar el ratón (la variable se
+       hereda; así no hace falta un selector descendiente con :hover). */
+    &:hover {
+      --preview-blur: 1.5px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+/* Las vistas previas llegan después del evento load: aparecen con un fundido
+   en lugar de saltar a la vista. */
+@keyframes preview-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.page-lateral-arrow {
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
+.page-preview-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  padding: 0.35rem 0.85rem;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+  color: var(--heading);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+
+  /* Durante el desplazamiento del carrusel (EV-02) el título se aparta. */
+  [data-slide$="-carousel"] & {
+    opacity: 0;
+  }
+
+  /* Centrado sobre la miniatura; si es muy estrecha, como poco a 4rem del
+     borde de la pantalla para que la pastilla no se salga. Lo que sobresale
+     de la miniatura no recibe el puntero: el área que se pulsa es solo la
+     miniatura. */
+  pointer-events: none;
+
+  [data-side="prev"] & {
+    left: max(50%, 4rem);
+  }
+
+  [data-side="next"] & {
+    right: max(50%, 4rem);
+    left: auto;
+    transform: translate(50%, -50%);
+  }
+}
+
+/* Marco de la miniatura: toda la altura de la ventana (la franja es fija,
+   de top: 0 a bottom: 0), así que por arriba pasa bajo la cabecera. Ocupa
+   todo el enlace, pegado al borde de la pantalla: el hueco entre la página
+   actual y la miniatura queda libre (24 px como poco), en lugar de ampliar
+   la miniatura. */
+.page-preview-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--bg-soft);
+
+  /* EV-02: degradado hacia el borde exterior, para que la miniatura se
+     funda con el fondo en lugar de acabar en un corte. */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(248, 250, 252, 0) 45%, var(--bg) 100%);
+  }
+
+  [data-side="prev"] &::after {
+    background: linear-gradient(to left, rgba(248, 250, 252, 0) 45%, var(--bg) 100%);
+  }
+
+  /* Durante el desplazamiento del carrusel (EV-02) la miniatura sale de su
+     marco y se ve entera mientras viaja al centro. */
+  [data-slide$="-carousel"] & {
+    overflow: visible;
+    background: transparent;
+  }
+
+  [data-slide$="-carousel"] &::after {
+    opacity: 0;
+  }
+}
+
+/* La copia del <main> vecino, a su tamaño real (960 px) antes de escalar.
+   Empieza a la altura del contenido de la página actual (bajo la cabecera,
+   de 4rem). No recibe el puntero: el clic llega al enlace que la contiene. */
+.page-preview-page {
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  display: block;
+  width: 960px;
+  padding: 2rem 3.5rem 3rem;
+  transform-origin: top left;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  pointer-events: none;
+  /* EV-02: contenido difuminado; el título, fuera de este bloque, sigue nítido. */
+  filter: blur(var(--preview-blur, 3px));
+  transition: filter 0.2s ease;
+
+  /* EV-02: se ve el octavo de la página que queda junto a la actual. La
+     anterior (franja izquierda) se ancla por su borde derecho; la
+     siguiente, por el izquierdo. */
+  [data-side="prev"] & {
+    right: 0;
+    left: auto;
+    transform-origin: top right;
+  }
+
+  & * {
+    animation: none;
+  }
+}
+
+/* Hueco gris de una imagen, vídeo o audio que la miniatura no descarga. */
+.page-preview-media {
+  display: block;
+  max-width: 100%;
+  background: var(--border);
+  border-radius: 4px;
 }
 
 /* ── Pie de página ────────────────────────────────────────── */
@@ -556,6 +1302,32 @@ footer {
   font-size: 0.9rem;
 }
 
+/* Enlaces de contacto comunes del pie: icono SVG decorativo + texto. */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1.5rem;
+  margin: 0 0 0.25rem;
+  padding: 0;
+  list-style: none;
+
+  /* Área táctil de 44 px de alto (US-08). */
+  & a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    color: var(--text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+  }
+}
+
 /* ── Responsive (móvil y pantallas estrechas) ─────────────── */
 @media (max-width: 768px) {
   /* En móviles no son necesarios los botones laterales: se navega con
@@ -568,12 +1340,34 @@ footer {
   .site-header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1rem 1.25rem;
-    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    gap: 0;
   }
 
   .page-nav {
-    gap: 0.6rem 1rem;
+    gap: 0 0.5rem;
+    margin-left: -0.25rem;
+  }
+
+  /* Arriba a la derecha, en la fila del nombre: no añade otra fila. La
+     palabra «Buscar» se oculta a la vista y queda la lupa, pero se sigue
+     leyendo como nombre del enlace. */
+  .header-tools {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    gap: 0;
+    padding-left: 0;
+    border-left: 0;
+
+    & span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
   }
 
   .page {
@@ -584,6 +1378,11 @@ footer {
     font-size: 1.65rem;
   }
 
+  /* 30 caracteres a 1.05rem caben en 280 px (pantalla de 320 px) */
+  .tagline {
+    font-size: 1.05rem;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
@@ -592,12 +1391,33 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  /* Los puntos pasan a su propia fila y los dos enlaces quedan debajo. */
   .carousel {
+    flex-wrap: wrap;
     padding: 0.85rem 1.25rem;
-    gap: 1rem;
+    gap: 0.75rem 1rem;
+  }
+
+  .carousel-dots {
+    order: -1;
+    width: 100%;
+    justify-content: center;
   }
 
   footer {
     padding: 1rem 1.25rem;
+  }
+}
+
+/* En pantallas muy estrechas «Anterior:» y «Siguiente:» se ocultan a la
+   vista, pero el lector de pantalla los sigue leyendo. */
+@media (max-width: 400px) {
+  .carousel-btn-dir {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

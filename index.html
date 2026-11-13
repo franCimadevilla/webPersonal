@@ -4,11 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
+       (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
+  <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
   <title>Francisco Cimadevilla · Inicio</title>
   <meta name="description"
     content="Sitio web personal de Francisco Cimadevilla: ingeniero de software, ML y datos, proyectos, multimedia y lugares visitados.">
   <meta name="author" content="Francisco Cimadevilla Cuanda">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="alternate" hreflang="es" href="https://francimadevilla.github.io/webPersonal/">
+  <link rel="alternate" hreflang="en" href="https://francimadevilla.github.io/webPersonal/en/">
+  <link rel="alternate" hreflang="x-default" href="https://francimadevilla.github.io/webPersonal/">
   <script src="https://t.contentsquare.net/uxa/f344c87191775.js" defer></script>
 </head>
 
@@ -26,6 +32,10 @@
         <li><a href="galeria.html">Galería</a></li>
       </ul>
     </nav>
+    <div class="header-tools">
+      <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
+      <a href="en/index.html" hreflang="en" lang="en">English</a>
+    </div>
   </header>
 
   <main class="page" id="contenido" tabindex="-1">
@@ -38,19 +48,23 @@
 
       <h1 id="titulo-hero">Francisco Cimadevilla Cuanda</h1>
 
-      <p class="tagline">
-        <img
-          src="https://readme-typing-svg.demolab.com/?lines=Software+Engineer;ML+%2F+Data+Enthusiast;Always+learning+something+new;&font=Fira%20Code&left=true&width=480&height=45&color=1E40AF&vCenter=true&size=22"
-          alt="Typing SVG">
-      </p>
+      <div class="tagline-box">
+        <ul class="tagline">
+          <li style="--n: 21; --i: 0">Ingeniero de software</li>
+          <li style="--n: 24; --i: 1">Entusiasta de ML y datos</li>
+          <li style="--n: 30; --i: 2">Siempre aprendiendo algo nuevo</li>
+        </ul>
+        <label class="tagline-pause"><input type="checkbox" id="tagline-pause"> Pausar animación</label>
+      </div>
     </section>
 
     <section aria-labelledby="titulo-presentacion">
       <h2 id="titulo-presentacion">Presentación</h2>
-      <p>Soy graduado en Ingeniería del Software por la <a href="https://www.uniovi.es/">Universidad de Oviedo</a> y
-        actualmente estoy terminando un Máster en Ingeniería Web. Mi trayectoria se centra en sistemas backend y
-        microservicios: trabajé en prácticas construyendo microservicios Java con Spring y Kafka, y ahora estoy
-        avanzando hacia la ingeniería de ML, los pipelines de datos y la IA aplicada.</p>
+      <p>Soy graduado en Ingeniería Informática del Software por la <a href="https://www.uniovi.es/">Universidad de
+        Oviedo</a> y curso el Máster Universitario en Ingeniería Web. Mi trayectoria se centra en sistemas backend y
+        microservicios: hago prácticas en NTT Data con microservicios Java, Spring y Kafka, y estoy avanzando hacia
+        la ingeniería de ML, los pipelines de datos y la IA aplicada.</p>
+      <p><a class="button" href="assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf">Descargar mi CV (PDF, 200 KB)</a></p>
     </section>
 
     <section aria-labelledby="titulo-contacto">
@@ -75,6 +89,33 @@
           </dd>
         </div>
       </dl>
+
+      <h3 id="titulo-formulario">Escríbeme</h3>
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/cimadevilla.francisco@gmail.com"
+        method="POST" aria-labelledby="titulo-formulario" aria-describedby="contact-note">
+        <input type="hidden" name="_subject" value="Mensaje desde la web personal">
+        <input type="hidden" name="_template" value="table">
+        <!-- Trampa para bots: oculta, nadie debería rellenarla -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
+        <p class="contact-field">
+          <label for="cf-nombre">Nombre</label>
+          <input id="cf-nombre" type="text" name="nombre" autocomplete="name" required>
+        </p>
+        <p class="contact-field">
+          <label for="cf-email">Correo electrónico</label>
+          <input id="cf-email" type="email" name="email" autocomplete="email" required>
+        </p>
+        <p class="contact-field">
+          <label for="cf-mensaje">Mensaje</label>
+          <textarea id="cf-mensaje" name="mensaje" rows="5" required></textarea>
+        </p>
+        <p class="contact-note" id="contact-note">Todos los campos son obligatorios. El mensaje se envía a través de
+          FormSubmit (formsubmit.co) y solo uso tus datos para responderte.</p>
+        <p>
+          <button type="submit" class="button">Enviar mensaje</button>
+        </p>
+        <p class="contact-status" id="contact-status" role="status"></p>
+      </form>
     </section>
   </main>
 
@@ -84,7 +125,7 @@
   </nav>
 
   <nav class="carousel" aria-label="Carrusel de páginas del sitio">
-    <button type="button" class="carousel-btn" id="btn-prev" aria-label="Página anterior">‹</button>
+    <a class="carousel-btn" id="btn-prev" href="galeria.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Anterior:</span> Galería</a>
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-current="page" aria-label="Página 1 de 5: Inicio" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 2 de 5: Sobre mí" href="sobre-mi.html"></a></li>
@@ -92,11 +133,32 @@
       <li><a class="carousel-dot" aria-label="Página 4 de 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 5 de 5: Galería" href="galeria.html"></a></li>
     </ol>
-    <button type="button" class="carousel-btn" id="btn-next" aria-label="Página siguiente">›</button>
+    <a class="carousel-btn" id="btn-next" href="sobre-mi.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Sobre mí <span aria-hidden="true">›</span></a>
+    <p class="carousel-hint" id="carousel-hint" hidden>También puedes cambiar de página con las teclas <kbd>←</kbd> y <kbd>→</kbd>.</p>
   </nav>
 
   <footer>
-    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-11">11/11/2026</time></p>
+    <ul class="footer-links">
+      <li>
+        <a href="mailto:cimadevilla.francisco@gmail.com">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Correo
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/franCimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/francisco-cimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-12">12/11/2026</time> · <a href="ayuda.html">Ayuda y mapa del sitio</a></p>
   </footer>
 
   <script src="assets/js/main.js"></script>

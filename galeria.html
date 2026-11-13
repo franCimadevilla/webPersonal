@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
+       (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
+  <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
   <title>Galería · Francisco Cimadevilla</title>
   <meta name="description" content="Galería de fotos y lugares visitados por Francisco Cimadevilla.">
   <meta name="author" content="Francisco Cimadevilla">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="alternate" hreflang="es" href="https://francimadevilla.github.io/webPersonal/galeria.html">
+  <link rel="alternate" hreflang="en" href="https://francimadevilla.github.io/webPersonal/en/galeria.html">
+  <link rel="alternate" hreflang="x-default" href="https://francimadevilla.github.io/webPersonal/galeria.html">
   <script src="https://t.contentsquare.net/uxa/f344c87191775.js" defer></script>
 </head>
 <body data-page="galeria">
@@ -23,46 +29,74 @@
         <li><a aria-current="page" href="galeria.html">Galería</a></li>
       </ul>
     </nav>
+    <div class="header-tools">
+      <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
+      <a href="en/galeria.html" hreflang="en" lang="en">English</a>
+    </div>
   </header>
 
   <main class="page" id="contenido" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Migas de pan">
+      <ol>
+        <li><a href="index.html">Inicio</a> <span aria-hidden="true">›</span></li>
+        <li aria-current="page">Galería</li>
+      </ol>
+    </nav>
     <h1>Fotos y lugares visitados</h1>
     <p>Una selección de lugares que he visitado y de momentos que quiero recordar.</p>
 
     <ul class="gallery">
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-1.jpg" alt="Fotografía del Santuario de Nuestra Señora de Covadonga" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-1-800.avif 800w, assets/img/viajes/lugar-1-1600.avif 1600w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-1-800.jpg" srcset="assets/img/viajes/lugar-1-800.jpg 800w, assets/img/viajes/lugar-1-1600.jpg 1600w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="1600" height="1067" alt="Fotografía del Santuario de Nuestra Señora de Covadonga" fetchpriority="high">
+          </picture>
           <figcaption>feb. 2018, Santuario de Nuestra Señora de Covadonga (Asturias, España)</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-2.jpg" alt="Fotografía de Split, Croacia" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-2-800.avif 533w, assets/img/viajes/lugar-2-1600.avif 1066w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-2-800.jpg" srcset="assets/img/viajes/lugar-2-800.jpg 533w, assets/img/viajes/lugar-2-1600.jpg 1066w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="1066" height="1600" alt="Fotografía de Split, Croacia" loading="lazy" decoding="async">
+          </picture>
           <figcaption>jul. 2022, Split (Croacia)</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-3.jpg" alt="Fotografía de Nápoles, Italia" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-3-800.avif 450w, assets/img/viajes/lugar-3-1600.avif 900w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-3-800.jpg" srcset="assets/img/viajes/lugar-3-800.jpg 450w, assets/img/viajes/lugar-3-1600.jpg 900w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="900" height="1600" alt="Fotografía de Nápoles, Italia" loading="lazy" decoding="async">
+          </picture>
           <figcaption>may. 2018, Nápoles (Italia)</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-4.jpg" alt="Fotografía del Castillo de Neuschwanstein, Baviera" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-4-800.avif 800w, assets/img/viajes/lugar-4-1600.avif 1600w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-4-800.jpg" srcset="assets/img/viajes/lugar-4-800.jpg 800w, assets/img/viajes/lugar-4-1600.jpg 1600w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="1600" height="1067" alt="Fotografía del Castillo de Neuschwanstein, Baviera" loading="lazy" decoding="async">
+          </picture>
           <figcaption>jul. 2022, Castillo de Neuschwanstein (Baviera, Alemania)</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-5.jpg" alt="Fotografía de Varsovia, Polonia" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-5-800.avif 533w, assets/img/viajes/lugar-5-1600.avif 1067w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-5-800.jpg" srcset="assets/img/viajes/lugar-5-800.jpg 533w, assets/img/viajes/lugar-5-1600.jpg 1067w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="1067" height="1600" alt="Fotografía de Varsovia, Polonia" loading="lazy" decoding="async">
+          </picture>
           <figcaption>jul. 2025, Varsovia (Polonia)</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="assets/img/viajes/lugar-6.jpg" alt="Fotografía de Cracovia, Polonia" loading="lazy">
+          <picture>
+            <source type="image/avif" srcset="assets/img/viajes/lugar-6-800.avif 533w, assets/img/viajes/lugar-6-1600.avif 1067w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px">
+            <img src="assets/img/viajes/lugar-6-800.jpg" srcset="assets/img/viajes/lugar-6-800.jpg 533w, assets/img/viajes/lugar-6-1600.jpg 1067w" sizes="(max-width: 640px) calc(100vw - 3rem), 420px" width="1067" height="1600" alt="Fotografía de Cracovia, Polonia" loading="lazy" decoding="async">
+          </picture>
           <figcaption>jul. 2025, Cracovia (Polonia)</figcaption>
         </figure>
       </li>
@@ -75,7 +109,7 @@
   </nav>
 
   <nav class="carousel" aria-label="Carrusel de páginas del sitio">
-    <button type="button" class="carousel-btn" id="btn-prev" aria-label="Página anterior">‹</button>
+    <a class="carousel-btn" id="btn-prev" href="multimedia.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Anterior:</span> Multimedia</a>
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Página 1 de 5: Inicio" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 2 de 5: Sobre mí" href="sobre-mi.html"></a></li>
@@ -83,11 +117,32 @@
       <li><a class="carousel-dot" aria-label="Página 4 de 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-current="page" aria-label="Página 5 de 5: Galería" href="galeria.html"></a></li>
     </ol>
-    <button type="button" class="carousel-btn" id="btn-next" aria-label="Página siguiente">›</button>
+    <a class="carousel-btn" id="btn-next" href="index.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Inicio <span aria-hidden="true">›</span></a>
+    <p class="carousel-hint" id="carousel-hint" hidden>También puedes cambiar de página con las teclas <kbd>←</kbd> y <kbd>→</kbd>.</p>
   </nav>
 
   <footer>
-    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-11">11/11/2026</time></p>
+    <ul class="footer-links">
+      <li>
+        <a href="mailto:cimadevilla.francisco@gmail.com">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Correo
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/franCimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/francisco-cimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-12">12/11/2026</time> · <a href="ayuda.html">Ayuda y mapa del sitio</a></p>
   </footer>
 
   <script src="assets/js/main.js"></script>

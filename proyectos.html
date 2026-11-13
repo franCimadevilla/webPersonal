@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
+       (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
+  <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
   <title>Proyectos · Francisco Cimadevilla</title>
   <meta name="description" content="Formación, stack tecnológico y proyectos destacados de Francisco Cimadevilla.">
   <meta name="author" content="Francisco Cimadevilla">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="alternate" hreflang="es" href="https://francimadevilla.github.io/webPersonal/proyectos.html">
+  <link rel="alternate" hreflang="en" href="https://francimadevilla.github.io/webPersonal/en/proyectos.html">
+  <link rel="alternate" hreflang="x-default" href="https://francimadevilla.github.io/webPersonal/proyectos.html">
   <script src="https://t.contentsquare.net/uxa/f344c87191775.js" defer></script>
 </head>
 <body data-page="proyectos">
@@ -23,16 +29,37 @@
         <li><a href="galeria.html">Galería</a></li>
       </ul>
     </nav>
+    <div class="header-tools">
+      <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
+      <a href="en/proyectos.html" hreflang="en" lang="en">English</a>
+    </div>
   </header>
 
   <main class="page" id="contenido" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Migas de pan">
+      <ol>
+        <li><a href="index.html">Inicio</a> <span aria-hidden="true">›</span></li>
+        <li aria-current="page">Proyectos</li>
+      </ol>
+    </nav>
     <h1>Credenciales y proyectos</h1>
 
     <section aria-labelledby="titulo-formacion">
       <h2 id="titulo-formacion">Formación</h2>
       <ul>
-        <li><strong>Grado en Ingeniería del Software</strong> en la Universidad de Oviedo.</li>
-        <li><strong>Máster en Ingeniería Web</strong> (en curso) en la Universidad de Oviedo.</li>
+        <li><strong>Grado en Ingeniería Informática del Software</strong>, Universidad de Oviedo (<time datetime="2022">2022</time> – <time datetime="2026-07">julio de 2026</time>).</li>
+        <li><strong>Máster Universitario en Ingeniería Web</strong>, Universidad de Oviedo (desde <time datetime="2026-09">septiembre de 2026</time>, en curso).</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="titulo-experiencia">
+      <h2 id="titulo-experiencia">Experiencia</h2>
+      <h3>Prácticas de empresa en NTT Data</h3>
+      <ul>
+        <li><strong>Fechas:</strong> <time datetime="2026-02">febrero</time> – <time datetime="2026-04">abril de 2026</time> (prácticas del grado) y <time datetime="2026-10">octubre de 2026</time> – <time datetime="2027-02">febrero de 2027</time> (prácticas del máster, en curso).</li>
+        <li><strong>Proyecto:</strong> migración a gran escala de los microservicios de un cliente del sector retail.</li>
+        <li><strong>Qué hago:</strong> corrijo vulnerabilidades, reconfiguro Apache Kafka en los microservicios y despliego en los entornos de desarrollo, cualificación, preproducción y producción.</li>
+        <li><strong>Tecnologías:</strong> Java, Spring, Apache Kafka.</li>
       </ul>
     </section>
 
@@ -75,37 +102,63 @@
       <div class="grid">
 
         <article class="project-card">
-          <h3>🧬 TFG — Synthetic Knowledge Graphs</h3>
+          <img class="project-shot" src="assets/img/posters/tfg-clip.webp" width="960" height="540" alt="Captura de la demo del TFG: un cuaderno de Jupyter en VS Code con el registro del pipeline de generación de datos." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">🧬</span> TFG — Synthetic Knowledge Graphs</h3>
           <p>De bases de datos relacionales a grafos de conocimiento sintéticos: generación de datos semánticos sintéticos con Graph Machine Learning. <strong>Nota: 10/10</strong>, con matrícula de honor propuesta.</p>
-          <p class="tags">Python · PyTorch · Graph ML</p>
+          <p class="tags">2025–2026 · Python · PyTorch · Graph ML</p>
           <p>
-            <a href="https://github.com/franCimadevilla/final-degree-project">Repositorio</a> ·
-            <a href="https://francimadevilla.github.io/final-degree-project/">Docs</a> ·
-            <a href="https://youtu.be/njAn920C6Go">Demo</a>
+            <a href="https://github.com/franCimadevilla/final-degree-project">Repositorio<span class="visually-hidden"> del TFG</span></a> ·
+            <a href="https://francimadevilla.github.io/final-degree-project/">Docs<span class="visually-hidden"> del TFG</span></a> ·
+            <a href="https://youtu.be/njAn920C6Go">Demo<span class="visually-hidden"> del TFG en YouTube</span></a>
           </p>
         </article>
 
         <article class="project-card">
-          <h3>🦀 BasaltDB</h3>
+          <h3><span aria-hidden="true">🦀</span> BasaltDB</h3>
           <p>Un motor de base de datos relacional escrito en Rust, construido desde primeros principios para entender el funcionamiento interno de los RDBMS. Actualmente en Fase 2: parseo de un subconjunto reducido de SQL (CREATE TABLE, INSERT, SELECT, UPDATE, DELETE) a un AST.</p>
-          <p class="tags">Rust</p>
-          <p><a href="https://github.com/franCimadevilla/BasaltDB">Repositorio</a></p>
+          <p class="tags">Desde 2026 · Rust</p>
+          <p><a href="https://github.com/franCimadevilla/BasaltDB">Repositorio<span class="visually-hidden"> de BasaltDB</span></a></p>
         </article>
 
         <article class="project-card">
-          <h3>🧩 WiChat</h3>
+          <img class="project-shot" src="assets/img/posters/wichat-clip.webp" width="960" height="540" alt="Captura de la demo de WiChat: la página de inicio con las secciones de chats, aprendizaje y competición." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">🧩</span> WiChat</h3>
           <p>Una aplicación web de preguntas y respuestas impulsada por Wikidata, con pistas generadas por IA y sesiones multijugador en tiempo real sobre WebSockets.</p>
-          <p class="tags">JavaScript · Node.js · WebSockets</p>
-          <p><a href="https://github.com/Arquisoft/wichat_en2b">Repositorio</a></p>
+          <p class="tags">2025 · JavaScript · Node.js · WebSockets</p>
+          <p><a href="https://github.com/Arquisoft/wichat_en2b">Repositorio<span class="visually-hidden"> de WiChat</span></a></p>
         </article>
 
         <article class="project-card">
-          <h3>👗 Outfitly</h3>
+          <img class="project-shot" src="assets/img/posters/outfitly-clip.webp" width="960" height="540" alt="Captura de la demo de Outfitly: la pantalla de bienvenida de la app en un móvil Android." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">👗</span> Outfitly</h3>
           <p>Una app de Android que gestiona tu armario y recomienda outfits, promoviendo un consumo de ropa más sostenible.</p>
-          <p class="tags">Kotlin · Android</p>
-          <p><a href="https://github.com/CodeSFI/Outfitly">Repositorio</a></p>
+          <p class="tags">2025–2026 · Kotlin · Android</p>
+          <p><a href="https://github.com/CodeSFI/Outfitly">Repositorio<span class="visually-hidden"> de Outfitly</span></a></p>
         </article>
 
+      </div>
+    </section>
+
+    <section aria-labelledby="titulo-referencias">
+      <h2 id="titulo-referencias">Referencias</h2>
+      <figure class="reference">
+        <blockquote>Francisco es un trabajador muy competente y con mucha proyección: aprende muy rápido, resuelve los problemas de forma eficaz y se adapta bien a los cambios.</blockquote>
+        <figcaption><strong>Pedro María</strong>, responsable de mis prácticas en NTT Data. <span class="reference-pending">Pendiente de confirmación</span></figcaption>
+      </figure>
+      <figure class="reference">
+        <blockquote>Francisco desarrolló su TFG con autonomía y rigor técnico. Afrontó un problema complejo de Graph Machine Learning, lo documentó con claridad y obtuvo un 10, con propuesta de matrícula de honor.</blockquote>
+        <figcaption><strong>Cristian</strong>, tutor de mi Trabajo Fin de Grado en la Universidad de Oviedo. <span class="reference-pending">Pendiente de confirmación</span></figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="titulo-cv">
+      <h2 id="titulo-cv">Currículum</h2>
+      <div class="cv">
+        <div>
+          <p>Lo de esta página, resumido en una sola hoja: formación, experiencia, habilidades técnicas, proyectos e idiomas. Está en español.</p>
+          <p><a class="button" href="assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf">Descargar el CV (PDF, 200 KB)</a></p>
+        </div>
+        <img src="assets/cv/cv-francisco-cimadevilla.webp" alt="Vista previa del CV: una página con formación, experiencia, habilidades técnicas y proyectos" width="400" height="950" loading="lazy" decoding="async">
       </div>
     </section>
   </main>
@@ -116,7 +169,7 @@
   </nav>
 
   <nav class="carousel" aria-label="Carrusel de páginas del sitio">
-    <button type="button" class="carousel-btn" id="btn-prev" aria-label="Página anterior">‹</button>
+    <a class="carousel-btn" id="btn-prev" href="sobre-mi.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Anterior:</span> Sobre mí</a>
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Página 1 de 5: Inicio" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 2 de 5: Sobre mí" href="sobre-mi.html"></a></li>
@@ -124,11 +177,32 @@
       <li><a class="carousel-dot" aria-label="Página 4 de 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 5 de 5: Galería" href="galeria.html"></a></li>
     </ol>
-    <button type="button" class="carousel-btn" id="btn-next" aria-label="Página siguiente">›</button>
+    <a class="carousel-btn" id="btn-next" href="multimedia.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Multimedia <span aria-hidden="true">›</span></a>
+    <p class="carousel-hint" id="carousel-hint" hidden>También puedes cambiar de página con las teclas <kbd>←</kbd> y <kbd>→</kbd>.</p>
   </nav>
 
   <footer>
-    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-11">11/11/2026</time></p>
+    <ul class="footer-links">
+      <li>
+        <a href="mailto:cimadevilla.francisco@gmail.com">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Correo
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/franCimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/francisco-cimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <p>© 2026 Francisco Cimadevilla · Sitio web personal · Última actualización: <time datetime="2026-11-12">12/11/2026</time> · <a href="ayuda.html">Ayuda y mapa del sitio</a></p>
   </footer>
 
   <script src="assets/js/main.js"></script>

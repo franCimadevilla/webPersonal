@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
+       (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
+  <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
+  <title>Projects · Francisco Cimadevilla</title>
+  <meta name="description" content="Education, experience, tech stack and featured projects of Francisco Cimadevilla.">
+  <meta name="author" content="Francisco Cimadevilla">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="alternate" hreflang="es" href="https://francimadevilla.github.io/webPersonal/proyectos.html">
+  <link rel="alternate" hreflang="en" href="https://francimadevilla.github.io/webPersonal/en/proyectos.html">
+  <link rel="alternate" hreflang="x-default" href="https://francimadevilla.github.io/webPersonal/proyectos.html">
+  <script src="https://t.contentsquare.net/uxa/f344c87191775.js" defer></script>
+</head>
+<body data-page="proyectos">
+  <a class="skip-link" href="#contenido">Skip to content</a>
+
+  <header class="site-header">
+    <p class="site-brand"><a href="index.html">Francisco Cimadevilla</a></p>
+    <nav aria-label="Main navigation">
+      <ul class="page-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sobre-mi.html">About me</a></li>
+        <li><a aria-current="page" href="proyectos.html">Projects</a></li>
+        <li><a href="multimedia.html">Multimedia</a></li>
+        <li><a href="galeria.html">Gallery</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a>
+      <a href="../proyectos.html" hreflang="es" lang="es">Español</a>
+    </div>
+  </header>
+
+  <main class="page" id="contenido" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Home</a> <span aria-hidden="true">›</span></li>
+        <li aria-current="page">Projects</li>
+      </ol>
+    </nav>
+    <h1>Credentials and projects</h1>
+
+    <section aria-labelledby="titulo-formacion">
+      <h2 id="titulo-formacion">Education</h2>
+      <ul>
+        <li><strong>Bachelor's Degree in Software Engineering</strong>, University of Oviedo (<time datetime="2022">2022</time> – <time datetime="2026-07">July 2026</time>).</li>
+        <li><strong>Master's Degree in Web Engineering</strong>, University of Oviedo (since <time datetime="2026-09">September 2026</time>, ongoing).</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="titulo-experiencia">
+      <h2 id="titulo-experiencia">Experience</h2>
+      <h3>Internship at NTT Data</h3>
+      <ul>
+        <li><strong>Dates:</strong> <time datetime="2026-02">February</time> – <time datetime="2026-04">April 2026</time> (bachelor's internship) and <time datetime="2026-10">October 2026</time> – <time datetime="2027-02">February 2027</time> (master's internship, ongoing).</li>
+        <li><strong>Project:</strong> large-scale migration of the microservices of a retail client.</li>
+        <li><strong>What I do:</strong> I fix vulnerabilities, reconfigure Apache Kafka in the microservices and deploy to the development, qualification, pre-production and production environments.</li>
+        <li><strong>Technologies:</strong> Java, Spring, Apache Kafka.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="titulo-stack">
+      <h2 id="titulo-stack">Tech stack</h2>
+      <dl>
+        <div>
+          <dt>Languages</dt>
+          <dd>Python, Java, JavaScript, Kotlin, Rust, C++, C#, PHP</dd>
+        </div>
+        <div>
+          <dt>ML and data</dt>
+          <dd>PyTorch, Keras</dd>
+        </div>
+        <div>
+          <dt>Backend and messaging</dt>
+          <dd>Spring, Node.js, Apache Kafka</dd>
+        </div>
+        <div>
+          <dt>Databases</dt>
+          <dd>SQL, NoSQL, SQLite, Supabase, PostgreSQL, MongoDB, Neo4j</dd>
+        </div>
+        <div>
+          <dt>Frontend and mobile</dt>
+          <dd>React, HTML5, CSS3, Android</dd>
+        </div>
+        <div>
+          <dt>DevOps and tools</dt>
+          <dd>Docker, Git, Linux</dd>
+        </div>
+        <div>
+          <dt>Testing</dt>
+          <dd>Jest, Selenium, Puppeteer, Pytest</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="titulo-proyectos">
+      <h2 id="titulo-proyectos">Featured projects</h2>
+      <div class="grid">
+
+        <article class="project-card">
+          <img class="project-shot" src="../assets/img/posters/tfg-clip.webp" width="960" height="540" alt="Screenshot of the final degree project demo: a Jupyter notebook in VS Code showing the log of the data generation pipeline." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">🧬</span> Final degree project — Synthetic Knowledge Graphs</h3>
+          <p>From relational databases to synthetic knowledge graphs: generating synthetic semantic data with Graph Machine Learning. <strong>Grade: 10/10</strong>, nominated for distinction (<i lang="es">matrícula de honor</i>).</p>
+          <p class="tags">2025–2026 · Python · PyTorch · Graph ML</p>
+          <p>
+            <a href="https://github.com/franCimadevilla/final-degree-project">Repository<span class="visually-hidden"> of the final degree project</span></a> ·
+            <a href="https://francimadevilla.github.io/final-degree-project/">Docs<span class="visually-hidden"> of the final degree project</span></a> ·
+            <a href="https://youtu.be/njAn920C6Go">Demo<span class="visually-hidden"> of the final degree project on YouTube</span></a>
+          </p>
+        </article>
+
+        <article class="project-card">
+          <h3><span aria-hidden="true">🦀</span> BasaltDB</h3>
+          <p>A relational database engine written in Rust, built from first principles to understand how an RDBMS works internally. Currently in Phase 2: parsing a small subset of SQL (CREATE TABLE, INSERT, SELECT, UPDATE, DELETE) into an AST.</p>
+          <p class="tags">Since 2026 · Rust</p>
+          <p><a href="https://github.com/franCimadevilla/BasaltDB">Repository<span class="visually-hidden"> of BasaltDB</span></a></p>
+        </article>
+
+        <article class="project-card">
+          <img class="project-shot" src="../assets/img/posters/wichat-clip.webp" width="960" height="540" alt="Screenshot of the WiChat demo: the home page with the chats, learning and competition sections." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">🧩</span> WiChat</h3>
+          <p>A quiz web app powered by Wikidata, with AI-generated hints and real-time multiplayer sessions over WebSockets.</p>
+          <p class="tags">2025 · JavaScript · Node.js · WebSockets</p>
+          <p><a href="https://github.com/Arquisoft/wichat_en2b">Repository<span class="visually-hidden"> of WiChat</span></a></p>
+        </article>
+
+        <article class="project-card">
+          <img class="project-shot" src="../assets/img/posters/outfitly-clip.webp" width="960" height="540" alt="Screenshot of the Outfitly demo: the app's welcome screen on an Android phone." loading="lazy" decoding="async">
+          <h3><span aria-hidden="true">👗</span> Outfitly</h3>
+          <p>An Android app that manages your wardrobe and recommends outfits, encouraging more sustainable clothing consumption.</p>
+          <p class="tags">2025–2026 · Kotlin · Android</p>
+          <p><a href="https://github.com/CodeSFI/Outfitly">Repository<span class="visually-hidden"> of Outfitly</span></a></p>
+        </article>
+
+      </div>
+    </section>
+
+    <section aria-labelledby="titulo-referencias">
+      <h2 id="titulo-referencias">References</h2>
+      <figure class="reference">
+        <blockquote>Francisco is a very competent worker with great potential: he learns very fast, solves problems effectively and adapts well to change.</blockquote>
+        <figcaption><strong>Pedro María</strong>, my internship supervisor at NTT Data. Translated from Spanish. <span class="reference-pending">Pending confirmation</span></figcaption>
+      </figure>
+      <figure class="reference">
+        <blockquote>Francisco carried out his final degree project with autonomy and technical rigour. He tackled a complex Graph Machine Learning problem, documented it clearly and earned a 10, with a nomination for distinction.</blockquote>
+        <figcaption><strong>Cristian</strong>, supervisor of my final degree project at the University of Oviedo. Translated from Spanish. <span class="reference-pending">Pending confirmation</span></figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="titulo-cv">
+      <h2 id="titulo-cv">CV</h2>
+      <div class="cv">
+        <div>
+          <p>Everything on this page, summed up on a single sheet: education, experience, technical skills, projects and languages. It is in Spanish.</p>
+          <p><a class="button" href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">Download the CV (PDF, 200 KB, in Spanish)</a></p>
+        </div>
+        <img src="../assets/cv/cv-francisco-cimadevilla.webp" alt="Preview of the CV, in Spanish: one page with education, experience, technical skills and projects" width="400" height="950" loading="lazy" decoding="async">
+      </div>
+    </section>
+  </main>
+
+  <nav class="page-lateral-nav" aria-label="Side navigation">
+    <a href="sobre-mi.html" aria-label="Previous page: About me">‹</a>
+    <a href="multimedia.html" aria-label="Next page: Multimedia">›</a>
+  </nav>
+
+  <nav class="carousel" aria-label="Site page carousel">
+    <a class="carousel-btn" id="btn-prev" href="sobre-mi.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Previous:</span> About me</a>
+    <ol class="carousel-dots">
+      <li><a class="carousel-dot" aria-label="Page 1 of 5: Home" href="index.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Page 2 of 5: About me" href="sobre-mi.html"></a></li>
+      <li><a class="carousel-dot" aria-current="page" aria-label="Page 3 of 5: Projects" href="proyectos.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Page 4 of 5: Multimedia" href="multimedia.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Page 5 of 5: Gallery" href="galeria.html"></a></li>
+    </ol>
+    <a class="carousel-btn" id="btn-next" href="multimedia.html" rel="next"><span class="carousel-btn-dir">Next:</span> Multimedia <span aria-hidden="true">›</span></a>
+    <p class="carousel-hint" id="carousel-hint" hidden>You can also change pages with the <kbd>←</kbd> and <kbd>→</kbd> keys.</p>
+  </nav>
+
+  <footer>
+    <ul class="footer-links">
+      <li>
+        <a href="mailto:cimadevilla.francisco@gmail.com">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email
+</a>
+      </li>
+      <li>
+        <a href="https://github.com/franCimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/francisco-cimadevilla">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <p>© 2026 Francisco Cimadevilla · Personal website · Last updated: <time datetime="2026-11-12">12 November 2026</time> · <a href="ayuda.html">Help and site map</a></p>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 name: Deploy static site to GitHub Pages
 
 on:
-  push:
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -25,6 +25,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      # Fecha del pie (CF-04): la del commit que se despliega.
+      - name: Stamp last-updated date
+        run: python3 tools/stamp-date.py
+      # Índice del buscador (FU-01): se regenera para que no se quede atrás
+      # si alguien cambia una página y olvida ejecutar el script en local.
+      - name: Build search index
+        run: python3 tools/build-search-index.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
