@@ -5,10 +5,12 @@
    Durante la sesión el sitio se carga en un iframe del mismo origen que
    ocupa toda la ventana, así las coordenadas de la mirada (relativas a la
    ventana) coinciden con las del iframe y se pueden pasar a coordenadas de
-   documento sumando su scroll. Se descargan dos archivos por sesión:
+   documento sumando su scroll. Cada sesión produce dos archivos, que
+   servidor.py guarda en tests/usabilidad/eyetracking/ (si no está, se descargan):
      · .json con todas las muestras (para el mapa de calor y el recorrido)
      · .mp4/.webm con la pestaña grabada y el punto de mirada incrustado
        (el participante no ve el punto; solo aparece en el vídeo).
+   El análisis está en analisis.html.
    ========================================================================== */
 
 (function () {
@@ -25,7 +27,7 @@
     opciones: null,
     iniciado: false,
     calibrado: false,
-    fase: 'inicio',          // inicio | calibracion | precision | sesion | fin | analisis
+    fase: 'inicio',          // inicio | calibracion | precision | sesion | fin
     precision: null,
     medicion: [],
     sesion: null,
@@ -85,6 +87,7 @@
       muestra.sy = Math.round(w.scrollY);
     } catch (e) { /* página fuera del sitio: se guarda sin scroll */ }
     s.muestras.push(muestra);
+    registrarZona(s, data, muestra);
 
     estado.ultimaMirada = { x: data.x, y: data.y };
     estado.estela.push({ x: data.x, y: data.y, t: ahora });
@@ -232,6 +235,10 @@
       recorder: null,
       trozos: [],
       terminada: false,
+      zonas: {},         // página -> zona -> ms mirados (toda la sesión)
+      eventos: [],       // eventos de mirada enviados a Hotjar
+      vista: null,       // contadores de la página vista actual
+      ultimaT: null,
     };
     estado.sesion = s;
     // Marca común a los dos registros: va en el nombre de los archivos, en la URL
@@ -248,10 +255,12 @@
     iframe.onload = function () {
       s.paginaActual = clavePagina(iframe.contentWindow);
       s.navegacion.push({ t: Math.round(performance.now() - s.t0), p: s.paginaActual });
+      // Cada página vista empieza de cero: Hotjar admite 40 eventos por página vista.
+      s.vista = { ms: {}, enviados: {}, n: 0 };
       try {
         var w = iframe.contentWindow;
         w.addEventListener('keydown', function (e) { if (e.key === 'Escape') terminarSesion(); });
-        marcarEnHotjar(w, s.marca);
+        marcarEnHotjar(w, s);
       } catch (e) { /* externa */ }
     };
     iframe.src = op.pagina + '?et=' + encodeURIComponent(s.marca);
@@ -259,12 +268,87 @@
     requestAnimationFrame(pintarCapa);
   }
 
+  // ── Hotjar / Contentsquare ────────────────────────────────────────────
   // Las páginas del sitio llevan la etiqueta de Contentsquare (Hotjar). Dentro
-  // del iframe graban su propia sesión; el evento permite filtrarla después.
-  function marcarEnHotjar(w, marca) {
+  // del iframe graban su propia sesión, y aquí se le añade lo que solo sabe
+  // WebGazer:
+  //   · variables dinámicas de la sesión (participante, tarea, precisión), para
+  //     segmentar: «solo sesiones de eye tracking», «precisión > 70»…
+  //   · un evento "mirada:<zona>" cuando una zona acumula 1 s de mirada en la
+  //     página vista, para filtrar grabaciones: «miró el CV y no hizo clic».
+  var UMBRAL_ZONA_MS = 1000;
+  var MAX_EVENTOS_ZONA = 30; // de 40 por página vista; el resto queda libre para el sitio
+
+  function uxa(w) {
     w._uxa = w._uxa || [];
-    w._uxa.push(['trackPageEvent', 'eyetracking:' + marca]);
+    return w._uxa;
+  }
+
+  function marcarEnHotjar(w, s) {
+    var q = uxa(w);
+    q.push(['trackPageEvent', 'eyetracking:' + s.marca]);
+    q.push(['trackDynamicVariable', { key: 'et_marca', value: s.marca }]);
+    q.push(['trackDynamicVariable', { key: 'et_participante', value: estado.opciones.participante.slice(0, 255) }]);
+    q.push(['trackDynamicVariable', { key: 'et_tarea', value: estado.opciones.tarea.slice(0, 255) }]);
+    if (estado.precision) q.push(['trackDynamicVariable', { key: 'et_precision', value: estado.precision.pct }]);
     if (typeof w.hj === 'function') w.hj('event', 'eyetracking');
+  }
+
+  function registrarZona(s, data, m) {
+    var dt = s.ultimaT == null ? 0 : Math.min(200, Math.max(0, m.t - s.ultimaT));
+    s.ultimaT = m.t;
+    if (!s.vista || data.x < 0 || data.y < 0 || data.x > innerWidth || data.y > innerHeight) return;
+    var doc;
+    try { doc = $('#sitio').contentDocument; } catch (e) { return; }
+    if (!doc) return;
+    var zona = nombreZona(doc.elementFromPoint(data.x, data.y));
+    if (!zona) return;
+
+    var pz = s.zonas[s.paginaActual] || (s.zonas[s.paginaActual] = {});
+    pz[zona] = (pz[zona] || 0) + dt;
+
+    var v = s.vista;
+    v.ms[zona] = (v.ms[zona] || 0) + dt;
+    if (v.ms[zona] >= UMBRAL_ZONA_MS && !v.enviados[zona] && v.n < MAX_EVENTOS_ZONA) {
+      v.enviados[zona] = true;
+      v.n++;
+      var nombre = ('mirada:' + zona).slice(0, 255);
+      try {
+        var w = $('#sitio').contentWindow;
+        uxa(w).push(['trackPageEvent', nombre]);
+        if (typeof w.hj === 'function') w.hj('event', nombre.replace(/[^\w-]+/g, '_').slice(0, 250));
+      } catch (e) { /* externa */ }
+      s.eventos.push({ t: m.t, p: s.paginaActual, e: nombre });
+    }
+  }
+
+  // Zona de interés del elemento mirado: la más interior que tenga nombre.
+  // data-aoi="…" en el HTML permite nombrar a mano cualquier elemento.
+  function nombreZona(el) {
+    for (; el && el.nodeType === 1; el = el.parentElement) {
+      var tag = el.tagName.toLowerCase();
+      if (el.dataset && el.dataset.aoi) return el.dataset.aoi;
+      if (tag === 'a' || tag === 'button') return 'enlace:' + texto(el);
+      if (tag === 'article' || tag === 'figure') {
+        var t = el.querySelector('h2, h3, h4, figcaption, img[alt]');
+        return 'tarjeta:' + (t ? (t.alt || texto(t)) : tag);
+      }
+      if (tag === 'section') {
+        var id = el.getAttribute('aria-labelledby');
+        var h = (id && el.ownerDocument.getElementById(id)) || el.querySelector('h1, h2');
+        return 'seccion:' + (h ? texto(h) : 'sin título');
+      }
+      if (tag === 'h1') return 'titulo';
+      if (tag === 'nav') return 'nav:' + (el.getAttribute('aria-label') || 'navegación');
+      if (tag === 'header') return 'cabecera';
+      if (tag === 'footer') return 'pie';
+      if (tag === 'main') return 'contenido';
+    }
+    return null;
+  }
+
+  function texto(el) {
+    return (el.getAttribute('aria-label') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40) || el.tagName.toLowerCase();
   }
 
   // El vídeo se compone en un canvas: fotograma de la pestaña + punto de mirada.
@@ -280,7 +364,8 @@
 
     s.stream.getVideoTracks()[0].addEventListener('ended', terminarSesion);
 
-    var tipos = ['video/mp4;codecs=avc1', 'video/webm;codecs=vp9', 'video/webm'];
+    // avc3 admite cambios de resolución a mitad de grabación (p. ej. pulsar F11); avc1 no.
+    var tipos = ['video/mp4;codecs=avc3', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9', 'video/webm'];
     var tipo = tipos.find(function (t) { return window.MediaRecorder && MediaRecorder.isTypeSupported(t); }) || '';
 
     function dibujar() {
@@ -361,37 +446,60 @@
       opciones: { kalman: estado.opciones.kalman, puntoVisible: estado.opciones.verPunto, regresion: 'ridge' },
       navegador: navigator.userAgent,
       navegacion: s.navegacion,
+      zonas: s.zonas,
+      hotjar: { umbralZonaMs: UMBRAL_ZONA_MS, eventos: s.eventos },
       muestras: s.muestras,
     };
-    descargar(new Blob([JSON.stringify(datos)], { type: 'application/json' }), base + '.json');
-    estado.ultimosDatos = datos;
+    estado.ultimaMarca = s.marca;
+    // Copia para la página de análisis, por si no hay servidor que la guarde.
+    try { sessionStorage.setItem('et-ultima', JSON.stringify(datos)); } catch (e) { /* demasiado grande */ }
 
-    var fin = function () {
-      if (s.stream) s.stream.getTracks().forEach(function (t) { t.stop(); });
-      $('#sitio').onload = null;
-      $('#sitio').src = 'about:blank';
+    $('#resumen').textContent = 'Guardando…';
+    $('#guardado').textContent = '';
+    mostrar('paso-fin');
+    if (s.stream) s.stream.getTracks().forEach(function (t) { t.stop(); });
+    $('#sitio').onload = null;
+    $('#sitio').src = 'about:blank';
+
+    var video = new Promise(function (resolver) {
+      if (!s.recorder || s.recorder.state === 'inactive') return resolver(null);
+      s.recorder.onstop = function () { resolver(new Blob(s.trozos, { type: s.tipoVideo })); };
+      s.recorder.stop();
+    });
+
+    var json = new Blob([JSON.stringify(datos)], { type: 'application/json' });
+    Promise.all([guardar(json, base + '.json'), video.then(function (blob) {
+      if (!blob) return null;
+      var ext = s.tipoVideo.indexOf('mp4') !== -1 ? '.mp4' : '.webm';
+      return guardar(blob, base + ext);
+    })]).then(function (r) {
       var seg = (duracion / 1000).toFixed(0);
       $('#resumen').textContent = datos.participante + ' · ' + datos.tarea + ': ' + seg + ' s, ' +
         s.muestras.length + ' muestras (' + Math.round(s.muestras.length / Math.max(1, duracion / 1000)) + ' por segundo), ' +
-        s.navegacion.length + ' páginas vistas' + (s.recorder ? ', con vídeo.' : ', sin vídeo.');
-      mostrar('paso-fin');
-    };
+        s.navegacion.length + ' páginas vistas' + (r[1] ? ', con vídeo.' : ', sin vídeo.');
+      var enServidor = r.filter(Boolean).every(function (x) { return x.servidor; });
+      $('#guardado').textContent = enServidor
+        ? 'Guardado en tests/usabilidad/eyetracking/: ' + r.filter(Boolean).map(function (x) { return x.nombre; }).join(', ') + '.'
+        : 'No hay servidor de pruebas (tests/eyetracking/servidor.py): los archivos se han descargado. Muévelos a tests/usabilidad/eyetracking/.';
+    });
+  }
 
-    if (s.recorder && s.recorder.state !== 'inactive') {
-      s.recorder.onstop = function () {
-        var ext = s.tipoVideo.indexOf('mp4') !== -1 ? '.mp4' : '.webm';
-        descargar(new Blob(s.trozos, { type: s.tipoVideo }), base + ext);
-        fin();
-      };
-      s.recorder.stop();
-    } else {
-      fin();
-    }
+  // Guarda en el servidor de la prueba; si no lo hay (p. ej. python -m http.server), lo descarga.
+  function guardar(blob, nombre) {
+    return fetch('/api/eyetracking/sesiones/' + encodeURIComponent(nombre), { method: 'POST', body: blob })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        return { nombre: nombre, servidor: true };
+      })
+      .catch(function () {
+        descargar(blob, nombre);
+        return { nombre: nombre, servidor: false };
+      });
   }
 
   function nombreBase(s) {
     var limpiar = function (t) {
-      return t.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w-]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+      return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w-]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
     };
     var d = s.inicio;
     var pad = function (n) { return String(n).padStart(2, '0'); };
@@ -407,233 +515,6 @@
     a.click();
     a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 10000);
-  }
-
-  // ── Análisis ──────────────────────────────────────────────────────────
-  var analisis = { sesiones: [] };
-
-  function abrirAnalisis(datos) {
-    estado.fase = 'analisis';
-    if (estado.iniciado) {
-      webgazer.pause();
-      webgazer.showVideoPreview(false);
-    }
-    mostrar('paso-analisis');
-    if (datos) cargarSesiones([datos]);
-  }
-
-  function leerArchivos(files) {
-    Promise.all(Array.prototype.map.call(files, function (f) {
-      return f.text().then(JSON.parse).catch(function () { return null; });
-    })).then(function (lista) {
-      var validas = lista.filter(function (d) { return d && Array.isArray(d.muestras); });
-      if (validas.length < lista.length) alert('Algún archivo no era una sesión válida y se ha ignorado.');
-      cargarSesiones(validas);
-    });
-  }
-
-  function cargarSesiones(lista) {
-    analisis.sesiones = lista;
-    var cuenta = {};
-    lista.forEach(function (d) {
-      d.muestras.forEach(function (m) { cuenta[m.p] = (cuenta[m.p] || 0) + 1; });
-    });
-    var sel = $('#filtro-pagina');
-    sel.innerHTML = '';
-    Object.keys(cuenta).filter(function (p) { return p !== '(externa)'; })
-      .sort(function (a, b) { return cuenta[b] - cuenta[a]; })
-      .forEach(function (p) {
-        var o = document.createElement('option');
-        o.value = p;
-        o.textContent = p + ' (' + cuenta[p] + ')';
-        sel.appendChild(o);
-      });
-    sel.disabled = !sel.options.length;
-    if (sel.options.length) cargarPaginaAnalisis();
-  }
-
-  function cargarPaginaAnalisis() {
-    var pagina = $('#filtro-pagina').value;
-    if (!pagina) return;
-    var iframe = $('#sitio-analisis');
-    // Mismo ancho que la ventana grabada, para que la maqueta coincida.
-    var w = analisis.sesiones[0].viewport.w;
-    var distintos = analisis.sesiones.some(function (d) { return d.viewport.w !== w; });
-    iframe.style.width = w + 'px';
-    iframe.onload = function () {
-      pintarAnalisis();
-      setTimeout(pintarAnalisis, 800); // imágenes que cambian la altura al cargar
-    };
-    iframe.src = '../../' + pagina;
-    $('#info-analisis').textContent = analisis.sesiones.length + ' sesión(es) · ventana de ' + w + ' px' +
-      (distintos ? ' (ojo: hay sesiones grabadas con otro ancho)' : '');
-  }
-
-  function puntosDePagina(d, pagina) {
-    return d.muestras.filter(function (m) { return m.p === pagina; })
-      .map(function (m) { return { t: m.t, x: m.x + m.sx, y: m.y + m.sy }; });
-  }
-
-  function pintarAnalisis() {
-    var iframe = $('#sitio-analisis');
-    var doc;
-    try { doc = iframe.contentDocument; } catch (e) { return; }
-    if (!doc || !doc.documentElement) return;
-    var pagina = $('#filtro-pagina').value;
-    var radio = Number($('#filtro-radio').value);
-    var vista = $('#filtro-vista').value;
-
-    var ancho = doc.documentElement.scrollWidth;
-    var alto = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0);
-    var lienzo = doc.getElementById('et-capa');
-    if (!lienzo) {
-      lienzo = doc.createElement('canvas');
-      lienzo.id = 'et-capa';
-      lienzo.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;z-index:2147483647';
-      doc.documentElement.appendChild(lienzo);
-    }
-    lienzo.width = ancho;
-    lienzo.height = alto;
-    lienzo.style.width = ancho + 'px';
-    lienzo.style.height = alto + 'px';
-    var ctx = lienzo.getContext('2d');
-    ctx.clearRect(0, 0, ancho, alto);
-
-    if (vista === 'calor') {
-      var todos = [];
-      analisis.sesiones.forEach(function (d) { todos = todos.concat(puntosDePagina(d, pagina)); });
-      mapaDeCalor(ctx, todos, ancho, alto, radio);
-    } else {
-      var colores = ['#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4', '#008080', '#9a6324', '#000075'];
-      analisis.sesiones.forEach(function (d, i) {
-        pintarRecorrido(ctx, fijaciones(puntosDePagina(d, pagina), radio * 1.5, 150), colores[i % colores.length]);
-      });
-    }
-  }
-
-  // Acumulación en rejilla a 1/4 de resolución + desenfoque gaussiano.
-  function mapaDeCalor(ctx, puntos, ancho, alto, radio) {
-    if (!puntos.length) return;
-    var K = 4;
-    var gw = Math.ceil(ancho / K);
-    var gh = Math.ceil(alto / K);
-    var rejilla = new Float32Array(gw * gh);
-    puntos.forEach(function (p) {
-      var gx = Math.floor(p.x / K);
-      var gy = Math.floor(p.y / K);
-      if (gx >= 0 && gy >= 0 && gx < gw && gy < gh) rejilla[gy * gw + gx] += 1;
-    });
-    rejilla = desenfocar(rejilla, gw, gh, radio / K / 2);
-    var max = 0;
-    for (var i = 0; i < rejilla.length; i++) if (rejilla[i] > max) max = rejilla[i];
-    if (!max) return;
-
-    var img = new ImageData(gw, gh);
-    for (var j = 0; j < rejilla.length; j++) {
-      var v = rejilla[j] / max;
-      if (v < 0.04) continue;
-      var c = paleta(v);
-      img.data[j * 4] = c[0];
-      img.data[j * 4 + 1] = c[1];
-      img.data[j * 4 + 2] = c[2];
-      img.data[j * 4 + 3] = Math.round(Math.min(0.75, 0.15 + v) * 255);
-    }
-    var tmp = document.createElement('canvas');
-    tmp.width = gw;
-    tmp.height = gh;
-    tmp.getContext('2d').putImageData(img, 0, 0);
-    ctx.imageSmoothingEnabled = true;
-    ctx.drawImage(tmp, 0, 0, gw * K, gh * K);
-  }
-
-  function desenfocar(src, w, h, sigma) {
-    var r = Math.max(1, Math.ceil(sigma * 3));
-    var kernel = [];
-    var suma = 0;
-    for (var k = -r; k <= r; k++) { var g = Math.exp(-(k * k) / (2 * sigma * sigma)); kernel.push(g); suma += g; }
-    kernel = kernel.map(function (g) { return g / suma; });
-    var tmp = new Float32Array(w * h);
-    var out = new Float32Array(w * h);
-    var x, y, k2, acc, xx, yy;
-    for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
-      acc = 0;
-      for (k2 = -r; k2 <= r; k2++) { xx = x + k2; if (xx >= 0 && xx < w) acc += src[y * w + xx] * kernel[k2 + r]; }
-      tmp[y * w + x] = acc;
-    }
-    for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
-      acc = 0;
-      for (k2 = -r; k2 <= r; k2++) { yy = y + k2; if (yy >= 0 && yy < h) acc += tmp[yy * w + x] * kernel[k2 + r]; }
-      out[y * w + x] = acc;
-    }
-    return out;
-  }
-
-  // azul → cian → verde → amarillo → rojo
-  function paleta(v) {
-    var paradas = [[0, [0, 60, 255]], [0.25, [0, 200, 255]], [0.5, [0, 220, 80]], [0.75, [255, 230, 0]], [1, [230, 20, 20]]];
-    for (var i = 1; i < paradas.length; i++) {
-      if (v <= paradas[i][0]) {
-        var a = paradas[i - 1];
-        var b = paradas[i];
-        var f = (v - a[0]) / (b[0] - a[0]);
-        return [0, 1, 2].map(function (c) { return Math.round(a[1][c] + (b[1][c] - a[1][c]) * f); });
-      }
-    }
-    return paradas[paradas.length - 1][1];
-  }
-
-  // Detección de fijaciones por dispersión (I-DT).
-  function fijaciones(puntos, dispersionMax, duracionMin) {
-    var res = [];
-    var i = 0;
-    while (i < puntos.length) {
-      var j = i;
-      var minX = puntos[i].x, maxX = minX, minY = puntos[i].y, maxY = minY;
-      while (j + 1 < puntos.length) {
-        var p = puntos[j + 1];
-        var nx0 = Math.min(minX, p.x), nx1 = Math.max(maxX, p.x), ny0 = Math.min(minY, p.y), ny1 = Math.max(maxY, p.y);
-        if ((nx1 - nx0) + (ny1 - ny0) > dispersionMax || p.t - puntos[j].t > 300) break;
-        minX = nx0; maxX = nx1; minY = ny0; maxY = ny1;
-        j++;
-      }
-      var dur = puntos[j].t - puntos[i].t;
-      if (dur >= duracionMin) {
-        var sx = 0, sy = 0;
-        for (var k = i; k <= j; k++) { sx += puntos[k].x; sy += puntos[k].y; }
-        var n = j - i + 1;
-        res.push({ x: sx / n, y: sy / n, dur: dur });
-        i = j + 1;
-      } else {
-        i++;
-      }
-    }
-    return res;
-  }
-
-  function pintarRecorrido(ctx, fij, color) {
-    if (!fij.length) return;
-    ctx.save();
-    ctx.strokeStyle = color;
-    ctx.globalAlpha = 0.6;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    fij.forEach(function (f, i) { if (i === 0) ctx.moveTo(f.x, f.y); else ctx.lineTo(f.x, f.y); });
-    ctx.stroke();
-    ctx.font = 'bold 12px system-ui, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    fij.forEach(function (f, i) {
-      var r = Math.min(45, 8 + Math.sqrt(f.dur) * 0.8);
-      ctx.globalAlpha = 0.45;
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = '#fff';
-      ctx.fillText(String(i + 1), f.x, f.y);
-    });
-    ctx.restore();
   }
 
   // ── Eventos ───────────────────────────────────────────────────────────
@@ -687,16 +568,8 @@
     await webgazer.clearData();
     prepararCalibracion();
   });
-  $('#analizar-ahora').addEventListener('click', function () { abrirAnalisis(estado.ultimosDatos); });
-  $('#ir-analisis').addEventListener('click', function (e) { e.preventDefault(); abrirAnalisis(); });
-  $('#volver-inicio').addEventListener('click', function (e) {
-    e.preventDefault();
-    estado.fase = 'inicio';
-    mostrar('paso-inicio');
+  // El análisis se abre en otra pestaña para no perder la calibración.
+  $('#analizar-ahora').addEventListener('click', function () {
+    window.open('analisis.html#s=' + encodeURIComponent(estado.ultimaMarca || ''), '_blank');
   });
-
-  $('#archivos').addEventListener('change', function (e) { if (e.target.files.length) leerArchivos(e.target.files); });
-  $('#filtro-pagina').addEventListener('change', cargarPaginaAnalisis);
-  $('#filtro-vista').addEventListener('change', pintarAnalisis);
-  $('#filtro-radio').addEventListener('input', pintarAnalisis);
 })();

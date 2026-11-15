@@ -1,3 +1,4 @@
 .cs-wizard
 # Eye tracking: WebGazer se descarga con tests/eyetracking/instalar-webgazer.sh
 tests/eyetracking/vendor/
+tests/usabilidad/eyetracking/*.parcial

@@ -1,0 +1,61 @@
+.pagina-analisis { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+.pagina-analisis .barra h1 { font-size: 1.05rem; margin: 0 .5rem 0 0; }
+.pagina-analisis .barra label.check { gap: .3rem; }
+.enlace-grabar { margin-left: auto; }
+
+.cuerpo { flex: 1; display: flex; min-height: 0; }
+
+.lateral {
+  width: 18rem;
+  flex: none;
+  overflow-y: auto;
+  padding: 1rem;
+  border-right: 1px solid var(--line);
+  background: #fff;
+}
+
+.lateral h2 { font-size: .95rem; margin: 1.25rem 0 .5rem; }
+.lateral h2:first-child { margin-top: 0; }
+
+.lista-sesiones { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+
+.lista-sesiones label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 .5rem;
+  padding: .4rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lista-sesiones label:has(input:checked) { border-color: var(--accent); background: #eef3fc; }
+.lista-sesiones input { grid-row: span 2; margin-top: .3rem; }
+.lista-sesiones .titulo { font-weight: 600; overflow-wrap: anywhere; }
+.lista-sesiones .detalle { color: var(--muted); font-size: .82rem; }
+.lista-sesiones .color { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .3rem; vertical-align: baseline; }
+.lista-sesiones a { font-size: .82rem; }
+
+.cargar { display: grid; gap: .25rem; margin-top: .75rem; font-size: .85rem; color: var(--muted); }
+
+.resumen { display: grid; grid-template-columns: auto 1fr; gap: .2rem .75rem; margin: 0; font-size: .9rem; }
+.resumen dt { color: var(--muted); }
+.resumen dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.zonas { margin: 0; padding-left: 1.4rem; font-size: .85rem; display: grid; gap: .3rem; }
+.zonas li { overflow-wrap: anywhere; }
+.zonas .barra-zona { display: block; height: .3rem; margin-top: .15rem; border-radius: 2px; background: var(--accent); opacity: .7; }
+.zonas .ms { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.leyenda { display: flex; align-items: center; gap: .5rem; margin: 1rem 0 .5rem; font-size: .8rem; color: var(--muted); }
+.leyenda .degradado { flex: 1; height: .6rem; border-radius: 3px; background: linear-gradient(90deg, rgb(0 60 255), rgb(0 200 255), rgb(0 220 80), rgb(255 230 0), rgb(230 20 20)); }
+
+.lienzo-analisis { position: relative; flex: 1; min-width: 0; overflow: auto; background: #e9e7e2; }
+#sitio-analisis { display: block; height: 100%; margin: 0 auto; border: 0; background: #fff; }
+.vacio { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--muted); }
+
+@media (max-width: 800px) {
+  .cuerpo { flex-direction: column; }
+  .lateral { width: auto; max-height: 40vh; border-right: 0; border-bottom: 1px solid var(--line); }
+}

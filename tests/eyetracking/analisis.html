@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Análisis de mirada</title>
+  <link rel="stylesheet" href="eyetracking.css">
+  <link rel="stylesheet" href="analisis.css">
+</head>
+
+<body class="pagina-analisis">
+  <header class="barra">
+    <h1>Análisis de mirada</h1>
+    <label>Página <select id="filtro-pagina" disabled></select></label>
+    <label>Vista
+      <select id="filtro-vista">
+        <option value="calor">Mapa de calor</option>
+        <option value="recorrido">Recorrido (fijaciones)</option>
+        <option value="puntos">Muestras sueltas</option>
+      </select>
+    </label>
+    <label>Radio <input type="range" id="filtro-radio" min="15" max="90" value="40"></label>
+    <label>Opacidad <input type="range" id="filtro-opacidad" min="20" max="100" value="75"></label>
+    <label class="check"><input type="checkbox" id="filtro-pliegue" checked> Pliegue</label>
+    <a class="enlace-grabar" href="index.html">Grabar una sesión →</a>
+  </header>
+
+  <div class="cuerpo">
+    <aside class="lateral">
+      <h2>Sesiones</h2>
+      <p id="estado-lista" class="info">Cargando…</p>
+      <ul id="lista-sesiones" class="lista-sesiones"></ul>
+      <label class="cargar">Añadir .json del disco <input type="file" id="archivos" accept=".json,application/json" multiple></label>
+
+      <h2>Esta página</h2>
+      <dl id="resumen-pagina" class="resumen"></dl>
+
+      <h2>Zonas más miradas</h2>
+      <ol id="zonas" class="zonas"></ol>
+      <p class="info">Las que superan 1 s en una página vista se envían a Hotjar como evento <code>mirada:&lt;zona&gt;</code>.</p>
+
+      <div class="leyenda" id="leyenda">
+        <span>menos</span><span class="degradado" aria-hidden="true"></span><span>más</span>
+      </div>
+      <p class="info">El enlace de esta página guarda la selección: al recargarla o compartirla se ve el mismo mapa.</p>
+    </aside>
+
+    <main class="lienzo-analisis" id="lienzo">
+      <!-- Sin allow-scripts: la página no ejecuta su JavaScript (ni navega con ← →, ni
+           anima, ni manda visitas a Hotjar) y el mapa de calor no se pierde. -->
+      <iframe id="sitio-analisis" title="Página analizada" sandbox="allow-same-origin"></iframe>
+      <p id="vacio" class="vacio">Elige una o varias sesiones a la izquierda.</p>
+    </main>
+  </div>
+
+  <script src="analisis.js"></script>
+</body>
+
+</html>

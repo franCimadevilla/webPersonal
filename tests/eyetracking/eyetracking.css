@@ -110,9 +110,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .terminar:hover, .terminar:focus-visible { opacity: 1; }
 
-/* Análisis ----------------------------------------------------------- */
-.analisis { display: flex; flex-direction: column; height: 100%; }
-
+/* Barra de la página de análisis (analisis.css completa el resto) ------ */
 .barra {
   display: flex;
   flex-wrap: wrap;
@@ -126,9 +124,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .barra label { display: flex; gap: .4rem; align-items: center; }
 .barra select { padding: .25rem .4rem; }
 .info { color: var(--muted); font-size: .9rem; }
-
-.lienzo-analisis { flex: 1; overflow: auto; background: #e9e7e2; }
-#sitio-analisis { display: block; height: 100%; margin: 0 auto; border: 0; background: #fff; }
 
 /* Vista de la cámara de WebGazer: se mantiene arriba a la izquierda. */
 #webgazerVideoContainer { z-index: 20 !important; }

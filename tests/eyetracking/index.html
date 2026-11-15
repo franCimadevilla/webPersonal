@@ -51,7 +51,7 @@
       </ul>
     </details>
 
-    <p class="nav-secundaria"><a href="#" id="ir-analisis">Analizar sesiones grabadas →</a></p>
+    <p class="nav-secundaria"><a href="analisis.html" target="_blank">Analizar sesiones grabadas →</a></p>
   </section>
 
   <!-- 2. Calibración -------------------------------------------------- -->
@@ -84,30 +84,12 @@
   <section id="paso-fin" class="panel" data-step hidden>
     <h2>Sesión guardada</h2>
     <p id="resumen"></p>
-    <p>Los archivos se han descargado en tu carpeta de descargas. Muévelos a <code>tests/usabilidad/eyetracking/</code> para conservarlos junto al resto de pruebas.</p>
+    <p id="guardado"></p>
     <div class="botones">
       <button type="button" id="otra-tarea" class="primary">Otra tarea (misma calibración)</button>
       <button type="button" id="recalibrar-fin">Recalibrar</button>
       <button type="button" id="analizar-ahora">Ver el mapa de calor</button>
     </div>
-  </section>
-
-  <!-- 5. Análisis ----------------------------------------------------- -->
-  <section id="paso-analisis" class="analisis" data-step hidden>
-    <div class="barra">
-      <a href="#" id="volver-inicio">← Inicio</a>
-      <label class="archivo">Sesiones (.json) <input type="file" id="archivos" accept=".json,application/json" multiple></label>
-      <label>Página <select id="filtro-pagina" disabled></select></label>
-      <label>Vista
-        <select id="filtro-vista">
-          <option value="calor">Mapa de calor</option>
-          <option value="recorrido">Recorrido (fijaciones)</option>
-        </select>
-      </label>
-      <label>Radio <input type="range" id="filtro-radio" min="15" max="90" value="40"></label>
-      <span id="info-analisis" class="info">Carga uno o varios .json; se combinan todos los participantes.</span>
-    </div>
-    <div class="lienzo-analisis"><iframe id="sitio-analisis" title="Página analizada"></iframe></div>
   </section>
 
   <!-- Copia local (instalar-webgazer.sh). En GitHub Pages no existe, porque vendor/
