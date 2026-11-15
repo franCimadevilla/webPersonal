@@ -31,6 +31,29 @@ Se descargan dos archivos con el nombre `et-<participante>-<tarea>-<fecha>`:
 
 Guárdalos en `tests/usabilidad/eyetracking/`. **Otra tarea** reutiliza la calibración y solo repite la prueba de precisión.
 
+## Con Hotjar en la misma prueba
+
+Las páginas del sitio llevan la etiqueta de Contentsquare/Hotjar, y siguen grabando cuando la herramienta las carga en su iframe. Una sola sesión produce así dos registros:
+
+- **WebGazer**: hacia dónde mira el participante.
+- **Hotjar**: clics, movimiento del ratón y scroll.
+
+Para cruzarlos, cada sesión lleva una marca `et-<participante>-<tarea>-<fecha>` en tres sitios:
+
+- el nombre de los archivos;
+- la URL inicial (`?et=<marca>`);
+- un evento de página `eyetracking:<marca>`.
+
+En Hotjar, filtra las grabaciones por URL que contenga `et=` o por ese evento.
+
+El script [`tests/prueba-usabilidad.ps1`](../prueba-usabilidad.ps1) prepara la prueba en local. Instala WebGazer, arranca el servidor en `http://localhost:3000`, abre la herramienta y, al terminar, recoge los resultados:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\prueba-usabilidad.ps1 -Participante P01 -Tarea "T1 Encontrar el CV"
+```
+
+Opciones: `-Pagina proyectos.html`, `-Navegador edge`, `-Puerto 3001` y `-VerificarHotjar`, que comprueba la etiqueta de Contentsquare.
+
 ## Análisis
 
 **Analizar sesiones grabadas**, en la portada de la herramienta, carga uno o varios `.json` y los combina. Por cada página muestra:

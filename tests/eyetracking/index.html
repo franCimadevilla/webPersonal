@@ -110,7 +110,15 @@
     <div class="lienzo-analisis"><iframe id="sitio-analisis" title="Página analizada"></iframe></div>
   </section>
 
+  <!-- Copia local (instalar-webgazer.sh). En GitHub Pages no existe, porque vendor/
+       no se versiona, y se carga la misma versión desde jsDelivr. -->
   <script src="vendor/webgazer/webgazer.js"></script>
+  <script>
+    if (!window.webgazer) {
+      window.WEBGAZER_CDN = 'https://cdn.jsdelivr.net/npm/webgazer@3.5.3/dist/';
+      document.write('<script src="' + WEBGAZER_CDN + 'webgazer.js"><\/script>');
+    }
+  </script>
   <script src="eyetracking.js"></script>
 </body>
 

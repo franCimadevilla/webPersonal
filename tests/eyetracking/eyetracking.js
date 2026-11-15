@@ -49,7 +49,9 @@
       await webgazer.resume();
       return true;
     }
-    webgazer.params.faceMeshSolutionPath = './vendor/webgazer/mediapipe/face_mesh';
+    webgazer.params.faceMeshSolutionPath = window.WEBGAZER_CDN
+      ? window.WEBGAZER_CDN + 'mediapipe/face_mesh'
+      : './vendor/webgazer/mediapipe/face_mesh';
     webgazer.saveDataAcrossSessions(false);
     try { await webgazer.clearData(); } catch (e) { /* nada guardado aún */ }
     webgazer
@@ -232,6 +234,9 @@
       terminada: false,
     };
     estado.sesion = s;
+    // Marca común a los dos registros: va en el nombre de los archivos, en la URL
+    // inicial (?et=…) y como evento de página de Hotjar/Contentsquare.
+    s.marca = nombreBase(s);
 
     var lienzo = $('#capa-mirada');
     lienzo.width = innerWidth;
@@ -244,12 +249,22 @@
       s.paginaActual = clavePagina(iframe.contentWindow);
       s.navegacion.push({ t: Math.round(performance.now() - s.t0), p: s.paginaActual });
       try {
-        iframe.contentWindow.addEventListener('keydown', function (e) { if (e.key === 'Escape') terminarSesion(); });
+        var w = iframe.contentWindow;
+        w.addEventListener('keydown', function (e) { if (e.key === 'Escape') terminarSesion(); });
+        marcarEnHotjar(w, s.marca);
       } catch (e) { /* externa */ }
     };
-    iframe.src = op.pagina;
+    iframe.src = op.pagina + '?et=' + encodeURIComponent(s.marca);
     estado.fase = 'sesion';
     requestAnimationFrame(pintarCapa);
+  }
+
+  // Las páginas del sitio llevan la etiqueta de Contentsquare (Hotjar). Dentro
+  // del iframe graban su propia sesión; el evento permite filtrarla después.
+  function marcarEnHotjar(w, marca) {
+    w._uxa = w._uxa || [];
+    w._uxa.push(['trackPageEvent', 'eyetracking:' + marca]);
+    if (typeof w.hj === 'function') w.hj('event', 'eyetracking');
   }
 
   // El vídeo se compone en un canvas: fotograma de la pestaña + punto de mirada.
@@ -330,8 +345,10 @@
     var duracion = Math.round(performance.now() - s.t0);
     webgazer.pause();
 
-    var base = nombreBase(s);
+    var base = s.marca;
     var datos = {
+      marca: s.marca,
+      sitio: new URL('../../', location.href).href,
       formato: 'webpersonal-eyetracking/1',
       herramienta: 'WebGazer.js ' + WEBGAZER_VERSION,
       participante: estado.opciones.participante,
@@ -620,6 +637,16 @@
   }
 
   // ── Eventos ───────────────────────────────────────────────────────────
+  // El script de PowerShell abre la herramienta con ?participante=…&tarea=…&pagina=…
+  (function rellenarDesdeUrl() {
+    var q = new URLSearchParams(location.search);
+    var f = $('#form-sesion');
+    if (q.get('participante')) f.participante.value = q.get('participante');
+    if (q.get('tarea')) f.tarea.value = q.get('tarea');
+    var pag = q.get('pagina');
+    if (pag && f.pagina.querySelector('option[value="../../' + pag + '"]')) f.pagina.value = '../../' + pag;
+  })();
+
   $('#form-sesion').addEventListener('submit', async function (e) {
     e.preventDefault();
     var f = e.target;
