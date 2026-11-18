@@ -66,10 +66,10 @@
       <div class="tagline-box">
         <ul class="tagline">
           <li style="--n: 17; --i: 0">Software engineer</li>
-          <li style="--n: 22; --i: 1">ML and data enthusiast</li>
+          <li style="--n: 22; --i: 1"><abbr title="machine learning">ML</abbr> and data enthusiast</li>
           <li style="--n: 29; --i: 2">Always learning something new</li>
         </ul>
-        <label class="tagline-pause"><input type="checkbox" id="tagline-pause"> Pause animation</label>
+        <label class="tagline-pause" for="tagline-pause"><input type="checkbox" id="tagline-pause"> Pause animation</label>
       </div>
     </section>
 
@@ -78,8 +78,8 @@
       <p>I graduated in Software Engineering from the <a href="https://www.uniovi.es/">University of Oviedo</a> and
         I am studying for a Master's Degree in Web Engineering. My background is in backend systems and
         microservices: I am an intern at NTT Data working on Java microservices with Spring and Kafka, and I am moving
-        towards ML engineering, data pipelines and applied AI.</p>
-      <p><a class="button" href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">Download my CV (PDF, 200 KB, in Spanish)</a></p>
+        towards ML engineering, data pipelines and applied <abbr title="artificial intelligence">AI</abbr>.</p>
+      <p><a class="button" href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">Download my <abbr title="curriculum vitae">CV</abbr> (<abbr title="Portable Document Format">PDF</abbr>, 200 <abbr title="kilobytes">KB</abbr>, in Spanish)</a></p>
     </section>
 
     <section aria-labelledby="titulo-contacto">
@@ -111,7 +111,10 @@
         <input type="hidden" name="_subject" value="Mensaje desde la web personal (versión en inglés)">
         <input type="hidden" name="_template" value="table">
         <!-- Bot trap: hidden, nobody should fill it in -->
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
+        <p class="contact-trap" hidden>
+          <label for="cf-trampa">Leave this field empty</label>
+          <input id="cf-trampa" type="text" name="_honey" tabindex="-1" autocomplete="off">
+        </p>
         <p class="contact-field">
           <label for="cf-nombre">Name</label>
           <input id="cf-nombre" type="text" name="nombre" autocomplete="name" required>

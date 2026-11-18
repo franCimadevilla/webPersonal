@@ -61,7 +61,7 @@
     <section aria-labelledby="titulo-mapa">
       <h2 id="titulo-mapa">Mapa del sitio</h2>
       <p>El sitio tiene cinco páginas, en este orden:</p>
-      <ol>
+      <ol class="sitemap">
         <li><a href="index.html">Inicio</a>: presentación y contacto.
           <ul>
             <li><a href="index.html#titulo-presentacion">Presentación</a></li>
@@ -75,14 +75,14 @@
             <li><a href="sobre-mi.html#titulo-intereses">Intereses y aficiones</a></li>
           </ul>
         </li>
-        <li><a href="proyectos.html">Conocimientos y Proyectos</a>: formación, experiencia, tecnologías, proyectos, referencias y CV.
+        <li><a href="proyectos.html">Conocimientos y Proyectos</a>: formación, experiencia, tecnologías, proyectos, referencias y <abbr title="currículum vítae">CV</abbr>.
           <ul>
             <li><a href="proyectos.html#titulo-formacion">Formación</a></li>
             <li><a href="proyectos.html#titulo-experiencia">Experiencia</a></li>
             <li><a href="proyectos.html#titulo-stack">Stack tecnológico</a></li>
             <li><a href="proyectos.html#titulo-proyectos">Proyectos destacados</a></li>
             <li><a href="proyectos.html#titulo-referencias">Referencias</a></li>
-            <li><a href="proyectos.html#titulo-cv">Currículum</a> (<a href="assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf">descargar en PDF</a>)</li>
+            <li><a href="proyectos.html#titulo-cv">Currículum</a> (<a href="assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf">descargar el CV en <abbr title="formato de documento portátil (Portable Document Format)">PDF</abbr></a>)</li>
           </ul>
         </li>
         <li><a href="multimedia.html">Multimedia</a>: vídeos de demostración de mis proyectos y un podcast.
@@ -141,6 +141,32 @@
           directo al texto de la página.</li>
         <li><kbd>Intro</kbd>: abre el enlace o pulsa el botón seleccionado.</li>
       </ul>
+    </section>
+
+    <section aria-labelledby="titulo-glosario">
+      <h2 id="titulo-glosario">Glosario</h2>
+      <p>Abreviaturas y términos técnicos que aparecen en el sitio. La primera vez que sale una abreviatura en cada
+        página, su forma completa también está en la etiqueta <code>abbr</code>, que muestra el navegador al pasar el
+        ratón por encima.</p>
+      <dl class="glossary">
+        <div><dt>AST</dt><dd>Árbol de sintaxis abstracta: la estructura en la que un programa convierte el código o la consulta que analiza.</dd></div>
+        <div><dt>CV</dt><dd>Currículum vítae.</dd></div>
+        <div><dt>Grafo de conocimiento</dt><dd>Forma de guardar datos como entidades (nodos) unidas por relaciones (aristas), de modo que se pueden consultar y razonar sobre ellas.</dd></div>
+        <div><dt>Graph Machine Learning</dt><dd>Aprendizaje automático aplicado a datos en forma de grafo, como redes sociales o grafos de conocimiento.</dd></div>
+        <div><dt>IA</dt><dd>Inteligencia artificial.</dd></div>
+        <div><dt>Kafka</dt><dd>Plataforma que reparte mensajes entre aplicaciones en tiempo real (mensajería por eventos).</dd></div>
+        <div><dt>KB</dt><dd>Kilobytes, unidad de tamaño de un archivo.</dd></div>
+        <div><dt>Microservicios</dt><dd>Forma de construir una aplicación como varios servicios pequeños e independientes que se comunican entre sí.</dd></div>
+        <div><dt>ML</dt><dd>Aprendizaje automático (<span lang="en">machine learning</span>): programas que aprenden patrones a partir de datos.</dd></div>
+        <div><dt>PDF</dt><dd>Formato de documento portátil; se abre con el navegador o con cualquier lector de PDF.</dd></div>
+        <div><dt>Pipeline de datos</dt><dd>Cadena de pasos automáticos que recoge, transforma y guarda datos.</dd></div>
+        <div><dt>RDBMS</dt><dd>Sistema de gestión de bases de datos relacionales, como PostgreSQL o MySQL.</dd></div>
+        <div><dt>ROC</dt><dd>Curva que mide lo bien que un modelo distingue entre dos clases.</dd></div>
+        <div><dt>Spring</dt><dd>Conjunto de herramientas para crear aplicaciones y servicios web en Java.</dd></div>
+        <div><dt>SQL</dt><dd>Lenguaje de consulta estructurado, el que se usa para pedir y modificar datos en una base de datos relacional.</dd></div>
+        <div><dt>TFG</dt><dd>Trabajo Fin de Grado.</dd></div>
+        <div><dt>WebSockets</dt><dd>Conexión que mantiene abierta la comunicación entre el navegador y el servidor para enviar datos al momento.</dd></div>
+      </dl>
     </section>
 
     <section aria-labelledby="titulo-ayuda-contacto">

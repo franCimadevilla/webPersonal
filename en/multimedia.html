@@ -69,23 +69,43 @@
       <div class="grid">
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/wichat-clip.webp" src="../assets/video/wichat-clip.mp4"></video>
-          <figcaption>WiChat — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/wichat-clip.webp" src="../assets/video/wichat-clip.mp4" aria-describedby="desc-wichat"></video>
+          <figcaption>WiChat — demo
+            <details class="transcript video-description">
+              <summary>Video description (it has no sound)</summary>
+              <p class="transcript-body" id="desc-wichat">Screen recording of about 10 seconds. It goes through the WiChat home page: the “Welcome to WiChat” hero with the Play Now, Login and Register buttons; the “Why Choose WiChat?” section with three cards (Interactive Chats, Learn &amp; Play and Compete &amp; Win), and the closing call “Ready to Start Your Journey?”. Then it enters guest mode (WiChat Guest Mode), which shows the question categories: Custom, Geography, Science and Art &amp; Culture.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/wichat-multi-clip.webp" src="../assets/video/wichat-multi-clip.mp4"></video>
-          <figcaption>WiChat — multiplayer demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/wichat-multi-clip.webp" src="../assets/video/wichat-multi-clip.mp4" aria-describedby="desc-wichat-multi"></video>
+          <figcaption>WiChat — multiplayer demo
+            <details class="transcript video-description">
+              <summary>Video description (it has no sound)</summary>
+              <p class="transcript-body" id="desc-wichat-multi">Screen recording of about 20 seconds with several browser windows open at once, one per player. One player opens the “Start a new session” form and creates a private session: the “WiHost - Private Session” screen shows the code to share it. The other players join with that code from “Join a session” and all of them reach the waiting screen of the “Chemical Elements” quiz (“Get ready for the quiz”).</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/tfg-clip.webp" src="../assets/video/tfg-clip.mp4"></video>
-          <figcaption>Final degree project — Synthetic Knowledge Graphs (demo)</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/tfg-clip.webp" src="../assets/video/tfg-clip.mp4" aria-describedby="desc-tfg"></video>
+          <figcaption>Final degree project — Synthetic Knowledge Graphs (demo)
+            <details class="transcript video-description">
+              <summary>Video description (it has no sound)</summary>
+              <p class="transcript-body" id="desc-tfg">Screen recording of about 20 seconds in VS Code. A Jupyter notebook titled “Data Ingestion Pipeline” runs the ingestion pipeline and the log shows its steps. At the end it goes through the results: confusion matrices, <abbr title="receiver operating characteristic">ROC</abbr> curves of the model and a graph analysis with the degree distribution, the clustering coefficient and homophily.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/outfitly-clip.webp" src="../assets/video/outfitly-clip.mp4"></video>
-          <figcaption>Outfitly — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="../assets/img/posters/outfitly-clip.webp" src="../assets/video/outfitly-clip.mp4" aria-describedby="desc-outfitly"></video>
+          <figcaption>Outfitly — demo
+            <details class="transcript video-description">
+              <summary>Video description (it has no sound)</summary>
+              <p class="transcript-body" id="desc-outfitly">Screen recording of about 14 seconds. It starts with the cover slide “Outfitly: Gestión Inteligente de Armarios” by the CodeSFI team and continues on an Android phone: signing in on the welcome screen, the user profile with the grid of clothes in their wardrobe, the saved outfits tab and the “Edit profile” screen.</p>
+            </details>
+          </figcaption>
         </figure>
 
       </div>
@@ -94,7 +114,7 @@
       <h2 id="titulo-podcast">Podcast of interest</h2>
       <p>A podcast in Spanish, created with NotebookLM: <q lang="es">Clasificación de nodos mediante aprendizaje
         adversario</q> (node classification through adversarial learning). It was very useful for summarising the
-        VGAE-AMIL paper while I was writing up my final degree project.</p>
+        <abbr title="Variational Graph Autoencoder with Adversarial Mutual Information Learning">VGAE-AMIL</abbr> paper while I was writing up my final degree project.</p>
       <figure>
         <audio controls preload="none">
 
@@ -115,7 +135,7 @@
           <p><strong>Voz 2:</strong> Y superando a los modelos anteriores con un margen de mejora brutal. El objetivo hoy no es solo entender qué hace este algoritmo, sino por qué esa competencia interna logra resultados que superan en más de un 17 a sus predecesores.</p>
           <p><strong>Voz 1:</strong> Estamos hablando de un salto enorme, porque las redes están en todas partes, desde cómo interactúan los usuarios en Facebook o en plataformas de música, hasta las redes de citas entre artículos científicos.</p>
           <p><strong>Voz 2:</strong> Exactamente. Y para entender la intervención.</p>
-          <p><em>El clip termina aquí.</em></p>
+          <p class="transcript-end">El clip termina aquí.</p>
         </div>
       </details>
     </section>

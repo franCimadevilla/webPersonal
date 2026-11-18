@@ -69,23 +69,43 @@
       <div class="grid">
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-clip.webp" src="assets/video/wichat-clip.mp4"></video>
-          <figcaption>WiChat — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-clip.webp" src="assets/video/wichat-clip.mp4" aria-describedby="desc-wichat"></video>
+          <figcaption>WiChat — demo
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-wichat">Grabación de pantalla de unos 10 segundos. Recorre la página de inicio de WiChat: la portada «Welcome to WiChat» con los botones Play Now, Login y Register; la sección «Why Choose WiChat?» con tres tarjetas (Interactive Chats, Learn &amp; Play y Compete &amp; Win), y la llamada final «Ready to Start Your Journey?». Después entra en el modo invitado (WiChat Guest Mode), que muestra las categorías de preguntas: Custom, Geography, Science y Art &amp; Culture.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-multi-clip.webp" src="assets/video/wichat-multi-clip.mp4"></video>
-          <figcaption>WiChat — demo multijugador</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-multi-clip.webp" src="assets/video/wichat-multi-clip.mp4" aria-describedby="desc-wichat-multi"></video>
+          <figcaption>WiChat — demo multijugador
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-wichat-multi">Grabación de pantalla de unos 20 segundos con varias ventanas del navegador abiertas a la vez, una por jugador. Un jugador abre el formulario «Start a new session» y crea una sesión privada: la pantalla «WiHost - Private Session» muestra el código para compartirla. Los demás jugadores se unen con ese código desde «Join a session» y todos llegan a la pantalla de espera del cuestionario «Chemical Elements» («Get ready for the quiz»).</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/tfg-clip.webp" src="assets/video/tfg-clip.mp4"></video>
-          <figcaption>TFG — Synthetic Knowledge Graphs (demo)</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/tfg-clip.webp" src="assets/video/tfg-clip.mp4" aria-describedby="desc-tfg"></video>
+          <figcaption><abbr title="Trabajo Fin de Grado">TFG</abbr> — Synthetic Knowledge Graphs (demo)
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-tfg">Grabación de pantalla de unos 20 segundos en VS Code. Un cuaderno de Jupyter titulado «Data Ingestion Pipeline» ejecuta el pipeline de ingesta y el registro va mostrando sus pasos. Al final se recorren los resultados: matrices de confusión, curvas <abbr title="característica operativa del receptor (Receiver Operating Characteristic)">ROC</abbr> del modelo y un análisis del grafo con la distribución de grados, el coeficiente de agrupamiento y la homofilia.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/outfitly-clip.webp" src="assets/video/outfitly-clip.mp4"></video>
-          <figcaption>Outfitly — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/outfitly-clip.webp" src="assets/video/outfitly-clip.mp4" aria-describedby="desc-outfitly"></video>
+          <figcaption>Outfitly — demo
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-outfitly">Grabación de pantalla de unos 14 segundos. Empieza con la portada «Outfitly: Gestión Inteligente de Armarios», del equipo CodeSFI, y sigue en un móvil Android: el inicio de sesión en la pantalla de bienvenida, el perfil del usuario con la cuadrícula de prendas de su armario, la pestaña de conjuntos guardados y la pantalla «Editar perfil».</p>
+            </details>
+          </figcaption>
         </figure>
 
       </div>
@@ -93,7 +113,7 @@
     <section aria-labelledby="titulo-podcast">
       <h2 id="titulo-podcast">Podcast de interés</h2>
       <p>Podcast creado usando NotebookLM: "Clasificación de nodos mediante aprendizaje adversario". Este me ha
-        resultado muy útil para sintetizar la información del paper VGAE-AMIL durante la documentación del TFG.</p>
+        resultado muy útil para sintetizar la información del paper <abbr title="Variational Graph Autoencoder with Adversarial Mutual Information Learning">VGAE-AMIL</abbr> durante la documentación del TFG.</p>
       <figure>
         <audio controls preload="none">
 
@@ -110,11 +130,11 @@
           <p><strong>Voz 2:</strong> Sí, porque el desafío técnico aquí es que estamos forzando a un algoritmo a comprimir dos realidades simultáneas en un solo vector. Por un lado, la estructura de quién se conecta con quién, y por otro, la identidad individual de cada uno de esos actores.</p>
           <p><strong>Voz 1:</strong> Y hasta hace muy poco, los modelos elegían sacrificar una de esas realidades para poder procesar la otra. Pues bien, la fuente que tenemos hoy sobre la mesa es un artículo técnico de investigación. Se <cite lang="en">Variational Graph Autoencoder with Adversarial Mutual Information Learning for Network Representation Learning</cite>.</p>
           <p><strong>Voz 2:</strong> Un título denso, desde luego.</p>
-          <p><strong>Voz 1:</strong> Ya te digo, bastante largo. Pero la intención nuestra hoy es desentrañar cómo este nuevo método impulsado por IA logra algo increíble. Introduce un aprendizaje adversario, un juego competitivo para mejorar drásticamente la clasificación de nodos.</p>
+          <p><strong>Voz 1:</strong> Ya te digo, bastante largo. Pero la intención nuestra hoy es desentrañar cómo este nuevo método impulsado por <abbr title="inteligencia artificial">IA</abbr> logra algo increíble. Introduce un aprendizaje adversario, un juego competitivo para mejorar drásticamente la clasificación de nodos.</p>
           <p><strong>Voz 2:</strong> Y superando a los modelos anteriores con un margen de mejora brutal. El objetivo hoy no es solo entender qué hace este algoritmo, sino por qué esa competencia interna logra resultados que superan en más de un 17 a sus predecesores.</p>
           <p><strong>Voz 1:</strong> Estamos hablando de un salto enorme, porque las redes están en todas partes, desde cómo interactúan los usuarios en Facebook o en plataformas de música, hasta las redes de citas entre artículos científicos.</p>
           <p><strong>Voz 2:</strong> Exactamente. Y para entender la intervención.</p>
-          <p><em>El clip termina aquí.</em></p>
+          <p class="transcript-end">El clip termina aquí.</p>
         </div>
       </details>
     </section>

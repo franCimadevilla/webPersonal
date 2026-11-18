@@ -61,7 +61,7 @@
     <section aria-labelledby="titulo-mapa">
       <h2 id="titulo-mapa">Site map</h2>
       <p>The site has five pages, in this order:</p>
-      <ol>
+      <ol class="sitemap">
         <li><a href="index.html">Home</a>: introduction and contact.
           <ul>
             <li><a href="index.html#titulo-presentacion">Introduction</a></li>
@@ -75,14 +75,14 @@
             <li><a href="sobre-mi.html#titulo-intereses">Interests and hobbies</a></li>
           </ul>
         </li>
-        <li><a href="proyectos.html">Skills &amp; Projects</a>: education, experience, technologies, projects, references and CV.
+        <li><a href="proyectos.html">Skills &amp; Projects</a>: education, experience, technologies, projects, references and <abbr title="curriculum vitae">CV</abbr>.
           <ul>
             <li><a href="proyectos.html#titulo-formacion">Education</a></li>
             <li><a href="proyectos.html#titulo-experiencia">Experience</a></li>
             <li><a href="proyectos.html#titulo-stack">Tech stack</a></li>
             <li><a href="proyectos.html#titulo-proyectos">Featured projects</a></li>
             <li><a href="proyectos.html#titulo-referencias">References</a></li>
-            <li><a href="proyectos.html#titulo-cv">CV</a> (<a href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">download as PDF, in Spanish</a>)</li>
+            <li><a href="proyectos.html#titulo-cv">CV</a> (<a href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">download the CV as <abbr title="Portable Document Format">PDF</abbr>, in Spanish</a>)</li>
           </ul>
         </li>
         <li><a href="multimedia.html">Multimedia</a>: demo videos of my projects and a podcast.
@@ -139,6 +139,30 @@
           straight to the page text.</li>
         <li><kbd>Enter</kbd>: opens the selected link or presses the selected button.</li>
       </ul>
+    </section>
+
+    <section aria-labelledby="titulo-glosario">
+      <h2 id="titulo-glosario">Glossary</h2>
+      <p>Abbreviations and technical terms used on the site. The first time an abbreviation appears on each page, its
+        full form is also in the <code>abbr</code> element, which the browser shows when you hover over it.</p>
+      <dl class="glossary">
+        <div><dt>AI</dt><dd>Artificial intelligence.</dd></div>
+        <div><dt>AST</dt><dd>Abstract syntax tree: the structure a program turns the code or query it parses into.</dd></div>
+        <div><dt>CV</dt><dd>Curriculum vitae.</dd></div>
+        <div><dt>Data pipeline</dt><dd>A chain of automatic steps that collects, transforms and stores data.</dd></div>
+        <div><dt>Graph Machine Learning</dt><dd>Machine learning applied to data shaped as a graph, such as social networks or knowledge graphs.</dd></div>
+        <div><dt>Kafka</dt><dd>A platform that delivers messages between applications in real time (event messaging).</dd></div>
+        <div><dt>KB</dt><dd>Kilobytes, a unit of file size.</dd></div>
+        <div><dt>Knowledge graph</dt><dd>A way of storing data as entities (nodes) linked by relationships (edges), so they can be queried and reasoned about.</dd></div>
+        <div><dt>Microservices</dt><dd>A way of building an application as several small, independent services that talk to each other.</dd></div>
+        <div><dt>ML</dt><dd>Machine learning: programs that learn patterns from data.</dd></div>
+        <div><dt>PDF</dt><dd>Portable Document Format; it opens in the browser or in any PDF reader.</dd></div>
+        <div><dt>RDBMS</dt><dd>Relational database management system, such as PostgreSQL or MySQL.</dd></div>
+        <div><dt>ROC</dt><dd>A curve that measures how well a model tells two classes apart.</dd></div>
+        <div><dt>Spring</dt><dd>A set of tools for building web applications and services in Java.</dd></div>
+        <div><dt>SQL</dt><dd>Structured Query Language, used to read and change data in a relational database.</dd></div>
+        <div><dt>WebSockets</dt><dd>A connection that keeps communication open between the browser and the server to send data instantly.</dd></div>
+      </dl>
     </section>
 
     <section aria-labelledby="titulo-ayuda-contacto">
