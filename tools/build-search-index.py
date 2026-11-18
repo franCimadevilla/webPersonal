@@ -35,6 +35,14 @@ class MainParser(HTMLParser):
         self.sections = [{'id': '', 'heading': '', 'text': []}]
 
     def handle_starttag(self, tag, attrs):
+        """Abre un nuevo apartado en cada <h2>, empieza a saltar los subárboles
+        que no aportan contenido (SKIP o aria-hidden) y recoge el alt de las
+        imágenes como texto buscable.
+
+        self.skip es un contador de profundidad: mientras sea > 0 se está
+        dentro de un elemento ignorado y cada etiqueta abierta lo incrementa,
+        de modo que se sabe cuándo se cierra el elemento que lo inició.
+        """
         attrs = dict(attrs)
         if tag == 'main':
             self.in_main = True
@@ -55,6 +63,9 @@ class MainParser(HTMLParser):
             self.sections[-1]['text'].append(attrs['alt'])
 
     def handle_endtag(self, tag):
+        """Cierra encabezados y subárboles ignorados. Al cerrar un bloque de
+        texto (párrafo, elemento de lista...) añade un espacio para que las
+        palabras de bloques contiguos no queden pegadas en el índice."""
         if tag == 'main':
             self.in_main = False
         if not self.in_main or tag in self.VOID:
@@ -67,6 +78,8 @@ class MainParser(HTMLParser):
             self.sections[-1]['text'].append(' ')
 
     def handle_data(self, data):
+        """Envía cada trozo de texto a su destino: el título <h1> de la página,
+        el título <h2> del apartado actual o el cuerpo del apartado."""
         if not self.in_main or self.skip:
             return
         if self.heading == 'h1':
@@ -78,10 +91,21 @@ class MainParser(HTMLParser):
 
 
 def clean(text):
+    """Decodifica entidades HTML y deja un solo espacio entre palabras."""
     return re.sub(r'\s+', ' ', unescape(text)).strip()
 
 
 def index_page(folder, page):
+    """Indexa una página y devuelve una entrada por apartado.
+
+    Cada entrada es un diccionario con:
+      url     -- página y ancla del apartado (p. ej. «proyectos.html#titulo-x»),
+                 para que el resultado lleve directamente a esa sección;
+      page    -- nombre corto de la página, el mismo que en el menú;
+      heading -- texto del <h2> del apartado ('' para el texto previo al primero);
+      text    -- texto plano del apartado, ya limpio.
+    Los apartados sin título ni texto se descartan.
+    """
     with open(os.path.join(ROOT, folder, page), encoding='utf-8') as f:
         html = f.read()
     parser = MainParser()
@@ -108,6 +132,14 @@ def index_page(folder, page):
 
 
 def main():
+    """Genera el índice de los dos idiomas y lo escribe en assets/js.
+
+    Estructura: {"es": [entradas...], "en": [entradas...]}. Se guarda como un
+    script que asigna window.SEARCH_INDEX en lugar de un .json para que el
+    navegador lo cargue con un <script> normal: no hace falta fetch y el
+    buscador funciona también al abrir el sitio desde file:// sin servidor.
+    El JSON va compacto (sin espacios) para que el archivo pese lo mínimo.
+    """
     index = {}
     for lang, folder in (('es', ''), ('en', 'en')):
         index[lang] = [entry for page in PAGES for entry in index_page(folder, page)]

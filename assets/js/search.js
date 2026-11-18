@@ -41,10 +41,19 @@
   var entries = window.SEARCH_INDEX && window.SEARCH_INDEX[lang];
   if (!form || !input || !status || !list || !entries) return;
 
-  var ACCENTS = /[̀-ͯ]/g;
+  // Marcas diacríticas combinantes (tildes, diéresis...) que quedan sueltas
+  // tras descomponer un carácter con normalize('NFD'): "á" pasa a "a" + "\u0301" (acento agudo combinante).
+  var ACCENTS = /[\u0300-\u036f]/g;
 
-  // Minúsculas y sin tildes, carácter a carácter para que cada posición del
-  // texto normalizado siga apuntando a la misma posición del original.
+  /**
+   * Normaliza un texto para comparar: minúsculas y sin tildes ni diéresis.
+   * Se hace carácter a carácter para que cada posición del texto normalizado
+   * siga apuntando a la misma posición del original (necesario para resaltar
+   * en el texto original lo encontrado en el normalizado).
+   * @param {string} text Texto original.
+   * @returns {{text: string, map: number[]}} Texto normalizado y, para cada
+   *   carácter suyo, su índice en el texto original.
+   */
   function fold(text) {
     var out = '';
     var map = [];
@@ -59,6 +68,12 @@
     return { text: out, map: map };
   }
 
+  /**
+   * Cuenta las apariciones (sin solaparse) de una palabra en un texto.
+   * @param {string} haystack Texto normalizado donde buscar.
+   * @param {string} needle Palabra normalizada.
+   * @returns {number} Número de apariciones.
+   */
   function count(haystack, needle) {
     var n = 0;
     var at = haystack.indexOf(needle);
@@ -69,6 +84,9 @@
     return n;
   }
 
+  // Normalización precalculada: cada apartado del índice se normaliza una sola
+  // vez al cargar la página, no en cada búsqueda. "order" guarda la posición
+  // en el sitio para desempatar resultados con la misma puntuación.
   var prepared = [];
   for (var i = 0; i < entries.length; i++) {
     prepared.push({
@@ -80,6 +98,13 @@
     });
   }
 
+  /**
+   * Convierte la consulta en la lista de palabras a buscar: normalizada,
+   * partida por espacios, sin palabras vacías ni repetidas. Una consulta
+   * vacía o de solo espacios devuelve una lista vacía.
+   * @param {string} query Lo que escribió el usuario.
+   * @returns {string[]} Palabras normalizadas y únicas.
+   */
   function terms(query) {
     var words = fold(query).text.split(/\s+/);
     var out = [];
@@ -89,6 +114,16 @@
     return out;
   }
 
+  /**
+   * Busca los apartados que contienen TODAS las palabras (búsqueda AND, por
+   * subcadena: "proyect" encuentra "proyectos") y los ordena por relevancia.
+   * Puntuación por palabra: +10 si está en el título del apartado, +5 si está
+   * en el nombre de la página y +1 por aparición en el texto (máximo 5, para
+   * que un texto largo y repetitivo no se imponga a un título).
+   * A igual puntuación se respeta el orden del sitio.
+   * @param {string[]} words Palabras normalizadas (ver terms).
+   * @returns {{item: Object, score: number}[]} Resultados ordenados.
+   */
   function search(words) {
     var found = [];
     for (var i = 0; i < prepared.length; i++) {
@@ -108,8 +143,16 @@
     return found;
   }
 
-  // Fragmento de unos 200 caracteres alrededor de la primera coincidencia,
-  // con cada palabra buscada dentro de <mark>.
+  /**
+   * Fragmento de unos 200 caracteres alrededor de la primera coincidencia,
+   * con cada palabra buscada dentro de <mark>. Se corta por espacios para no
+   * partir palabras y se añaden puntos suspensivos si el texto sigue.
+   * Se construye con nodos DOM (createTextNode), nunca con innerHTML, así
+   * que el texto del índice no puede inyectar HTML.
+   * @param {Object} item Apartado preparado (ver "prepared").
+   * @param {string[]} words Palabras normalizadas buscadas.
+   * @returns {HTMLParagraphElement} Párrafo listo para insertar.
+   */
   function snippet(item, words) {
     var body = item.body;
     var original = item.entry.text;
@@ -152,6 +195,17 @@
     return p;
   }
 
+  /**
+   * Ejecuta la búsqueda y pinta la página de resultados:
+   * - consulta vacía: solo el mensaje que invita a escribir;
+   * - sin resultados: mensaje "No hay resultados" y el aviso con el enlace
+   *   al mapa del sitio (estado vacío);
+   * - con resultados: contador y una lista de enlaces "Página > Apartado"
+   *   al ancla del apartado, cada uno con su fragmento resaltado.
+   * El mensaje va en la región role="status", que los lectores de pantalla
+   * anuncian sin mover el foco.
+   * @param {string} query Consulta tal como la escribió el usuario.
+   */
   function render(query) {
     var words = terms(query);
     list.textContent = '';
@@ -178,6 +232,11 @@
     }
   }
 
+  /**
+   * Lee el parámetro q de la dirección (buscar.html?q=...), para que un enlace
+   * a unos resultados o el envío del formulario sin JavaScript funcionen.
+   * @returns {string} Consulta decodificada, o '' si no hay o está mal formada.
+   */
   function queryFromUrl() {
     var match = /[?&]q=([^&#]*)/.exec(window.location.search);
     if (!match) return '';
@@ -188,6 +247,8 @@
     }
   }
 
+  // Envío del formulario (botón o tecla Intro): se busca en la propia página
+  // sin recargarla, así no se pierde lo escrito ni la posición del foco.
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     render(input.value);
@@ -200,6 +261,7 @@
     }
   });
 
+  // Al cargar: si la dirección trae una consulta, se rellena la caja y se busca.
   var initial = queryFromUrl();
   if (initial) {
     input.value = initial;
