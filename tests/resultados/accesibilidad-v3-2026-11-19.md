@@ -95,5 +95,29 @@ Script en el navegador sobre las 15 páginas (Chromium, servidor local, 1280 px)
 - **Contraste ≥ 7:1, objetivos ≥ 44 px y ≤ 80 caracteres por línea:** correctos en todas las páginas.
 - **Adaptabilidad:** sin desplazamiento horizontal a 320, 375, 768 y 1024 px.
 - **Buscador:** resultados en ES y EN; sin resultados, la lista queda oculta y aparece la ayuda.
-- **Pendiente:** volver a pasar WAVE y TAW sobre la versión desplegada (necesitan una URL pública) y sacar
-  las capturas definitivas.
+## 6. Verificación con WAVE y TAW tras subir las correcciones
+
+Commit `8705633` en `mejoras-tanda-2`, analizado en
+`https://raw.githack.com/franCimadevilla/webPersonal/8705633597b7810cf1e2f475c0c65298b43298c6/<página>`
+(la URL con el hash evita la caché de la rama).
+
+**WAVE, 15 páginas: 0 errores y 0 errores de contraste en todas.**
+
+| Página | Alertas | Detalle |
+|---|---|---|
+| index / en/index | 2 | Enlace redundante, enlace a PDF |
+| sobre-mi / en/sobre-mi | 2 | Enlace redundante ×2 |
+| proyectos / en/proyectos | 2 | Enlace redundante, enlace a PDF (antes 4: desaparecen los dos «Long alternative text») |
+| multimedia / en/multimedia | 7 | Enlace redundante ×2, «HTML5 video or audio» ×5 (ahora con descripción o transcripción) |
+| galeria / en/galeria | 1 | Enlace redundante |
+| ayuda / en/ayuda | 3 | Enlace redundante ×2, enlace a PDF |
+| buscar / en/buscar | 2 | Enlace redundante, `noscript` |
+| 404 | 2 | Enlace redundante ×2 |
+
+**TAW, WCAG 2.1 AAA** (index, proyectos, multimedia, ayuda y buscar): **0 problemas**, 20 advertencias y
+30 no verificados en cada una, las mismas advertencias que antes, todas de revisión manual (Fase 4).
+
+**AChecker, WCAG 2.0 AAA** (sección 5): 0 problemas conocidos en las 15 páginas.
+
+- **Pendiente:** desplegar la v3 en GitHub Pages (fusionar en `main`) y sacar las capturas definitivas sobre
+  la URL publicada.
