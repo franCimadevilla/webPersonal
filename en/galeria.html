@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PU-04, antes del primer pintado: hay JavaScript (data-js muestra el control de tamaño del texto)
+       y tamaño de letra elegido por el visitante (lo guarda header.js). -->
+  <script>(function(h){h.setAttribute('data-js','');try{var t=parseFloat(localStorage.getItem('text-size'));if([87.5,112.5,125,150].indexOf(t)>-1)h.style.fontSize=t+'%'}catch(e){}})(document.documentElement)</script>
   <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
        (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
   <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
@@ -24,7 +27,7 @@
       <ul class="page-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="sobre-mi.html">About me</a></li>
-        <li><a href="proyectos.html">Projects</a></li>
+        <li><a href="proyectos.html">Skills &amp; Projects</a></li>
         <li><a href="multimedia.html">Multimedia</a></li>
         <li><a aria-current="page" href="galeria.html">Gallery</a></li>
       </ul>
@@ -32,6 +35,18 @@
     <div class="header-tools">
       <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a>
       <a href="../galeria.html" hreflang="es" lang="es">Español</a>
+      <div class="text-size">
+        <button class="text-size-toggle" type="button" aria-expanded="false" aria-controls="text-size-panel" aria-label="Text: change size"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14h-5"/><path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"/><path d="M4.5 13h6"/><path d="m3 16 4.5-9 4.5 9"/></svg><span>Text</span></button>
+        <div class="text-size-panel" id="text-size-panel" role="group" aria-labelledby="text-size-title" hidden>
+          <p class="text-size-title" id="text-size-title">Text size</p>
+          <div class="text-size-row">
+            <button class="text-size-btn" type="button" data-text-step="-1" aria-label="Smaller text">A−</button>
+            <output class="text-size-value">100%</output>
+            <button class="text-size-btn" type="button" data-text-step="1" aria-label="Larger text">A+</button>
+          </div>
+          <button class="text-size-reset" type="button" data-text-step="0">Reset (100%)</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -113,12 +128,13 @@
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Page 1 of 5: Home" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Page 2 of 5: About me" href="sobre-mi.html"></a></li>
-      <li><a class="carousel-dot" aria-label="Page 3 of 5: Projects" href="proyectos.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Page 3 of 5: Skills &amp; Projects" href="proyectos.html"></a></li>
       <li><a class="carousel-dot" aria-label="Page 4 of 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-current="page" aria-label="Page 5 of 5: Gallery" href="galeria.html"></a></li>
     </ol>
     <a class="carousel-btn" id="btn-next" href="index.html" rel="next"><span class="carousel-btn-dir">Next:</span> Home <span aria-hidden="true">›</span></a>
     <p class="carousel-hint" id="carousel-hint" hidden>You can also change pages with the <kbd>←</kbd> and <kbd>→</kbd> keys.</p>
+    <p class="carousel-swipe" id="carousel-swipe" hidden>You can also change page by swiping left or right.</p>
   </nav>
 
   <footer>
@@ -146,5 +162,6 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/header.js"></script>
 </body>
 </html>

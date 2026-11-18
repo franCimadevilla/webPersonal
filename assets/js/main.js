@@ -288,12 +288,83 @@
       touch = null;
       if (!quick || Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < SWIPE_RATIO * Math.abs(dy)) return;
       if (window.getSelection && String(window.getSelection())) return;
+      rememberSwipe();
       if (dx < 0) slideTo(nextLink.href, 'next');
       else slideTo(prevLink.href, 'prev');
     }, { passive: true });
 
     document.addEventListener('touchcancel', function () { touch = null; }, { passive: true });
+
+    // PU-03: la pista fija junto al carrusel solo tiene sentido si el gesto
+    // existe (con JavaScript); el CSS la muestra hasta 768 px.
+    var swipeHint = document.getElementById('carousel-swipe');
+    if (swipeHint) swipeHint.hidden = false;
   }
+
+  // ── Aviso del gesto de deslizar (PU-03) ──────────────────────────────
+  // En la prueba de usabilidad nadie descubrió el gesto hasta hacerlo sin
+  // querer. En pantallas táctiles de hasta 768 px, las dos primeras páginas
+  // que se visitan muestran un aviso abajo; desaparece al cerrarlo, a los
+  // 10 s o al deslizar, y después de deslizar una vez ya no vuelve.
+  var SWIPE_HINT_KEY = 'swipe-hint';
+  var SWIPE_HINT_VIEWS = 2;
+  var SWIPE_HINT_TIME = 10000;
+  var swipeToast = null;
+
+  var SWIPE_TEXT = document.documentElement.lang === 'en' ? {
+    hint: 'Swipe left or right to change page',
+    close: 'Close tip'
+  } : {
+    hint: 'Desliza el dedo a los lados para cambiar de página',
+    close: 'Cerrar aviso'
+  };
+
+  var HAND_ICON = '<svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>';
+
+  function hideSwipeToast() {
+    if (swipeToast && swipeToast.parentNode) swipeToast.parentNode.removeChild(swipeToast);
+    swipeToast = null;
+  }
+
+  function rememberSwipe() {
+    try {
+      window.localStorage.setItem(SWIPE_HINT_KEY, 'done');
+    } catch (error) { /* sin almacenamiento: el aviso no se recuerda */ }
+    hideSwipeToast();
+  }
+
+  function showSwipeToast() {
+    var touchScreen = window.matchMedia('(hover: none) and (pointer: coarse)');
+    if (!narrow.matches || !touchScreen.matches) return;
+    var seen;
+    try {
+      seen = window.localStorage.getItem(SWIPE_HINT_KEY);
+      if (seen === 'done' || Number(seen) >= SWIPE_HINT_VIEWS) return;
+      window.localStorage.setItem(SWIPE_HINT_KEY, String(Number(seen || 0) + 1));
+    } catch (error) {
+      return; // sin almacenamiento saldría en cada página: mejor no mostrarlo
+    }
+
+    swipeToast = document.createElement('div');
+    swipeToast.className = 'swipe-toast';
+    swipeToast.setAttribute('role', 'status');
+    var text = document.createElement('p');
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.setAttribute('aria-label', SWIPE_TEXT.close);
+    close.textContent = '×';
+    close.addEventListener('click', rememberSwipe);
+    swipeToast.innerHTML = HAND_ICON;
+    swipeToast.appendChild(text);
+    swipeToast.appendChild(close);
+    document.body.appendChild(swipeToast);
+    // El texto llega después de crear la región role=status, para que el
+    // lector de pantalla lo anuncie.
+    window.requestAnimationFrame(function () { text.textContent = SWIPE_TEXT.hint; });
+    window.setTimeout(hideSwipeToast, SWIPE_HINT_TIME);
+  }
+
+  if (narrow && prevLink && nextLink) showSwipeToast();
 
   // ── Vistas previas laterales (EV-01) ──────────────────────────────────
   // En pantallas de 1200 px o más, las flechas laterales muestran la página
@@ -315,7 +386,7 @@
   var PREVIEW_VISIBLE = PREVIEW_WIDTH / 8;
   var previewsRequested = false;
 
-  // «Proyectos · Francisco Cimadevilla» → «Proyectos»
+  // «Conocimientos y Proyectos · Francisco Cimadevilla» → «Conocimientos y Proyectos»
   function pageName(doc) {
     var parts = doc.title.split('·');
     for (var i = 0; i < parts.length; i++) {
