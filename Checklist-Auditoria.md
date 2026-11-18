@@ -308,3 +308,31 @@ Estas mejoras no salen de la auditoría: las pide Francisco. Van en el hito M7 d
     - `h2` pasa a `display: flow-root`: junto a una foto el título se estrecha, en lugar de pasar su línea inferior por debajo de ella. Sin fotos flotantes no cambia nada.
     - Mismos `alt`, pies de foto, `width`/`height` (sin CLS) y carga diferida. Índice del buscador regenerado.
     - **Comprobado en Edge (headless):** capturas de Sobre mí a 1280 px (ES y EN), 800 y 500 px.
+
+## 7. Mejoras de la tanda 2 de pruebas de usabilidad (hito M8)
+
+Salen de la última tanda de pruebas con usuarios (2026-11-18): una mejora por cada fila de la tabla «Problemas encontrados / Propuestas de mejora». Tickets T66–T85 en `plan/milestones/M8-mejoras-evolutivas-tanda-2.md`. Todo en ES y EN.
+
+- [x] **PU-01** Navegación principal más visible (T66)
+  - Problema: no encontraba fácilmente la navegación.
+  - Hecho el 2026-11-18: el menú pasa a ser una barra de pestañas con fondo y borde propios, en negrita, con la página actual rellena de azul (blanco sobre `#1e40af`, 8,6:1) y `:hover` en `#e0e7ff` (7,2:1). Áreas de 44 px y anillo de foco intactos. Desde 769 px la cabecera es `position: sticky` y queda siempre a la vista; header.js ajusta `scroll-padding-top` a su alto para que los anclajes no queden debajo.
+- [x] **PU-02** «Proyectos» pasa a «Conocimientos y Proyectos» / «Skills & Projects» (T76)
+  - Problema: el contenido (formación, experiencia, stack) no casaba con el título «Proyectos».
+  - Hecho el 2026-11-18: menú, `<title>`, `h1`, migas de pan, meta description, enlaces y puntos del carrusel y flechas laterales en las 15 páginas (también 404), mapa del sitio y Ayuda. El archivo sigue siendo `proyectos.html` para no romper enlaces. Índice del buscador regenerado (la búsqueda «conocimientos» encuentra los 8 apartados). La pastilla de la vista previa lateral admite dos o tres líneas (como mucho 8rem) para que el nombre largo no se salga de la pantalla.
+- [x] **PU-03** Avisar de que se puede deslizar con el dedo (T79)
+  - Problema: no se dio cuenta del gesto hasta hacerlo sin querer.
+  - Hecho el 2026-11-18: en pantallas táctiles de hasta 768 px, las dos primeras páginas que se visitan muestran abajo un aviso «Desliza el dedo a los lados para cambiar de página» con una mano que se mueve (quieta con movimiento reducido). Se cierra con el botón ×, a los 10 s o al deslizar; después de deslizar una vez no vuelve (`localStorage`). Es una región `role="status"`. Además, una pista fija bajo el carrusel en el móvil, y un punto nuevo «Deslizar con el dedo» en la Ayuda. Sin JavaScript no aparece nada, porque el gesto no existe.
+- [x] **PU-04** Ajuste para aumentar o reducir el tamaño de letra (T80)
+  - Problema: le costaba leer en el teléfono (vista cansada).
+  - Hecho el 2026-11-18: botón «Texto» en la cabecera (en el móvil, el icono Aa) que abre A−, el nivel actual y A+ (87,5 %, 100 %, 112,5 %, 125 % y 150 %) y «Restablecer». Cambia el `font-size` de `<html>`: todo el CSS va en rem. Se guarda en `localStorage` y un script en línea del `<head>` lo aplica antes del primer pintado en las 15 páginas (sin parpadeo). El mismo script pone `data-js`, que es lo que muestra el control: sin JavaScript no se ve y no cambia el tamaño de la cabecera al cargar. En los extremos, `aria-disabled`; el nivel se anuncia por el `<output>`; Escape cierra y devuelve el foco. Nuevo script `assets/js/header.js`, que se carga también en ayuda, buscar y 404.
+  - Con la letra grande en pantallas anchas, la cabecera no cabe en una fila; como las media queries no cambian con el tamaño de letra, header.js lo mide y pone `data-stacked`, y el menú baja a su propia fila como en tableta.
+- [x] **PU-05** Menú más grande en tableta (T70)
+  - Problema: en tableta no se fijó en el menú.
+  - Hecho el 2026-11-18: entre 769 y 1199 px el menú baja a su propia fila a todo el ancho, con pestañas de 48 px y letra de 1.05rem; el nombre y las herramientas quedan arriba.
+- [x] **PU-06** Cabecera compacta en el móvil (T73)
+  - Observación: el menú ocupaba gran parte de la parte superior.
+  - Hecho el 2026-11-18: nombre y herramientas en una fila y el menú en otra, en una sola fila de pestañas que se desliza de lado (con `scroll-snap`), con la página actual centrada al cargar y un degradado (`mask-image`) en el lado donde hay más pestañas. Se eligió frente a un menú hamburguesa para no esconder el menú (PU-01). El gesto de deslizar entre páginas no actúa sobre el menú, porque ya se salta las zonas con desplazamiento horizontal. Alto de la cabecera a 360 px: unos 108 px (antes unos 150).
+- [x] **PU-07** Verificación (T85)
+  - **W3C** (2026-11-18, `tests/resultados/w3c-2026-11-18.json`): HTML 0 errores en las 15 páginas; CSS perfil `css3svg` 0 errores. Perfil `css3`: 9 errores falsos (`pointer-events`, `clip-path` y ahora `mask-image`, propiedades estándar que ese perfil no incluye).
+  - **Comprobado en el navegador del escritorio (Chromium emulado):** 1366 y 1200 px (una fila), 1366 px al 150 % (dos filas), 1024 y 820 px (tableta), 768, 360 y 320 px (móvil) al 100 % y al 150 %, sin scroll horizontal; aviso de deslizar y contador; control de tamaño (niveles, extremos, Restablecer, Escape y foco); búsqueda; consola sin errores salvo los 404 de `404.html` en local (usa rutas `/webPersonal/`).
+  - **No comprobado:** lector de pantalla real, móvil y tableta reales, Lighthouse (CLS y LCP) y repetir las tareas de la prueba con usuarios.
