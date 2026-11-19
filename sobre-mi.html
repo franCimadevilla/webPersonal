@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PU-04, antes del primer pintado: hay JavaScript (data-js muestra el control de tamaño del texto)
+       y tamaño de letra elegido por el visitante (lo guarda header.js). -->
+  <script>(function(h){h.setAttribute('data-js','');try{var t=parseFloat(localStorage.getItem('text-size'));if([87.5,112.5,125,150].indexOf(t)>-1)h.style.fontSize=t+'%'}catch(e){}})(document.documentElement)</script>
   <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
        (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
   <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
@@ -24,7 +27,7 @@
       <ul class="page-nav">
         <li><a href="index.html">Inicio</a></li>
         <li><a aria-current="page" href="sobre-mi.html">Sobre mí</a></li>
-        <li><a href="proyectos.html">Proyectos</a></li>
+        <li><a href="proyectos.html">Conocimientos y Proyectos</a></li>
         <li><a href="multimedia.html">Multimedia</a></li>
         <li><a href="galeria.html">Galería</a></li>
       </ul>
@@ -32,6 +35,18 @@
     <div class="header-tools">
       <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
       <a href="en/sobre-mi.html" hreflang="en" lang="en">English</a>
+      <div class="text-size">
+        <button class="text-size-toggle" type="button" aria-expanded="false" aria-controls="text-size-panel" aria-label="Texto: cambiar el tamaño"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14h-5"/><path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"/><path d="M4.5 13h6"/><path d="m3 16 4.5-9 4.5 9"/></svg><span>Texto</span></button>
+        <div class="text-size-panel" id="text-size-panel" role="group" aria-labelledby="text-size-title" hidden>
+          <p class="text-size-title" id="text-size-title">Tamaño del texto</p>
+          <div class="text-size-row">
+            <button class="text-size-btn" type="button" data-text-step="-1" aria-label="Reducir el texto">A−</button>
+            <output class="text-size-value">100 %</output>
+            <button class="text-size-btn" type="button" data-text-step="1" aria-label="Aumentar el texto">A+</button>
+          </div>
+          <button class="text-size-reset" type="button" data-text-step="0">Restablecer (100 %)</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -51,7 +66,7 @@
         <figcaption>El día de la graduación del grado, en 2026.</figcaption>
       </figure>
       <p>Soy graduado en Ingeniería Informática del Software por la <a href="https://www.uniovi.es/">Universidad de Oviedo</a> (2022–2026) y desde septiembre de 2026 curso el Máster Universitario en Ingeniería Web. Mi experiencia se centra en sistemas backend y microservicios: hice prácticas en NTT Data de febrero a abril de 2026, trabajando con microservicios Java, Spring y Kafka, y las he retomado con el máster.</p>
-      <p>Ahora estoy profundizando en la ingeniería de ML, los pipelines de datos y la IA aplicada. Me gusta entender los sistemas desde primeros principios.</p>
+      <p>Ahora estoy profundizando en la ingeniería de <abbr title="aprendizaje automático (machine learning)">ML</abbr>, los pipelines de datos y la <abbr title="inteligencia artificial">IA</abbr> aplicada. Me gusta entender los sistemas desde primeros principios.</p>
     </section>
 
     <section aria-labelledby="titulo-actualmente">
@@ -102,7 +117,7 @@
 
   <nav class="page-lateral-nav" aria-label="Navegación lateral">
     <a href="index.html" aria-label="Página anterior: Inicio">‹</a>
-    <a href="proyectos.html" aria-label="Página siguiente: Proyectos">›</a>
+    <a href="proyectos.html" aria-label="Página siguiente: Conocimientos y Proyectos">›</a>
   </nav>
 
   <nav class="carousel" aria-label="Carrusel de páginas del sitio">
@@ -110,12 +125,13 @@
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Página 1 de 5: Inicio" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-current="page" aria-label="Página 2 de 5: Sobre mí" href="sobre-mi.html"></a></li>
-      <li><a class="carousel-dot" aria-label="Página 3 de 5: Proyectos" href="proyectos.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Página 3 de 5: Conocimientos y Proyectos" href="proyectos.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 4 de 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 5 de 5: Galería" href="galeria.html"></a></li>
     </ol>
-    <a class="carousel-btn" id="btn-next" href="proyectos.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Proyectos <span aria-hidden="true">›</span></a>
+    <a class="carousel-btn" id="btn-next" href="proyectos.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Conocimientos y Proyectos <span aria-hidden="true">›</span></a>
     <p class="carousel-hint" id="carousel-hint" hidden>También puedes cambiar de página con las teclas <kbd>←</kbd> y <kbd>→</kbd>.</p>
+    <p class="carousel-swipe" id="carousel-swipe" hidden>También puedes cambiar de página deslizando el dedo hacia la izquierda o la derecha.</p>
   </nav>
 
   <footer>
@@ -143,5 +159,6 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/header.js"></script>
 </body>
 </html>

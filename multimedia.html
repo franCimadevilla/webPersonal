@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PU-04, antes del primer pintado: hay JavaScript (data-js muestra el control de tamaño del texto)
+       y tamaño de letra elegido por el visitante (lo guarda header.js). -->
+  <script>(function(h){h.setAttribute('data-js','');try{var t=parseFloat(localStorage.getItem('text-size'));if([87.5,112.5,125,150].indexOf(t)>-1)h.style.fontSize=t+'%'}catch(e){}})(document.documentElement)</script>
   <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
        (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
   <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
@@ -26,7 +29,7 @@
       <ul class="page-nav">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="sobre-mi.html">Sobre mí</a></li>
-        <li><a href="proyectos.html">Proyectos</a></li>
+        <li><a href="proyectos.html">Conocimientos y Proyectos</a></li>
         <li><a aria-current="page" href="multimedia.html">Multimedia</a></li>
         <li><a href="galeria.html">Galería</a></li>
       </ul>
@@ -34,6 +37,18 @@
     <div class="header-tools">
       <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
       <a href="en/multimedia.html" hreflang="en" lang="en">English</a>
+      <div class="text-size">
+        <button class="text-size-toggle" type="button" aria-expanded="false" aria-controls="text-size-panel" aria-label="Texto: cambiar el tamaño"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14h-5"/><path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"/><path d="M4.5 13h6"/><path d="m3 16 4.5-9 4.5 9"/></svg><span>Texto</span></button>
+        <div class="text-size-panel" id="text-size-panel" role="group" aria-labelledby="text-size-title" hidden>
+          <p class="text-size-title" id="text-size-title">Tamaño del texto</p>
+          <div class="text-size-row">
+            <button class="text-size-btn" type="button" data-text-step="-1" aria-label="Reducir el texto">A−</button>
+            <output class="text-size-value">100 %</output>
+            <button class="text-size-btn" type="button" data-text-step="1" aria-label="Aumentar el texto">A+</button>
+          </div>
+          <button class="text-size-reset" type="button" data-text-step="0">Restablecer (100 %)</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -54,23 +69,43 @@
       <div class="grid">
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-clip.webp" src="assets/video/wichat-clip.mp4"></video>
-          <figcaption>WiChat — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-clip.webp" src="assets/video/wichat-clip.mp4" aria-describedby="desc-wichat"></video>
+          <figcaption>WiChat — demo
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-wichat">Grabación de pantalla de unos 10 segundos. Recorre la página de inicio de WiChat: la portada «Welcome to WiChat» con los botones Play Now, Login y Register; la sección «Why Choose WiChat?» con tres tarjetas (Interactive Chats, Learn &amp; Play y Compete &amp; Win), y la llamada final «Ready to Start Your Journey?». Después entra en el modo invitado (WiChat Guest Mode), que muestra las categorías de preguntas: Custom, Geography, Science y Art &amp; Culture.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-multi-clip.webp" src="assets/video/wichat-multi-clip.mp4"></video>
-          <figcaption>WiChat — demo multijugador</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/wichat-multi-clip.webp" src="assets/video/wichat-multi-clip.mp4" aria-describedby="desc-wichat-multi"></video>
+          <figcaption>WiChat — demo multijugador
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-wichat-multi">Grabación de pantalla de unos 20 segundos con varias ventanas del navegador abiertas a la vez, una por jugador. Un jugador abre el formulario «Start a new session» y crea una sesión privada: la pantalla «WiHost - Private Session» muestra el código para compartirla. Los demás jugadores se unen con ese código desde «Join a session» y todos llegan a la pantalla de espera del cuestionario «Chemical Elements» («Get ready for the quiz»).</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/tfg-clip.webp" src="assets/video/tfg-clip.mp4"></video>
-          <figcaption>TFG — Synthetic Knowledge Graphs (demo)</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/tfg-clip.webp" src="assets/video/tfg-clip.mp4" aria-describedby="desc-tfg"></video>
+          <figcaption><abbr title="Trabajo Fin de Grado">TFG</abbr> — Synthetic Knowledge Graphs (demo)
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-tfg">Grabación de pantalla de unos 20 segundos en VS Code. Un cuaderno de Jupyter titulado «Data Ingestion Pipeline» ejecuta el pipeline de ingesta y el registro va mostrando sus pasos. Al final se recorren los resultados: matrices de confusión, curvas <abbr title="característica operativa del receptor (Receiver Operating Characteristic)">ROC</abbr> del modelo y un análisis del grafo con la distribución de grados, el coeficiente de agrupamiento y la homofilia.</p>
+            </details>
+          </figcaption>
         </figure>
 
         <figure>
-          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/outfitly-clip.webp" src="assets/video/outfitly-clip.mp4"></video>
-          <figcaption>Outfitly — demo</figcaption>
+          <video controls preload="none" width="1280" height="720" poster="assets/img/posters/outfitly-clip.webp" src="assets/video/outfitly-clip.mp4" aria-describedby="desc-outfitly"></video>
+          <figcaption>Outfitly — demo
+            <details class="transcript video-description">
+              <summary>Descripción del vídeo (no tiene sonido)</summary>
+              <p class="transcript-body" id="desc-outfitly">Grabación de pantalla de unos 14 segundos. Empieza con la portada «Outfitly: Gestión Inteligente de Armarios», del equipo CodeSFI, y sigue en un móvil Android: el inicio de sesión en la pantalla de bienvenida, el perfil del usuario con la cuadrícula de prendas de su armario, la pestaña de conjuntos guardados y la pantalla «Editar perfil».</p>
+            </details>
+          </figcaption>
         </figure>
 
       </div>
@@ -78,7 +113,7 @@
     <section aria-labelledby="titulo-podcast">
       <h2 id="titulo-podcast">Podcast de interés</h2>
       <p>Podcast creado usando NotebookLM: "Clasificación de nodos mediante aprendizaje adversario". Este me ha
-        resultado muy útil para sintetizar la información del paper VGAE-AMIL durante la documentación del TFG.</p>
+        resultado muy útil para sintetizar la información del paper <abbr title="Variational Graph Autoencoder with Adversarial Mutual Information Learning">VGAE-AMIL</abbr> durante la documentación del TFG.</p>
       <figure>
         <audio controls preload="none">
 
@@ -95,32 +130,33 @@
           <p><strong>Voz 2:</strong> Sí, porque el desafío técnico aquí es que estamos forzando a un algoritmo a comprimir dos realidades simultáneas en un solo vector. Por un lado, la estructura de quién se conecta con quién, y por otro, la identidad individual de cada uno de esos actores.</p>
           <p><strong>Voz 1:</strong> Y hasta hace muy poco, los modelos elegían sacrificar una de esas realidades para poder procesar la otra. Pues bien, la fuente que tenemos hoy sobre la mesa es un artículo técnico de investigación. Se <cite lang="en">Variational Graph Autoencoder with Adversarial Mutual Information Learning for Network Representation Learning</cite>.</p>
           <p><strong>Voz 2:</strong> Un título denso, desde luego.</p>
-          <p><strong>Voz 1:</strong> Ya te digo, bastante largo. Pero la intención nuestra hoy es desentrañar cómo este nuevo método impulsado por IA logra algo increíble. Introduce un aprendizaje adversario, un juego competitivo para mejorar drásticamente la clasificación de nodos.</p>
+          <p><strong>Voz 1:</strong> Ya te digo, bastante largo. Pero la intención nuestra hoy es desentrañar cómo este nuevo método impulsado por <abbr title="inteligencia artificial">IA</abbr> logra algo increíble. Introduce un aprendizaje adversario, un juego competitivo para mejorar drásticamente la clasificación de nodos.</p>
           <p><strong>Voz 2:</strong> Y superando a los modelos anteriores con un margen de mejora brutal. El objetivo hoy no es solo entender qué hace este algoritmo, sino por qué esa competencia interna logra resultados que superan en más de un 17 a sus predecesores.</p>
           <p><strong>Voz 1:</strong> Estamos hablando de un salto enorme, porque las redes están en todas partes, desde cómo interactúan los usuarios en Facebook o en plataformas de música, hasta las redes de citas entre artículos científicos.</p>
           <p><strong>Voz 2:</strong> Exactamente. Y para entender la intervención.</p>
-          <p><em>El clip termina aquí.</em></p>
+          <p class="transcript-end">El clip termina aquí.</p>
         </div>
       </details>
     </section>
   </main>
 
   <nav class="page-lateral-nav" aria-label="Navegación lateral">
-    <a href="proyectos.html" aria-label="Página anterior: Proyectos">‹</a>
+    <a href="proyectos.html" aria-label="Página anterior: Conocimientos y Proyectos">‹</a>
     <a href="galeria.html" aria-label="Página siguiente: Galería">›</a>
   </nav>
 
   <nav class="carousel" aria-label="Carrusel de páginas del sitio">
-    <a class="carousel-btn" id="btn-prev" href="proyectos.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Anterior:</span> Proyectos</a>
+    <a class="carousel-btn" id="btn-prev" href="proyectos.html" rel="prev"><span aria-hidden="true">‹</span> <span class="carousel-btn-dir">Anterior:</span> Conocimientos y Proyectos</a>
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Página 1 de 5: Inicio" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 2 de 5: Sobre mí" href="sobre-mi.html"></a></li>
-      <li><a class="carousel-dot" aria-label="Página 3 de 5: Proyectos" href="proyectos.html"></a></li>
+      <li><a class="carousel-dot" aria-label="Página 3 de 5: Conocimientos y Proyectos" href="proyectos.html"></a></li>
       <li><a class="carousel-dot" aria-current="page" aria-label="Página 4 de 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-label="Página 5 de 5: Galería" href="galeria.html"></a></li>
     </ol>
     <a class="carousel-btn" id="btn-next" href="galeria.html" rel="next"><span class="carousel-btn-dir">Siguiente:</span> Galería <span aria-hidden="true">›</span></a>
     <p class="carousel-hint" id="carousel-hint" hidden>También puedes cambiar de página con las teclas <kbd>←</kbd> y <kbd>→</kbd>.</p>
+    <p class="carousel-swipe" id="carousel-swipe" hidden>También puedes cambiar de página deslizando el dedo hacia la izquierda o la derecha.</p>
   </nav>
 
   <footer>
@@ -148,6 +184,7 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/header.js"></script>
 </body>
 
 </html>

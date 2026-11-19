@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PU-04, antes del primer pintado: hay JavaScript (data-js muestra el control de tamaño del texto)
+       y tamaño de letra elegido por el visitante (lo guarda header.js). -->
+  <script>(function(h){h.setAttribute('data-js','');try{var t=parseFloat(localStorage.getItem('text-size'));if([87.5,112.5,125,150].indexOf(t)>-1)h.style.fontSize=t+'%'}catch(e){}})(document.documentElement)</script>
   <!-- EV-01, antes del primer pintado: lado por el que entra la página al llegar deslizando
        (lo guarda main.js) y, desde 1200 px, hueco reservado para las vistas previas laterales. -->
   <script>try{var h=document.documentElement,d=sessionStorage.getItem('slide-enter');if(d){sessionStorage.removeItem('slide-enter');h.setAttribute('data-enter',d)}if(location.protocol!=='file:'&&window.fetch&&matchMedia('(min-width: 1200px)').matches)h.setAttribute('data-previews','')}catch(e){}</script>
-  <title>Projects · Francisco Cimadevilla</title>
-  <meta name="description" content="Education, experience, tech stack and featured projects of Francisco Cimadevilla.">
+  <title>Skills &amp; Projects · Francisco Cimadevilla</title>
+  <meta name="description" content="Technical skills (education, experience and tech stack) and featured projects of Francisco Cimadevilla.">
   <meta name="author" content="Francisco Cimadevilla">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="alternate" hreflang="es" href="https://francimadevilla.github.io/webPersonal/proyectos.html">
@@ -24,7 +27,7 @@
       <ul class="page-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="sobre-mi.html">About me</a></li>
-        <li><a aria-current="page" href="proyectos.html">Projects</a></li>
+        <li><a aria-current="page" href="proyectos.html">Skills &amp; Projects</a></li>
         <li><a href="multimedia.html">Multimedia</a></li>
         <li><a href="galeria.html">Gallery</a></li>
       </ul>
@@ -32,6 +35,18 @@
     <div class="header-tools">
       <a href="buscar.html"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a>
       <a href="../proyectos.html" hreflang="es" lang="es">Español</a>
+      <div class="text-size">
+        <button class="text-size-toggle" type="button" aria-expanded="false" aria-controls="text-size-panel" aria-label="Text: change size"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14h-5"/><path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"/><path d="M4.5 13h6"/><path d="m3 16 4.5-9 4.5 9"/></svg><span>Text</span></button>
+        <div class="text-size-panel" id="text-size-panel" role="group" aria-labelledby="text-size-title" hidden>
+          <p class="text-size-title" id="text-size-title">Text size</p>
+          <div class="text-size-row">
+            <button class="text-size-btn" type="button" data-text-step="-1" aria-label="Smaller text">A−</button>
+            <output class="text-size-value">100%</output>
+            <button class="text-size-btn" type="button" data-text-step="1" aria-label="Larger text">A+</button>
+          </div>
+          <button class="text-size-reset" type="button" data-text-step="0">Reset (100%)</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -39,10 +54,10 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <ol>
         <li><a href="index.html">Home</a> <span aria-hidden="true">›</span></li>
-        <li aria-current="page">Projects</li>
+        <li aria-current="page">Skills &amp; Projects</li>
       </ol>
     </nav>
-    <h1>Credentials and projects</h1>
+    <h1>Skills &amp; Projects</h1>
 
     <section aria-labelledby="titulo-formacion">
       <h2 id="titulo-formacion">Education</h2>
@@ -71,7 +86,7 @@
           <dd>Python, Java, JavaScript, Kotlin, Rust, C++, C#, PHP</dd>
         </div>
         <div>
-          <dt>ML and data</dt>
+          <dt><abbr title="machine learning">ML</abbr> and data</dt>
           <dd>PyTorch, Keras</dd>
         </div>
         <div>
@@ -80,7 +95,7 @@
         </div>
         <div>
           <dt>Databases</dt>
-          <dd>SQL, NoSQL, SQLite, Supabase, PostgreSQL, MongoDB, Neo4j</dd>
+          <dd><abbr title="Structured Query Language">SQL</abbr>, NoSQL, SQLite, Supabase, PostgreSQL, MongoDB, Neo4j</dd>
         </div>
         <div>
           <dt>Frontend and mobile</dt>
@@ -102,9 +117,9 @@
       <div class="grid">
 
         <article class="project-card">
-          <img class="project-shot" src="../assets/img/posters/tfg-clip.webp" width="960" height="540" alt="Screenshot of the final degree project demo: a Jupyter notebook in VS Code showing the log of the data generation pipeline." loading="lazy" decoding="async">
+          <img class="project-shot" src="../assets/img/posters/tfg-clip.webp" width="960" height="540" alt="Final degree project demo: Jupyter notebook in VS Code with the data pipeline log." loading="lazy" decoding="async">
           <h3><span aria-hidden="true">🧬</span> Final degree project — Synthetic Knowledge Graphs</h3>
-          <p>From relational databases to synthetic knowledge graphs: generating synthetic semantic data with Graph Machine Learning. <strong>Grade: 10/10</strong>, nominated for distinction (<i lang="es">matrícula de honor</i>).</p>
+          <p>From relational databases to synthetic knowledge graphs: generating synthetic semantic data with Graph Machine Learning. <strong>Grade: 10/10</strong>, nominated for distinction (<span class="foreign" lang="es">matrícula de honor</span>).</p>
           <p class="tags">2025–2026 · Python · PyTorch · Graph ML</p>
           <p>
             <a href="https://github.com/franCimadevilla/final-degree-project">Repository<span class="visually-hidden"> of the final degree project</span></a> ·
@@ -115,13 +130,13 @@
 
         <article class="project-card">
           <h3><span aria-hidden="true">🦀</span> BasaltDB</h3>
-          <p>A relational database engine written in Rust, built from first principles to understand how an RDBMS works internally. Currently in Phase 2: parsing a small subset of SQL (CREATE TABLE, INSERT, SELECT, UPDATE, DELETE) into an AST.</p>
+          <p>A relational database engine written in Rust, built from first principles to understand how an <abbr title="relational database management system">RDBMS</abbr> works internally. Currently in Phase 2: parsing a small subset of SQL (CREATE TABLE, INSERT, SELECT, UPDATE, DELETE) into an <abbr title="abstract syntax tree">AST</abbr>.</p>
           <p class="tags">Since 2026 · Rust</p>
           <p><a href="https://github.com/franCimadevilla/BasaltDB">Repository<span class="visually-hidden"> of BasaltDB</span></a></p>
         </article>
 
         <article class="project-card">
-          <img class="project-shot" src="../assets/img/posters/wichat-clip.webp" width="960" height="540" alt="Screenshot of the WiChat demo: the home page with the chats, learning and competition sections." loading="lazy" decoding="async">
+          <img class="project-shot" src="../assets/img/posters/wichat-clip.webp" width="960" height="540" alt="WiChat demo: home page with the chats, learning and competition sections." loading="lazy" decoding="async">
           <h3><span aria-hidden="true">🧩</span> WiChat</h3>
           <p>A quiz web app powered by Wikidata, with AI-generated hints and real-time multiplayer sessions over WebSockets.</p>
           <p class="tags">2025 · JavaScript · Node.js · WebSockets</p>
@@ -129,7 +144,7 @@
         </article>
 
         <article class="project-card">
-          <img class="project-shot" src="../assets/img/posters/outfitly-clip.webp" width="960" height="540" alt="Screenshot of the Outfitly demo: the app's welcome screen on an Android phone." loading="lazy" decoding="async">
+          <img class="project-shot" src="../assets/img/posters/outfitly-clip.webp" width="960" height="540" alt="Outfitly demo: the app's welcome screen on an Android phone." loading="lazy" decoding="async">
           <h3><span aria-hidden="true">👗</span> Outfitly</h3>
           <p>An Android app that manages your wardrobe and recommends outfits, encouraging more sustainable clothing consumption.</p>
           <p class="tags">2025–2026 · Kotlin · Android</p>
@@ -152,11 +167,11 @@
     </section>
 
     <section aria-labelledby="titulo-cv">
-      <h2 id="titulo-cv">CV</h2>
+      <h2 id="titulo-cv"><abbr title="curriculum vitae">CV</abbr></h2>
       <div class="cv">
         <div>
           <p>Everything on this page, summed up on a single sheet: education, experience, technical skills, projects and languages. It is in Spanish.</p>
-          <p><a class="button" href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">Download the CV (PDF, 200 KB, in Spanish)</a></p>
+          <p><a class="button" href="../assets/cv/cv-francisco-cimadevilla.pdf" type="application/pdf" hreflang="es">Download the CV (<abbr title="Portable Document Format">PDF</abbr>, 200 <abbr title="kilobytes">KB</abbr>, in Spanish)</a></p>
         </div>
         <img src="../assets/cv/cv-francisco-cimadevilla.webp" alt="Preview of the CV, in Spanish: one page with education, experience, technical skills and projects" width="400" height="950" loading="lazy" decoding="async">
       </div>
@@ -173,12 +188,13 @@
     <ol class="carousel-dots">
       <li><a class="carousel-dot" aria-label="Page 1 of 5: Home" href="index.html"></a></li>
       <li><a class="carousel-dot" aria-label="Page 2 of 5: About me" href="sobre-mi.html"></a></li>
-      <li><a class="carousel-dot" aria-current="page" aria-label="Page 3 of 5: Projects" href="proyectos.html"></a></li>
+      <li><a class="carousel-dot" aria-current="page" aria-label="Page 3 of 5: Skills &amp; Projects" href="proyectos.html"></a></li>
       <li><a class="carousel-dot" aria-label="Page 4 of 5: Multimedia" href="multimedia.html"></a></li>
       <li><a class="carousel-dot" aria-label="Page 5 of 5: Gallery" href="galeria.html"></a></li>
     </ol>
     <a class="carousel-btn" id="btn-next" href="multimedia.html" rel="next"><span class="carousel-btn-dir">Next:</span> Multimedia <span aria-hidden="true">›</span></a>
     <p class="carousel-hint" id="carousel-hint" hidden>You can also change pages with the <kbd>←</kbd> and <kbd>→</kbd> keys.</p>
+    <p class="carousel-swipe" id="carousel-swipe" hidden>You can also change page by swiping left or right.</p>
   </nav>
 
   <footer>
@@ -206,5 +222,6 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/header.js"></script>
 </body>
 </html>

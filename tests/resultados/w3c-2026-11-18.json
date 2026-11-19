@@ -1,0 +1,1873 @@
+{
+  "fecha": "2026-11-18",
+  "herramienta": "tests/w3c-validate.js (validator.w3.org/nu y jigsaw.w3.org/css-validator)",
+  "commit_validado": "30894d1 + cambios sin commitear de M8 (PU-01…PU-06)",
+  "resumen": {
+    "html": {
+      "paginas": 15,
+      "errores": 0,
+      "avisos": 0
+    },
+    "css_css3svg": {
+      "errores": 0,
+      "avisos": 160
+    },
+    "css_css3": {
+      "errores": 9,
+      "avisos": 160,
+      "nota": "Todos falsos: pointer-events, clip-path y mask-image (PU-06) son propiedades estándar (CSS UI 4 y CSS Masking) que el perfil css3 no incluye; css3svg las admite."
+    }
+  },
+  "html": {
+    "404.html": {},
+    "ayuda.html": {},
+    "buscar.html": {},
+    "en/ayuda.html": {},
+    "en/buscar.html": {},
+    "en/galeria.html": {},
+    "en/index.html": {},
+    "en/multimedia.html": {},
+    "en/proyectos.html": {},
+    "en/sobre-mi.html": {},
+    "galeria.html": {},
+    "index.html": {},
+    "multimedia.html": {},
+    "proyectos.html": {},
+    "sobre-mi.html": {}
+  },
+  "css": {
+    "css3svg": {
+      "style.css": {
+        "warning": {
+          "Redefinition of “scroll-padding-bottom”": [
+            {
+              "line": 65,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "You have no background-color set (or background-color is set to transparent) but you have set a color. Make sure that cascading of colors keeps the text reasonably legible.": [
+            {
+              "line": 83,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 188,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 192,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 221,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 263,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 269,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 273,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 311,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 315,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 339,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 352,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 371,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 378,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 501,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 588,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 606,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 706,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 714,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 721,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 741,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 746,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 750,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 774,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 780,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 871,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 909,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 931,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 967,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 971,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 987,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1021,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1055,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1083,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1152,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1200,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1215,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1518,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1577,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1581,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "kbd — Redefinition of “border-bottom-width”": [
+            {
+              "line": 104,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "You have no color set (or color is set to transparent) but you have set a background-color. Make sure that cascading of colors keeps the text reasonably legible.": [
+            {
+              "line": 106,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 165,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 208,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 326,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 657,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 765,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 847,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 952,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1014,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1065,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1077,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1126,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1179,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1184,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1190,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1363,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1479,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1498,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1545,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “position”": [
+            {
+              "line": 171,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “box-shadow”": [
+            {
+              "line": 173,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “animation”": [
+            {
+              "line": 442,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1279,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1282,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1406,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “opacity”": [
+            {
+              "line": 459,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 463,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 470,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 477,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1289,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1415,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “transform”": [
+            {
+              "line": 460,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 464,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 471,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 478,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 484,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 491,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1290,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “filter”": [
+            {
+              "line": 492,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Due to their dynamic nature, CSS variables are currently not statically checked": [
+            {
+              "line": 619,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 628,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 631,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 635,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 636,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".tagline li — Redefinition of “animation-play-state”": [
+            {
+              "line": 620,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-bottom”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-left”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-top”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-right”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “display”": [
+            {
+              "line": 1220,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1382,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “min-height”": [
+            {
+              "line": 1632,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-bottom”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-left”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1724,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-top”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-right”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “white-space”": [
+            {
+              "line": 1635,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “gap”": [
+            {
+              "line": 1655,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1723,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1762,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “order”": [
+            {
+              "line": 1658,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-basis”": [
+            {
+              "line": 1659,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “font-size”": [
+            {
+              "line": 1668,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1742,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1747,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "“::-webkit-scrollbar” is a vendor extended pseudo-element": [
+            {
+              "line": 1686,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex”": [
+            {
+              "line": 1703,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left”": [
+            {
+              "line": 1725,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “grid-template-columns”": [
+            {
+              "line": 1751,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1755,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-wrap”": [
+            {
+              "line": 1760,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-width”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-color”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-style”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “column-gap”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “row-gap”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-grow”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-shrink”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ]
+        }
+      }
+    },
+    "css3": {
+      "style.css": {
+        "error": {
+          ".visually-hidden — Property “clip-path” doesn't exist": [
+            {
+              "line": 130,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-preview-title — Property “pointer-events” doesn't exist": [
+            {
+              "line": 1456,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-preview-page — Property “pointer-events” doesn't exist": [
+            {
+              "line": 1522,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-nav — Property “mask-image” doesn't exist": [
+            {
+              "line": 1684,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-nav[data-more=\"none\"] — Property “mask-image” doesn't exist": [
+            {
+              "line": 1691,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-nav[data-more=\"start\"] — Property “mask-image” doesn't exist": [
+            {
+              "line": 1695,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".page-nav[data-more=\"both\"] — Property “mask-image” doesn't exist": [
+            {
+              "line": 1699,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".header-tools span — Property “clip-path” doesn't exist": [
+            {
+              "line": 1732,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".carousel-btn-dir — Property “clip-path” doesn't exist": [
+            {
+              "line": 1784,
+              "column": null,
+              "extract": null
+            }
+          ]
+        },
+        "warning": {
+          "Redefinition of “scroll-padding-bottom”": [
+            {
+              "line": 65,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "You have no background-color set (or background-color is set to transparent) but you have set a color. Make sure that cascading of colors keeps the text reasonably legible.": [
+            {
+              "line": 83,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 188,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 192,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 221,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 263,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 269,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 273,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 311,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 315,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 339,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 352,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 371,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 378,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 501,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 517,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 588,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 606,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 706,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 714,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 721,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 741,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 746,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 750,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 774,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 780,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 871,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 909,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 931,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 967,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 971,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 987,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1021,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1055,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1083,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1152,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1200,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1215,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1518,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1577,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1581,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "kbd — Redefinition of “border-bottom-width”": [
+            {
+              "line": 104,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "You have no color set (or color is set to transparent) but you have set a background-color. Make sure that cascading of colors keeps the text reasonably legible.": [
+            {
+              "line": 106,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 165,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 208,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 326,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 657,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 765,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 847,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 952,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1014,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1065,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1077,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1126,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1179,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1184,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1190,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1363,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1479,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1498,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1545,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “position”": [
+            {
+              "line": 171,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “box-shadow”": [
+            {
+              "line": 173,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “animation”": [
+            {
+              "line": 442,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1279,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1282,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1406,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “opacity”": [
+            {
+              "line": 459,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 463,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 470,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 477,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1289,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1415,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “transform”": [
+            {
+              "line": 460,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 464,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 471,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 478,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 484,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 491,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1290,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “filter”": [
+            {
+              "line": 492,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Due to their dynamic nature, CSS variables are currently not statically checked": [
+            {
+              "line": 619,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 628,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 631,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 635,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 636,
+              "column": null,
+              "extract": null
+            }
+          ],
+          ".tagline li — Redefinition of “animation-play-state”": [
+            {
+              "line": 620,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-bottom”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-left”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-top”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “margin-right”": [
+            {
+              "line": 810,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1667,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “display”": [
+            {
+              "line": 1220,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1382,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “min-height”": [
+            {
+              "line": 1632,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-bottom”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-left”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1724,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-top”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “padding-right”": [
+            {
+              "line": 1633,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1654,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1680,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1708,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1738,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1761,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1772,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “white-space”": [
+            {
+              "line": 1635,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “gap”": [
+            {
+              "line": 1655,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1723,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1762,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “order”": [
+            {
+              "line": 1658,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-basis”": [
+            {
+              "line": 1659,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “font-size”": [
+            {
+              "line": 1668,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1742,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1747,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "“::-webkit-scrollbar” is a vendor extended pseudo-element": [
+            {
+              "line": 1686,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex”": [
+            {
+              "line": 1703,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left”": [
+            {
+              "line": 1725,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “grid-template-columns”": [
+            {
+              "line": 1751,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 1755,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-wrap”": [
+            {
+              "line": 1760,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-width”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-color”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “border-left-style”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “column-gap”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “row-gap”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            },
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-grow”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ],
+          "Redefinition of “flex-shrink”": [
+            {
+              "line": 0,
+              "column": null,
+              "extract": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}
