@@ -40,14 +40,12 @@
   var entries = window.SEARCH_INDEX && window.SEARCH_INDEX[lang];
   if (!form || !input || !status || !entries) return;
 
-  // La lista de resultados se crea aquí y no en el HTML: sin JavaScript no hay
-  // resultados, y una <ol> vacía en el código es una lista sin contenido
-  // (AChecker, comprobación 81).
+  // La lista de resultados se crea aquí y no en el HTML, y solo se inserta en
+  // la página cuando hay resultados: una <ol> vacía, aunque esté oculta, es una
+  // lista sin contenido (AChecker, comprobación 81; TAW, criterio 1.3.1).
   var list = document.createElement('ol');
   list.className = 'search-results';
   list.id = 'search-results';
-  list.hidden = true;
-  status.after(list);
 
   // Marcas diacríticas combinantes (tildes, diéresis...) que quedan sueltas
   // tras descomponer un carácter con normalize('NFD'): "á" pasa a "a" + "\u0301" (acento agudo combinante).
@@ -217,8 +215,8 @@
   function render(query) {
     var words = terms(query);
     list.textContent = '';
-    // Sin resultados la lista queda oculta: una <ol> vacía no aporta nada.
-    list.hidden = true;
+    // Sin resultados la lista sale de la página: una <ol> vacía no aporta nada.
+    if (list.parentNode) list.parentNode.removeChild(list);
     if (help) help.hidden = true;
     if (!words.length) {
       status.textContent = TEXT.empty;
@@ -229,7 +227,7 @@
     var message = found.length === 0 ? TEXT.none : found.length === 1 ? TEXT.one : TEXT.many;
     status.textContent = message.replace('{n}', found.length).replace('{q}', shown);
     if (help) help.hidden = found.length > 0;
-    list.hidden = found.length === 0;
+    if (found.length > 0) status.after(list);
 
     for (var i = 0; i < found.length; i++) {
       var entry = found[i].item.entry;
