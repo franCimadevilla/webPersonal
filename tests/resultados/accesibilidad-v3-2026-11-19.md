@@ -121,3 +121,51 @@ Commit `8705633` en `mejoras-tanda-2`, analizado en
 
 - **Pendiente:** desplegar la v3 en GitHub Pages (fusionar en `main`) y sacar las capturas definitivas sobre
   la URL publicada.
+
+## 7. Análisis sobre la web publicada (v3 en `main`) y arreglo de las miniaturas laterales
+
+Tras fusionar `mejoras-tanda-2` en `main` (`b8542b8`) se repitieron los análisis sobre
+`https://francimadevilla.github.io/webPersonal/`:
+
+- **WAVE:** 0 errores y 0 errores de contraste; AIM 10/10. Captura `capturas/wave_v3.png`.
+- **AChecker WCAG 2.0 AAA:** 0 problemas conocidos («Congratulations! No known problems»). Captura
+  `capturas/achecker_v3.png`.
+- **TAW WCAG 2.1 AAA:** 7 problemas en cada página (criterio 2.4.4) y 47 en «Sobre mí».
+
+**Causa.** A partir de 1200 px, `main.js` insertaba dentro de cada flecha lateral («página anterior» y
+«página siguiente») una miniatura de la página vecina con todo su contenido. TAW ejecuta JavaScript, analiza
+a unos 1366 px y no tiene en cuenta `aria-hidden` ni `inert`, así que tomaba todo ese texto como texto del
+enlace y, en «Sobre mí», también el formulario de la miniatura de Inicio. En la verificación de la sección 6
+no apareció porque, servida desde raw.githack, la página no llegaba a generar las miniaturas.
+
+**Arreglo** (commit `0b4a5e9`, rama `arreglo-taw-miniaturas`):
+
+| Archivo | Cambio | Criterio WCAG |
+|---|---|---|
+| assets/js/main.js | La miniatura se inserta junto al enlace, no dentro; se eliminan de la copia los controles de formulario, encabezados, `id`, `for`, `role`, `tabindex` y `aria-*` | 2.4.4, 4.1.2 |
+| assets/css/style.css | La miniatura ocupa el mismo sitio que la flecha (`position: fixed`, `pointer-events: none`) y se desenfoca menos al pasar el ratón por la flecha | |
+| index, proyectos (ES y EN) | Texto del botón del CV dentro de un `<span>`: en el contenedor `inline-flex` las `<abbr>` se separaban como elementos flex y se perdían los espacios («miCV(PDF, 200KB)») | 1.3.2 |
+
+Comprobado en local a 1366 px: la flecha y la miniatura ocupan el mismo rectángulo, el clic navega, el foco
+se ve con el teclado y la miniatura no contiene controles ni encabezados.
+
+Tras desplegar `0b4a5e9` (PR #3, `c13dde8`), TAW bajó a **5 problemas** de 2.4.4 en Inicio, mientras que
+Ayuda, que no tiene carrusel, daba 0. Los cinco eran los puntos del carrusel inferior: enlaces sin texto
+cuyo único nombre era `aria-label`, que TAW no acepta como texto del enlace.
+
+**Segundo arreglo** (commit `cde7eae`, PR #4, `77597b9`): el nombre de cada punto pasa a un
+`<span class="visually-hidden">` dentro del enlace en las 10 páginas con carrusel (ES y EN). El nombre
+accesible y el aspecto no cambian.
+
+**Resultado final sobre la web publicada (Inicio, 19/11/2026):**
+
+| Herramienta | Resultado | Captura |
+|---|---|---|
+| TAW, WCAG 2.1 AAA | **0 problemas**, 29 advertencias, 30 no verificados | `sitioWebPersonal/capturas/taw_v3.png` |
+| AChecker, WCAG 2.0 AAA | **0 conocidos**, 27 probables, 90 potenciales | `sitioWebPersonal/capturas/achecker_v3.png` |
+| WAVE | **0 errores**, 0 de contraste, 3 alertas, AIM 10/10 | `sitioWebPersonal/capturas/wave_v3.png` |
+
+**Aviso sobre la sección 6:** raw.githack sirve ahora una página de aviso intermedia («One more step»)
+antes del HTML. Las cifras de TAW de las secciones 1 y 6 (0 problemas y 20 advertencias, idénticas en todas
+las páginas) corresponden a esa página de aviso y no al sitio, así que no son válidas. Las de WAVE sí lo son,
+porque sus alertas coinciden con el contenido real de cada página.
