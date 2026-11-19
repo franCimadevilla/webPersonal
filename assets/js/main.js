@@ -434,14 +434,53 @@
       while (links[i].firstChild) span.appendChild(links[i].firstChild);
       replaceWith(links[i], span);
     }
-    var all = page.querySelectorAll('[id], [for], [aria-labelledby], [aria-describedby], [tabindex]');
-    for (i = 0; i < all.length; i++) {
-      all[i].removeAttribute('id');
-      all[i].removeAttribute('for');
-      all[i].removeAttribute('aria-labelledby');
-      all[i].removeAttribute('aria-describedby');
-      all[i].removeAttribute('tabindex');
+    // Fase 2 (AAA): la miniatura es decorativa, pero TAW y otros validadores
+    // no tienen en cuenta aria-hidden ni inert y contaban como fallos los
+    // controles del formulario de Inicio, sus etiquetas y los encabezados del
+    // clon. Se quedan solo el texto y las cajas: controles → cajas grises,
+    // botones y salidas → <span> con su texto, y el resto de elementos con
+    // función (formulario, etiquetas, nav, details, encabezados) → bloques
+    // sin semántica.
+    var controls = page.querySelectorAll('input, textarea, select, button, output');
+    for (i = 0; i < controls.length; i++) {
+      var control = controls[i];
+      if (control.type === 'hidden') {
+        control.parentNode.removeChild(control);
+      } else if (control.tagName === 'BUTTON' || control.tagName === 'OUTPUT') {
+        retag(control, 'span');
+      } else {
+        var field = doc.createElement('span');
+        field.className = 'page-preview-media';
+        field.style.height = control.tagName === 'TEXTAREA' ? '7rem' : control.type === 'checkbox' ? '1rem' : '2.75rem';
+        if (control.type === 'checkbox') field.style.width = '1rem';
+        replaceWith(control, field);
+      }
     }
+    var plain = page.querySelectorAll('form, label, nav, details, summary, h1, h2, h3, h4, h5, h6');
+    for (i = 0; i < plain.length; i++) {
+      var heading = /^H\d$/.test(plain[i].tagName);
+      var block = retag(plain[i], plain[i].tagName === 'LABEL' ? 'span' : 'div');
+      if (heading) block.className = 'page-preview-heading';
+    }
+    var all = page.querySelectorAll('*');
+    for (i = 0; i < all.length; i++) {
+      var attrs = all[i].attributes;
+      for (var a = attrs.length - 1; a >= 0; a--) {
+        var name = attrs[a].name;
+        if (name === 'id' || name === 'for' || name === 'role' || name === 'tabindex' || name.indexOf('aria-') === 0) {
+          all[i].removeAttribute(name);
+        }
+      }
+    }
+  }
+
+  // Cambia la etiqueta de un elemento conservando su clase y su contenido.
+  function retag(el, tag) {
+    var node = el.ownerDocument.createElement(tag);
+    if (el.className) node.className = el.className;
+    while (el.firstChild) node.appendChild(el.firstChild);
+    replaceWith(el, node);
+    return node;
   }
 
   // Escala = ancho del marco / 120 px: así cabe justo un octavo de la
@@ -494,7 +533,13 @@
         preview.appendChild(title);
         preview.appendChild(frame);
 
-        link.appendChild(preview);
+        // Junto al enlace y no dentro: así el texto del enlace es solo su flecha
+        // y su aria-label, y no todo el texto de la página vecina (TAW, 2.4.4).
+        // La miniatura no recibe el puntero; el enlace, transparente y encima,
+        // ocupa el mismo sitio. Al pasar el ratón la miniatura se enfoca un poco.
+        link.parentNode.insertBefore(preview, link.nextSibling);
+        link.addEventListener('mouseenter', function () { preview.setAttribute('data-hover', ''); });
+        link.addEventListener('mouseleave', function () { preview.removeAttribute('data-hover'); });
         scalePreviews();
       })
       .catch(unprepare);
