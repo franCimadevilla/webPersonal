@@ -1409,19 +1409,19 @@ audio {
     }
 
     /* Pegadas al borde de la ventana: el anillo va hacia dentro. Con vista
-       previa, el marco de la miniatura lo taparía: la variable hace que la
-       propia vista previa dibuje el anillo por encima (EV-02). */
+       previa, el enlace queda encima de la miniatura y su anillo se ve sin
+       más (antes de la Fase 2 la miniatura iba dentro y lo tapaba). */
     &:focus-visible {
       outline-offset: -5px;
-      --preview-ring: var(--accent);
     }
 
-    &:first-child {
+    /* of-type: main.js deja la miniatura (un <span>) detrás de cada enlace. */
+    &:first-of-type {
       left: 0;
       border-right: 1px solid var(--border);
     }
 
-    &:last-child {
+    &:last-of-type {
       right: 0;
       border-left: 1px solid var(--border);
     }
@@ -1453,32 +1453,34 @@ audio {
 /* Vista previa de la página vecina (EV-01, EV-02): ocupa toda la franja,
    de arriba abajo de la ventana, con el título superpuesto en el centro.
    main.js escala la miniatura. Solo se ve desde 1200 px; por debajo queda
-   la flecha. */
+   la flecha. Va junto al enlace, no dentro (Fase 2: así el texto del enlace
+   no es el de toda la página vecina), en el mismo sitio y con el mismo ancho;
+   el enlace, transparente, queda encima y recibe el clic. */
 .page-preview {
   display: none;
 
   @media (min-width: 1200px) {
-    position: relative;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 39;
     display: block;
-    width: 100%;
-    height: 100%;
+    width: min(((100% - 960px) / 2 - 1.5rem) / 2, 7.5rem);
+    pointer-events: none;
+
+    &[data-side="prev"] {
+      left: 0;
+    }
+
+    &[data-side="next"] {
+      right: 0;
+    }
 
     animation: preview-in 0.3s ease;
 
-    /* Anillo de foco del enlace, visible sobre la miniatura (ver
-       .page-lateral-nav a:focus-visible). */
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      z-index: 2;
-      border: 3px solid var(--preview-ring, transparent);
-      border-radius: 4px;
-    }
-
-    /* El blur de la miniatura se suaviza al pasar el ratón (la variable se
-       hereda; así no hace falta un selector descendiente con :hover). */
-    &:hover {
+    /* El blur de la miniatura se suaviza al pasar el ratón por el enlace
+       (main.js pone data-hover; la variable la hereda la miniatura). */
+    &[data-hover] {
       --preview-blur: 1.5px;
     }
 
@@ -1616,6 +1618,16 @@ audio {
   & * {
     animation: none;
   }
+}
+
+/* Encabezado de la miniatura: main.js lo convierte en <div> para que la
+   copia decorativa no añada encabezados a la página. */
+.page-preview-heading {
+  margin: 1.5rem 0 0.75rem;
+  color: var(--heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 /* Hueco gris de una imagen, vídeo o audio que la miniatura no descarga. */
