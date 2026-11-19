@@ -417,7 +417,9 @@
       var w = size && size.getAttribute('width');
       var h = size && size.getAttribute('height');
       if (w && h) {
-        box.style.width = w + 'px';
+        // En rem y no en px: TAW (1.4.4) avisa de cada tamaño absoluto en
+        // línea. A 16 px por rem el tamaño es el mismo.
+        box.style.width = (w / 16) + 'rem';
         box.style.aspectRatio = w + ' / ' + h;
       } else {
         box.style.height = '3.5rem';
